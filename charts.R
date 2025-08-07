@@ -4,10 +4,37 @@ library(tidyverse)
 library(tigris)
 library(sf)
 library(janitor)
+library(tidycensus)
+
+# General Functions ------------------------------------------------------
+
+get_neighboring_states <- function(state) {
+  single_state <-
+    df |>
+    filter(name == state)
+
+  df |>
+    filter(st_touches(geometry, single_state$geometry, sparse = FALSE)[, 1]) |>
+    bind_rows(single_state)
+}
 
 # Vaccination over time chart --------------------------------------------
 
 # Vaccination comparison chart -------------------------------------------
+
+population_by_state <-
+  get_decennial(
+    geography = "state",
+    variables = "P1_001N", # Total population variable
+    year = 2020,
+    survey = "pl" # PL 94-171 Redistricting Data
+  ) |>
+  select(NAME, value) |>
+  rename(
+    state = NAME,
+    total_population = value
+  ) |>
+  arrange(desc(total_population))
 
 vaccination_data <- tibble(
   name = c(
@@ -355,14 +382,9 @@ us_states <-
 
 df <- left_join(us_states, measles_data, by = "name")
 
-get_neighboring_states <- function(state) {
-  single_state <-
-    df |>
-    filter(name == state)
 
+measles_map <- function(df) {
   df |>
-    filter(st_touches(geometry, single_state$geometry, sparse = FALSE)[, 1]) |>
-    bind_rows(single_state) |>
     mutate(
       measles_category = case_when(
         measles_cases == 0 ~ "0",
@@ -412,5 +434,7 @@ get_neighboring_states <- function(state) {
 }
 
 
-get_neighboring_states("California")
+get_neighboring_states("California") |>
+  measles_map()
+
 get_neighboring_states("Oregon")
