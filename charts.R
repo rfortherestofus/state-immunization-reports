@@ -6,21 +6,41 @@ library(sf)
 library(janitor)
 library(tidycensus)
 
-# General Functions ------------------------------------------------------
+census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
 
-get_neighboring_states <- function(state) {
-  single_state <-
-    df |>
-    filter(name == state)
+total_measles_cases <- read_csv(
+  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/total_measles_cases.csv"
+)
 
-  df |>
-    filter(st_touches(geometry, single_state$geometry, sparse = FALSE)[, 1]) |>
-    bind_rows(single_state)
-}
+mmr_coverage_final <- read_csv(
+  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
+)
 
-# Vaccination over time chart --------------------------------------------
+dtap_coverage_final <- read_csv(
+  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
+)
 
-# Vaccination comparison chart -------------------------------------------
+
+pal <- c(
+  "#002D72",
+  "#68ACE5",
+  "#FF6900",
+  "#A7BCD6",
+  "#FF9E1B",
+  "#E5E2E0",
+  "#6E6C6F",
+  "#4A484C",
+  "#E0EEF9",
+  "#FFE1CC"
+)
+
+
+# Measles cases map ------------------------------------------------------
+
+us_states <-
+  states() |>
+  clean_names() |>
+  select(name)
 
 population_by_state <-
   get_decennial(
@@ -36,369 +56,42 @@ population_by_state <-
   ) |>
   arrange(desc(total_population))
 
-vaccination_data <- tibble(
-  name = c(
-    "Alabama",
-    "Alaska",
-    "Arizona",
-    "Arkansas",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "Delaware",
-    "Florida",
-    "Georgia",
-    "Hawaii",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Iowa",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Maine",
-    "Maryland",
-    "Massachusetts",
-    "Michigan",
-    "Minnesota",
-    "Mississippi",
-    "Missouri",
-    "Montana",
-    "Nebraska",
-    "Nevada",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "New York",
-    "North Carolina",
-    "North Dakota",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "Vermont",
-    "Virginia",
-    "Washington",
-    "West Virginia",
-    "Wisconsin",
-    "Wyoming",
-    "United States"
-  ),
-  coverage_percentage = c(
-    87,
-    91,
-    89,
-    85,
-    93,
-    92,
-    95,
-    94,
-    88,
-    86,
-    96,
-    82,
-    91,
-    88,
-    90,
-    89,
-    87,
-    84,
-    94,
-    97,
-    96,
-    90,
-    93,
-    83,
-    87,
-    86,
-    91,
-    89,
-    95,
-    94,
-    88,
-    92,
-    89,
-    88,
-    90,
-    86,
-    93,
-    91,
-    95,
-    87,
-    89,
-    88,
-    87,
-    90,
-    96,
-    94,
-    94,
-    85,
-    91,
-    84,
-    92
-  ),
-  population = c(
-    5024279,
-    733391,
-    7151502,
-    3011524,
-    39538223,
-    5773714,
-    3605944,
-    989948,
-    21538187,
-    10711908,
-    1455271,
-    1839106,
-    12812508,
-    6785528,
-    3190369,
-    2937880,
-    4505836,
-    4657757,
-    1395722,
-    6177224,
-    7001399,
-    10037261,
-    5737915,
-    2961279,
-    6196010,
-    1084225,
-    1961504,
-    3104614,
-    1395231,
-    9288994,
-    2117522,
-    20201249,
-    10439388,
-    779094,
-    11799448,
-    3959353,
-    4237256,
-    13002700,
-    1097379,
-    5118425,
-    909824,
-    6910840,
-    30029572,
-    3271616,
-    643077,
-    8631393,
-    7705281,
-    1793716,
-    5893718,
-    576851,
-    331900000
-  )
-)
+df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
+# Define the get_neighboring_states function outside of measles_map
+get_neighboring_states <- function(state) {
+  single_state <-
+    df |>
+    filter(name == state)
 
-df_vac <- left_join(vaccination_data, us_states, by = "name")
-
-pal <- c("#FFD4B3", "#FFB580", "#FF954D", "#F56600")
-
-create_vaccination_chart <- function(state_name, df_vac) {
-  single_state <- df_vac |>
-    filter(name == state_name)
-
-  neighboring_states <- df_vac |>
+  df |>
     filter(st_touches(geometry, single_state$geometry, sparse = FALSE)[, 1]) |>
-    filter(name != state_name) |>
-    slice_max(population, n = 2) |>
-    pull(name)
-
-  chart_data <- df_vac |>
-    filter(name %in% c(state_name, neighboring_states, "United States")) |>
-    st_drop_geometry() |>
-    mutate(
-      name = factor(
-        name,
-        levels = c("United States", neighboring_states, state_name)
-      )
-    )
-
-  ggplot(chart_data, aes(x = coverage_percentage, y = name)) +
-    geom_col(width = 0.7, fill = "steelblue") +
-    geom_text(
-      aes(label = paste0(coverage_percentage, "%")),
-      hjust = 1.5,
-      size = 4
-    ) +
-    geom_vline(
-      xintercept = 95,
-      linetype = "dashed",
-      color = "gray50",
-      alpha = 0.7
-    ) +
-    annotate(
-      "text",
-      x = 95,
-      y = 0.5,
-      label = "HP2030 Target: 95%",
-      angle = 90,
-      vjust = -0.5,
-      size = 3,
-      color = "gray50"
-    ) +
-    scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, 20)) +
-    labs(
-      title = paste("Vaccination comparison (2023)"),
-      x = NULL,
-      y = NULL
-    ) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14),
-      axis.text.y = element_text(size = 11),
-      axis.text.x = element_text(size = 10)
-    )
+    bind_rows(single_state)
 }
 
-create_vaccination_chart("Arizona", df_vac)
-create_vaccination_chart("Georgia", df_vac)
-create_vaccination_chart("Alaska", df_vac)
-
-
-# Measles cases map ------------------------------------------------------
-
-measles_data <- tibble(
-  name = c(
-    "Alabama",
-    "Alaska",
-    "Arizona",
-    "Arkansas",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "Delaware",
-    "Florida",
-    "Georgia",
-    "Hawaii",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Iowa",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Maine",
-    "Maryland",
-    "Massachusetts",
-    "Michigan",
-    "Minnesota",
-    "Mississippi",
-    "Missouri",
-    "Montana",
-    "Nebraska",
-    "Nevada",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "New York",
-    "North Carolina",
-    "North Dakota",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "Vermont",
-    "Virginia",
-    "Washington",
-    "West Virginia",
-    "Wisconsin",
-    "Wyoming"
-  ),
-  measles_cases = c(
-    42,
-    5,
-    67,
-    28,
-    156,
-    31,
-    12,
-    8,
-    189,
-    73,
-    4,
-    22,
-    89,
-    45,
-    18,
-    21,
-    35,
-    38,
-    6,
-    15,
-    23,
-    71,
-    29,
-    26,
-    48,
-    11,
-    14,
-    24,
-    7,
-    52,
-    16,
-    142,
-    78,
-    5,
-    83,
-    32,
-    27,
-    95,
-    4,
-    39,
-    8,
-    54,
-    198,
-    19,
-    3,
-    61,
-    47,
-    9,
-    41,
-    4
-  )
-)
-
-us_states <-
-  states() |>
-  clean_names() |>
-  select(name)
-
-df <- left_join(us_states, measles_data, by = "name")
-
-
-measles_map <- function(df) {
-  df |>
+# Create the measles_map function that uses get_neighboring_states
+measles_map <- function(state) {
+  get_neighboring_states(state) |>
+    st_cast("POLYGON") |>
+    group_by(name) |>
+    mutate(area = st_area(geometry)) |>
+    slice_max(area, n = 1) |>
+    ungroup() |>
+    select(-area) |>
+    mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
     mutate(
       measles_category = case_when(
-        measles_cases == 0 ~ "0",
-        measles_cases >= 1 & measles_cases <= 9 ~ "1-9",
-        measles_cases >= 10 & measles_cases <= 49 ~ "10-49",
-        measles_cases >= 50 & measles_cases <= 99 ~ "50-99",
-        measles_cases >= 100 & measles_cases <= 249 ~ "100-249",
-        measles_cases >= 250 ~ "250+",
+        total_cases <= 5 ~ "≤5",
+        total_cases >= 6 & total_cases <= 15 ~ "6-15",
+        total_cases >= 16 & total_cases <= 30 ~ "16-30",
+        total_cases >= 31 & total_cases <= 60 ~ "31-60",
+        total_cases >= 61 & total_cases <= 200 ~ "61-200",
+        total_cases >= 201 ~ "200+",
         TRUE ~ NA_character_
       ),
-      # Convert to factor to control order
       measles_category = factor(
         measles_category,
-        levels = c("0", "1-9", "10-49", "50-99", "100-249", "250+")
+        levels = c("≤5", "6-15", "16-30", "31-60", "61-200", "200+")
       )
     ) |>
     ggplot(aes(fill = measles_category)) +
@@ -406,12 +99,12 @@ measles_map <- function(df) {
     geom_sf_text(aes(label = name), color = "black", size = 3) +
     scale_fill_manual(
       values = c(
-        "0" = "#FFF2E6",
-        "1-9" = "#FFD4B3",
-        "10-49" = "#FFB580",
-        "50-99" = "#FF954D",
-        "100-249" = "#F56600",
-        "250+" = "#CC5500"
+        "≤5" = "#D6E0F0",
+        "6-15" = "#A9BEDC",
+        "16-30" = "#7B9CC8",
+        "31-60" = "#4E7AB4",
+        "61-200" = "#2158A0",
+        "200+" = "#002D72"
       ),
       name = "Measles Cases",
       na.value = "grey90"
@@ -433,8 +126,182 @@ measles_map <- function(df) {
     )
 }
 
+# Usage:
+measles_map("Minnesota")
 
-get_neighboring_states("California") |>
-  measles_map()
+#-----------------------------------------------------------------------------
 
-get_neighboring_states("Oregon")
+df_mmr_coverage_final <- mmr_coverage_final |>
+  select(geography, school_year, estimate_percent) |>
+  filter(school_year == "2024-25")
+
+df_mmr <- left_join(
+  df_mmr_coverage_final,
+  population_by_state,
+  by = c("geography" = "state")
+)
+
+
+mmr_vaccination_comparison_chart <- function(state_name) {
+  neighboring_data <- get_neighboring_states(state_name) |>
+    st_drop_geometry() |>
+    filter(name != state_name) |>
+    left_join(df_mmr, by = c("name" = "geography")) |>
+    filter(!is.na(total_population)) |>
+    slice_max(total_population, n = 2) |>
+    pull(name)
+
+  chart_data <- df_mmr |>
+    filter(geography %in% c(state_name, neighboring_data, "United States")) |>
+    mutate(
+      estimate_percent = as.numeric(estimate_percent), # Convert to numeric
+      geography = factor(
+        geography,
+        levels = c("United States", neighboring_data, state_name)
+      ),
+      bar_color = ifelse(geography == "United States", "#FF9E1B", "#002D72")
+    )
+
+  ggplot(chart_data, aes(x = estimate_percent, y = geography)) +
+    geom_vline(
+      xintercept = 95,
+      linetype = "dashed",
+      color = "gray30",
+      alpha = 0.8
+    ) +
+    geom_col(width = 0.5, aes(fill = bar_color)) +
+    scale_fill_identity() + # Use the colors we specified
+    geom_text(
+      aes(label = paste0(round(estimate_percent), "%")),
+      hjust = 1.5,
+      size = 4,
+      fontface = "bold",
+      color = "white",
+      family = "Gentona"
+    ) +
+    geom_text(
+      aes(label = geography, x = 2),
+      hjust = 0,
+      size = 4,
+      color = "white",
+      family = "Gentona"
+    ) +
+    annotate(
+      "text",
+      x = 91,
+      y = 0.2,
+      label = "HP2030 Target: 95%",
+      vjust = -0.7,
+      hjust = 0.9,
+      size = 2.5,
+      color = "gray30",
+      family = "Gentona",
+      fontface = "bold"
+    ) +
+    scale_x_continuous(
+      limits = c(0, 100),
+      breaks = seq(0, 100, 20),
+      labels = function(x) ifelse(x == 0, "0%", as.character(x))
+    ) +
+    labs(
+      title = paste("Vaccination comparison (2024)"),
+      x = NULL,
+      y = NULL
+    ) +
+    theme_minimal() +
+    theme(
+      panel.grid = element_blank(),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
+      axis.text.y = element_blank(),
+      axis.text.x = element_text(
+        size = 10,
+        family = "Gentona",
+        margin = margin(t = 10)
+      ),
+      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
+    )
+}
+
+
+mmr_vaccination_comparison_chart("Maryland")
+mmr_vaccination_comparison_chart("Massachusetts")
+
+#------------------------------------------------------------------------------
+
+mmr_line_df <- mmr_coverage_final |>
+  select(geography, school_year, estimate_percent)
+
+
+mmr_vaccination_over_time_chart <- function(state_name) {
+  state_data <- mmr_line_df |>
+    filter(geography == state_name) |>
+    mutate(
+      estimate_percent = as.numeric(estimate_percent),
+      school_year = factor(
+        school_year,
+        levels = unique(school_year[order(school_year)])
+      )
+    )
+
+  if (nrow(state_data) == 0) {
+    stop(paste("No data found for state:", state_name))
+  }
+
+  ggplot(state_data, aes(x = school_year, y = estimate_percent, group = 1)) +
+    geom_hline(
+      yintercept = 95,
+      linetype = "dashed",
+      color = "gray30",
+      alpha = 0.8
+    ) +
+    geom_line(color = "#002D72", linewidth = 1) +
+    geom_point(color = "#002D72", size = 2) +
+    geom_text(
+      aes(label = paste0(estimate_percent, "%")),
+      vjust = -0.8,
+      size = 3.5,
+      fontface = "bold",
+      color = "#002D72",
+      family = "Gentona"
+    ) +
+    annotate(
+      "text",
+      x = length(unique(state_data$school_year)) * 0.85,
+      y = 91.5,
+      label = "HP2030 Target: 95%",
+      vjust = 2,
+      hjust = 0.5,
+      size = 2.8,
+      color = "gray30",
+      family = "Gentona",
+      fontface = "bold"
+    ) +
+    scale_y_continuous(
+      limits = c(0, max(state_data$estimate_percent) + 3),
+      labels = function(x) paste0(x, "%")
+    ) +
+    labs(
+      title = paste(state_name, "Vaccination Rates Over Time"),
+    ) +
+    theme_minimal() +
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major.x = element_blank(),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
+      plot.subtitle = element_text(
+        hjust = 0.5,
+        size = 11,
+        family = "Gentona",
+        color = "gray40"
+      ),
+      axis.text.x = element_text(size = 10, family = "Gentona", hjust = 1),
+      axis.text.y = element_text(size = 10, family = "Gentona"),
+      axis.title = element_blank(),
+      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
+    )
+}
+
+
+mmr_vaccination_over_time_chart("Texas")
+mmr_vaccination_over_time_chart("Alabama")
+mmr_vaccination_over_time_chart("California")
