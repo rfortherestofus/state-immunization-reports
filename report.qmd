@@ -1,0 +1,36 @@
+---
+title: "Status of Childhood Immunization in mARYLAND"
+date: "September 2025"
+format:
+   typst:
+      template-partials:
+         - typst-template.typ
+         - typst-show.typ
+      keep-typ: true
+execute:
+  echo: false
+  message: false
+  warning: false
+  fig-align: center
+---
+
+```{r}
+library(tidyverse)
+```
+
+This brief illustrates the current status of childhood immunization in Maryland and is intended to inform state-level policy decisions and priorities. Takeaways include: 
+
+- State-level immunization coverage in Maryland for key childhood vaccines, such as DTaP and MMR, is above national averages. 
+- Maryland’s non-medical exemption rate among kindergartners is lower than the U.S. median.
+- State-level per capita public health spending is higher than the national average. 
+- Maryland has had relatively low levels of measles transmission in 2025.
+
+aaa
+
+## Vaccination coverage
+
+Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in Maryland and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets.
+
+PLOT PLACEHOLDER
+
+In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland is below the HP2030 target of 90%.
