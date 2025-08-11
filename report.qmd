@@ -34,3 +34,75 @@ Maintaining sufficient vaccination coverage is critical for establishing communi
 PLOT PLACEHOLDER
 
 In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland is below the HP2030 target of 90%.
+
+PLOT PLACEHOLDER
+
+In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland exceeds the HP2030 target of 95%.
+
+## Vaccination exemptions
+
+Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
+
+ELEMENT PLACEHOLDER
+
+Maryland’s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state’s 2023-24 rate.
+
+**Additional details on exemption requirements:**
+
+A child’s parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
+
+## PUBLIC HEALTH SPENDING
+
+Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.
+
+ELEMENT PLACEHOLDER
+
+## UNIVERSAL VACCINE PURCHASING
+
+In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
+
+ELEMENT PLACEHOLDER
+
+## SUPPORT FOR IMMUNIZATION
+
+Strong policy commitment to immunization is critical for effective vaccination programs. The state legislature has recently introduced several bills that would affect state-wide childhood vaccination, a selection of which are described below. The arrows below indicate whether these bills would strengthen (↑) or weaken (↓) vaccine safety nets.
+
+- HB1315 (enacted) – Broadens pharmacists’ immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.
+
+- HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)
+
+- SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days. 
+
+## DISEASE STATUS
+
+Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in Maryland and neighboring states between January 1, 2025, and June 27, 2025. 
+
+PLOT PLACEHOLDER
+
+Vaccines can help prevent expensive disease outbreaks. A 2018-19 measles outbreak in Washington was estimated to cost US$47,479 per case for both direct medical and public health response expenses.
+
+## DATA SOURCES
+
+Vaccination coverage: 
+DTaP: CDC, ChildVaxView Interactive! https://www.cdc.gov/childvaxview/about/interactive-reports.html. DTaP, ≥ 4 Doses, States/Local Areas, Birth Years/Cohorts 2017–2021, Age 24 months. Updated Aug 2024. 
+MMR: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. MMR, States, School Years 2021-22, 2022-23, 2023-24, 2024-25. Updated July 2025.
+
+Vaccination exemptions: 
+Status: NCSL, State Non-Medical Exemptions From School Immunization Requirements. https://www.ncsl.org/health/state-non-medical-exemptions-from-school-immunization-requirements. Updated July 2025.
+Rates: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. Exemption – Non-Medical Exemption, States, School Years 2023-24 and 2024-25. Updated July 2025.
+
+Public health spending: Public Health Funding in United States, America’s Health Rankings, United Health Foundation. https://www.americashealthrankings.org/explore/measures/PH_funding. Accessed July 2025.
+
+Universal vaccine purchasing: Association of Immunization Managers, Policy Maps – Universal Vaccine Purchase Program. https://www.immunizationmanagers.org/resources/aim-policy-maps/. Updated April 2025.
+
+Support for immunization: 
+Association of Immunization Managers, Legislative Round-ups. https://www.immunizationmanagers.org/resources-toolkits/immunization-program-policy-toolkit/legislative-round-ups/. 
+LegiScan. https://legiscan.com/. Accessed July 2025.
+
+Disease status: International Vaccine Access Center, U.S. Measles Tracker. https://publichealth.jhu.edu/ivac/resources/us-measles-tracker. Accessed July 22, 2025.
+
+Measles outbreak cost: Pike J, Melnick A, Gastañaduy PA, et al. Societal Costs of a Measles Outbreak. Pediatrics. 2021;147(4):e2020027037. doi:10.1542/peds.2020-027037
+
+Github link: 
+
+*Note: The high-level data included in this report do not reflect statewide variation in vaccination coverage or disease status. Further, state reporting policies may limit data completeness. For any data-related questions, please contact ivac@jh.edu.*
