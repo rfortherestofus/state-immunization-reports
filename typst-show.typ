@@ -5,5 +5,8 @@
   $if(date)$
     date: [$date$],
   $endif$
+  $if(params.state)$
+    state: [$params.state$],
+  $endif$
     doc,
 )

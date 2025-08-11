@@ -1,12 +1,15 @@
 ---
-title: "Status of Childhood Immunization in mARYLAND"
+title: "Status of childhood immunization"
 date: "September 2025"
+date-format: "MMMM YYYY"
 format:
    typst:
       template-partials:
          - typst-template.typ
          - typst-show.typ
       keep-typ: true
+params:
+   state: "maryland"
 execute:
   echo: false
   message: false
@@ -25,7 +28,9 @@ This brief illustrates the current status of childhood immunization in Maryland 
 - State-level per capita public health spending is higher than the national average. 
 - Maryland has had relatively low levels of measles transmission in 2025.
 
-aaa
+```{=typst} 
+#blueline()
+```
 
 ## Vaccination coverage
 
@@ -39,6 +44,10 @@ PLOT PLACEHOLDER
 
 In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland exceeds the HP2030 target of 95%.
 
+```{=typst} 
+#blueline()
+```
+
 ## Vaccination exemptions
 
 Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
@@ -51,17 +60,29 @@ Maryland’s rate of non-medical exemptions among kindergartners during the 2024
 
 A child’s parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
 
+```{=typst} 
+#blueline()
+```
+
 ## PUBLIC HEALTH SPENDING
 
 Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.
 
 ELEMENT PLACEHOLDER
 
+```{=typst} 
+#blueline()
+```
+
 ## UNIVERSAL VACCINE PURCHASING
 
 In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
 
 ELEMENT PLACEHOLDER
+
+```{=typst} 
+#blueline()
+```
 
 ## SUPPORT FOR IMMUNIZATION
 
@@ -73,6 +94,10 @@ Strong policy commitment to immunization is critical for effective vaccination p
 
 - SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days. 
 
+```{=typst} 
+#blueline()
+```
+
 ## DISEASE STATUS
 
 Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in Maryland and neighboring states between January 1, 2025, and June 27, 2025. 
@@ -80,6 +105,10 @@ Measles outbreaks can indicate insufficient vaccination coverage within a popula
 PLOT PLACEHOLDER
 
 Vaccines can help prevent expensive disease outbreaks. A 2018-19 measles outbreak in Washington was estimated to cost US$47,479 per case for both direct medical and public health response expenses.
+
+```{=typst} 
+#blueline()
+```
 
 ## DATA SOURCES
 
