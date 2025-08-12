@@ -37,6 +37,23 @@ pal <- c(
 
 # Measles cases map ------------------------------------------------------
 
+m_pal <- c(
+  "≤5" = "#b2e0ff",
+  "6-15" = "#8ebce3",
+  "16-30" = "#6b98c7",
+  "31-60" = "#4775aa",
+  "61-200" = "#24518e",
+  "200+" = "#002d72"
+)
+
+measles_pal <- setNames(
+  m_pal[1:6],
+  c("≤5", "6-15", "16-30", "31-60", "61-200", "200+")
+)
+
+
+# Measles cases map ------------------------------------------------------
+
 us_states <-
   states() |>
   clean_names() |>
@@ -69,13 +86,15 @@ get_nearest_states <- function(state, k = 5, pool = df) {
     slice_min(dist_m, n = k)
 }
 
-
+# Define the get_neighboring_states function outside of measles_map
 get_neighboring_states <- function(state, k_nearest = 5) {
   single_state <- df |> filter(name == state)
 
   if (state %in% c("Alaska", "Hawaii", "Puerto Rico")) {
+    # include the state itself + its k nearest states
     bind_rows(single_state, get_nearest_states(state, k = k_nearest))
   } else {
+    # contiguous neighbors (touching)
     df |>
       filter(sf::st_touches(geometry, single_state$geometry, sparse = FALSE)[,
         1
@@ -83,7 +102,7 @@ get_neighboring_states <- function(state, k_nearest = 5) {
       bind_rows(single_state)
   }
 }
-
+# Create the measles_map function that uses get_neighboring_states
 measles_map <- function(state) {
   get_neighboring_states(state) |>
     st_cast("POLYGON") |>
@@ -92,7 +111,6 @@ measles_map <- function(state) {
     slice_max(area, n = 1) |>
     ungroup() |>
     select(-area) |>
-    # Simplify geometry to smooth edges
     mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
     mutate(
       measles_category = case_when(
@@ -104,34 +122,31 @@ measles_map <- function(state) {
         total_cases >= 201 ~ "200+",
         TRUE ~ NA_character_
       ),
-
       measles_category = factor(
         measles_category,
-        levels = c("≤5", "6-15", "16-30", "31-60", "61-200", "200+")
+        levels = names(measles_pal) # Ensures palette order
       )
     ) |>
     ggplot(aes(fill = measles_category)) +
-    geom_sf() +
-    geom_sf_text(aes(label = name), color = "black", size = 3) +
+    geom_sf(color = "white") +
+    geom_sf_text(
+      aes(label = name),
+      color = "black",
+      size = 3,
+      family = "Gentona"
+    ) +
     scale_fill_manual(
-      values = c(
-        "≤5" = "#FFF2E6",
-        "6-15" = "#FFD4B3",
-        "16-30" = "#FFB580",
-        "31-60" = "#FF954D",
-        "61-200" = "#F56600",
-        "200+" = "#CC5500"
-      ),
+      values = measles_pal,
       name = "Measles Cases",
       na.value = "grey90"
     ) +
-    theme_minimal() +
+    theme_minimal(base_family = "Gentona") +
     theme(
       legend.position = "bottom",
       axis.text = element_blank(),
       axis.title = element_blank(),
       panel.grid = element_blank(),
-      legend.key.width = unit(1.5, "cm")
+      legend.key.width = unit(1.3, "cm")
     ) +
     guides(
       fill = guide_legend(
@@ -143,7 +158,72 @@ measles_map <- function(state) {
 }
 
 
-measles_map("Minnesota")
+measles_map <- function(state) {
+  map_data <- get_neighboring_states(state) |>
+    st_cast("POLYGON") |>
+    group_by(name) |>
+    mutate(area = st_area(geometry)) |>
+    slice_max(area, n = 1) |>
+    ungroup() |>
+    select(-area) |>
+    mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
+    mutate(
+      measles_category = case_when(
+        total_cases <= 5 ~ "≤5",
+        total_cases >= 6 & total_cases <= 15 ~ "6-15",
+        total_cases >= 16 & total_cases <= 30 ~ "16-30",
+        total_cases >= 31 & total_cases <= 60 ~ "31-60",
+        total_cases >= 61 & total_cases <= 200 ~ "61-200",
+        total_cases >= 201 ~ "200+",
+        TRUE ~ NA_character_
+      ),
+      measles_category = factor(measles_category, levels = names(measles_pal))
+    )
+
+  # Centroids for circles
+  centers <- st_point_on_surface(map_data)
+
+  ggplot() +
+    geom_sf(data = map_data, aes(fill = measles_category), color = "white") +
+    geom_sf_text(
+      data = map_data,
+      aes(label = name),
+      color = "black",
+      size = 3,
+      family = "Gentona",
+      vjust = -3
+    ) +
+    # circles filled with same palette color
+    geom_sf(
+      data = centers,
+      aes(fill = measles_category),
+      shape = 21,
+      size = 8,
+      stroke = 0.5,
+      color = "black"
+    ) +
+    # case counts — white text for dark fills, black for light
+    geom_sf_text(
+      data = centers,
+      aes(label = total_cases),
+      family = "Gentona",
+      fontface = "bold",
+      size = 3,
+      color = "black"
+    ) +
+    scale_fill_manual(values = measles_pal, na.value = "grey90") +
+    theme_minimal(base_family = "Gentona") +
+    theme(
+      legend.position = "none",
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank()
+    )
+}
+
+
+# Usage
+measles_map("Texas")
 measles_map("Alaska")
 
 #-----------------------------------------------------------------------------
