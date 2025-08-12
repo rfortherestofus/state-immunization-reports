@@ -5,11 +5,33 @@
 }
 
 #let source(body) = {
-  align(right)[#text(body, style: "italic", font: "Bitter")]
+  align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt)]
+}
+
+#let status-box(top-text: "", bottom-text: "") = {
+  let bluerect = box(
+    width: 100%,
+    fill: rgb("#002D72"),
+    inset: 6pt,
+    align(center)[
+      #text(fill: white, weight: "bold")[#top-text]
+    ],
+  )
+
+  let redrect = box(
+    width: 100%,
+    fill: white,
+    inset: 6pt,
+    align(center)[
+      #text(fill: black)[#bottom-text]
+    ],
+  )
+
+  stack(dir: ttb, bluerect, redrect, spacing: 0pt)
 }
 
 #let chart-title(body) = {
-  linebreak()
+  v(7pt)
   align(center)[#text(
     body,
     fill: rgb("#002D72"),
@@ -44,7 +66,7 @@
   let formatted_title = title + " in " + state
   let formatted_title = upper(formatted_title)
 
-  set text(lang: "en", region: "US", font: ("Gentona", "Roboto", "Arial"), size: 9pt, weight: "light")
+  set text(lang: "en", region: "US", font: ("Gentona", "Roboto", "Arial"), size: 11pt, weight: "light")
 
   set page(
     paper: "us-letter",

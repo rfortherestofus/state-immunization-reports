@@ -22,7 +22,7 @@ dir_create("reports")
 
 create_state_qmd <- function(state) {
     file_copy(
-        path = "src/report.qmd",
+        path = "report.qmd",
         new_path = str_glue("documents/{state}.qmd"),
         overwrite = TRUE
     )
@@ -38,11 +38,11 @@ file_copy(
     new_path = "documents/assets/logo.png"
 )
 file_copy(
-    path = "src/typst-template.typ",
+    path = "typst-template.typ",
     new_path = "documents/typst-template.typ"
 )
 file_copy(
-    path = "src/typst-show.typ",
+    path = "typst-show.typ",
     new_path = "documents/typst-show.typ"
 )
 file_copy(

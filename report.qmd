@@ -75,7 +75,7 @@ This brief illustrates the current status of childhood immunization in Maryland 
 ## Vaccination coverage
 
 ```{=typst}
-#linebreak()
+#v(3pt)
 ```
 
 Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in Maryland and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets.
@@ -102,7 +102,7 @@ In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, 
 
 ```{=typst}
 #source("Source: ChildVaxView")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
@@ -134,7 +134,7 @@ In 2023, the same proportion of kindergarteners received at least 1 dose of meas
 
 ```{=typst}
 #source("Source: SchoolVaxView")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
@@ -146,7 +146,7 @@ In 2023, the same proportion of kindergarteners received at least 1 dose of meas
 ## Vaccination exemptions
 
 ```{=typst}
-#linebreak()
+#v(3pt)
 ```
 
 Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
@@ -154,10 +154,24 @@ Many states allow children attending public school to receive vaccination exempt
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#linebreak()
+#v(7pt)
 ```
 
-ELEMENT PLACEHOLDER
+```{=typst}
+#status-box(top-text: "hi", bottom-text: "here")
+#box(
+  inset: 1em,
+  [
+    #grid(
+      columns: (1fr, 10fr),
+      gutter: 0.1em,
+      [#image("assets/coins.svg")],
+      [#text(font: "Gentona", size: 11pt)[Vaccines can help prevent expensive disease outbreaks. A 2018–19 measles outbreak in Washington was estimated to cost #text(fill: rgb("#f1c400"))[US\$47,479] per case for both direct medical and public health response expenses.]]
+    )
+    #source("Source: Pike, 2022")
+  ]
+)
+```
 
 Maryland's rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate.
 
@@ -167,7 +181,7 @@ A child's parent or guardian may request an exemption in writing for medical or 
 
 ```{=typst}
 #source("Source: NCSL, SchoolVaxView")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
@@ -181,7 +195,7 @@ A child's parent or guardian may request an exemption in writing for medical or 
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#linebreak()
+#v(7pt)
 ```
 
 Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.
@@ -190,7 +204,7 @@ ELEMENT PLACEHOLDER
 
 ```{=typst}
 #source("Source: America's Health Rankings")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
@@ -204,7 +218,7 @@ ELEMENT PLACEHOLDER
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#linebreak()
+#v(7pt)
 ```
 
 In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
@@ -213,7 +227,7 @@ ELEMENT PLACEHOLDER
 
 ```{=typst}
 #source("Source: AIM")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
@@ -229,7 +243,7 @@ Strong policy commitment to immunization is critical for effective vaccination p
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#linebreak()
+#v(7pt)
 ```
 
 - HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.
@@ -240,7 +254,7 @@ Strong policy commitment to immunization is critical for effective vaccination p
 
 ```{=typst}
 #source("Source: AIM, LegiScan")
-#linebreak()
+#v(7pt)
 ```
 
 </div>
