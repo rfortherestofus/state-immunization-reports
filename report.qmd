@@ -174,10 +174,10 @@ fourth_box <- "4%"
     #grid(
       columns: (1fr, 1fr, 1fr, 1fr),
       gutter: 1em,
-      [#status-box(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
-      [#status-box(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
-      [#status-box(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box`")],
-      [#status-box(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box`")]
+      [#status-boxes(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
+      [#status-boxes(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
+      [#status-boxes(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box`")],
+      [#status-boxes(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box`")]
     )
   ]
 )
@@ -250,7 +250,7 @@ Low levels of public health spending are thought to contribute to suboptimal imm
 In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
 
 ```{=typst}
-#status-box(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
+#status-boxes(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
 ```
 
 :::

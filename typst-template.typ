@@ -8,7 +8,7 @@
   align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt)]
 }
 
-#let status-box(top-text: "", bottom-text: "") = {
+#let status-boxes(top-text: "", bottom-text: "") = {
   let bluerect = box(
     width: 100%,
     height: 0.7in,
