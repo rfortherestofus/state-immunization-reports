@@ -23,6 +23,7 @@ library(maps)
 library(glue)
 
 state <- params$state
+hey <- "heyyy"
 
 maplot <- function() {
     world <- map_data("world")
@@ -157,18 +158,25 @@ Many states allow children attending public school to receive vaccination exempt
 #v(7pt)
 ```
 
+```{r}
+first_box <- "NO"
+second_box <- "YES"
+third_box <- "2%"
+fourth_box <- "4%"
+```
+
 ```{=typst}
-#status-box(top-text: "hi", bottom-text: "here")
 #box(
   inset: 1em,
   [
     #grid(
-      columns: (1fr, 10fr),
-      gutter: 0.1em,
-      [#image("assets/coins.svg")],
-      [#text(font: "Gentona", size: 11pt)[Vaccines can help prevent expensive disease outbreaks. A 2018–19 measles outbreak in Washington was estimated to cost #text(fill: rgb("#f1c400"))[US\$47,479] per case for both direct medical and public health response expenses.]]
+      columns: (1fr, 1fr, 1fr, 1fr),
+      gutter: 1em,
+      [#status-box(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
+      [#status-box(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
+      [#status-box(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box`")],
+      [#status-box(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box`")]
     )
-    #source("Source: Pike, 2022")
   ]
 )
 ```

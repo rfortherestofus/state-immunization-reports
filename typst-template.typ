@@ -11,19 +11,21 @@
 #let status-box(top-text: "", bottom-text: "") = {
   let bluerect = box(
     width: 100%,
+    height: 0.7in,
     fill: rgb("#002D72"),
     inset: 6pt,
-    align(center)[
-      #text(fill: white, weight: "bold")[#top-text]
+    align(center + horizon)[
+      #text(fill: white, weight: "bold", size: 9pt)[#top-text]
     ],
   )
 
   let redrect = box(
     width: 100%,
+    height: 0.7in,
     fill: white,
     inset: 6pt,
-    align(center)[
-      #text(fill: black)[#bottom-text]
+    align(center + horizon)[
+      #text(fill: black, size: 14pt)[#bottom-text]
     ],
   )
 
