@@ -32,6 +32,37 @@
   stack(dir: ttb, bluerect, redrect, spacing: 0pt)
 }
 
+#let connected-boxes(text1: "", text2: "") = {
+  let box-style = (
+    width: auto,
+    fill: rgb("#002D72"),
+    inset: 12pt,
+  )
+
+  let left = box(
+    ..box-style,
+    align(center + horizon)[#text(fill: white, weight: "bold", font: "Bitter", text1)],
+  )
+
+  let right = box(
+    ..box-style,
+    align(center + horizon)[#text(fill: white, weight: "bold", font: "Bitter", text2)],
+  )
+
+  let connector = align(horizon)[#line(
+    length: 30pt,
+    stroke: (paint: rgb("#68ACE5"), thickness: 3pt),
+  )]
+
+  stack(
+    dir: ltr,
+    spacing: 0pt,
+    left,
+    connector,
+    right,
+  )
+}
+
 #let chart-title(body) = {
   v(7pt)
   align(center)[#text(

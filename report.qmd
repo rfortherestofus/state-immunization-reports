@@ -25,7 +25,7 @@ library(glue)
 state <- params$state
 hey <- "heyyy"
 
-maplot <- function() {
+mock_maplot <- function() {
     world <- map_data("world")
 
     ggplot(world, aes(long, lat, group = group)) +
@@ -34,7 +34,7 @@ maplot <- function() {
         theme_void()
 }
 
-barplot <- function() {
+mock_barplot <- function() {
     df <- data.frame(
         category = c("A", "B", "C", "D"),
         value = c(4, 7, 3, 6)
@@ -47,7 +47,7 @@ barplot <- function() {
         ylab("")
 }
 
-lineplot <- function() {
+mock_lineplot <- function() {
     df <- data.frame(
         x = 1:10,
         y = c(3, 5, 4, 6, 8, 7, 9, 8, 10, 12)
@@ -90,11 +90,12 @@ Maintaining sufficient vaccination coverage is critical for establishing communi
 ::: {layout="[[1,1]]"}
 
 ```{r}
-lineplot() + ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
+mock_lineplot() +
+    ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
 ```
 
 ```{r}
-barplot() + ggtitle("Vaccination comparison (2023)")
+mock_barplot() + ggtitle("Vaccination comparison (2023)")
 ```
 
 :::
@@ -121,12 +122,13 @@ In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, 
 ::: {layout="[[1,1]]"}
 
 ```{r}
-lineplot() + ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
+mock_lineplot() +
+    ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
 ```
 
 
 ```{r}
-barplot() + ggtitle("Vaccination comparison (2023)")
+mock_barplot() + ggtitle("Vaccination comparison (2023)")
 ```
 
 :::
@@ -206,9 +208,23 @@ A child's parent or guardian may request an exemption in writing for medical or 
 #v(7pt)
 ```
 
+```{r}
+left_box <- "$210"
+right_box <- "$124"
+```
+
+::: {layout="[[5, 2, 1]]"}
+
 Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.
 
-ELEMENT PLACEHOLDER
+```{=typst}
+#text("State")
+#h(0.7in)
+#text("National")
+#connected-boxes(text1: "`r left_box`", text2: "`r right_box`")
+```
+
+:::
 
 ```{=typst}
 #source("Source: America's Health Rankings")
@@ -229,9 +245,15 @@ ELEMENT PLACEHOLDER
 #v(7pt)
 ```
 
+::: {layout="[[3,1]]"}
+
 In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
 
-ELEMENT PLACEHOLDER
+```{=typst}
+#status-box(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
+```
+
+:::
 
 ```{=typst}
 #source("Source: AIM")
@@ -281,7 +303,7 @@ Measles outbreaks can indicate insufficient vaccination coverage within a popula
 #| layout: [[10]]
 #| fig-height: 1.5
 #| fig-width: 4
-maplot()
+mock_maplot()
 ```
 
 </div>
