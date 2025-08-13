@@ -38,7 +38,8 @@ pal <- c(
 # Measles cases map ------------------------------------------------------
 
 m_pal <- c(
-  "≤5" = "#b2e0ff",
+  "0" = "#B8B8B8", # gray for zero cases
+  "1-5" = "#b2e0ff",
   "6-15" = "#8ebce3",
   "16-30" = "#6b98c7",
   "31-60" = "#4775aa",
@@ -47,8 +48,8 @@ m_pal <- c(
 )
 
 measles_pal <- setNames(
-  m_pal[1:6],
-  c("≤5", "6-15", "16-30", "31-60", "61-200", "200+")
+  m_pal[c("0", "1-5", "6-15", "16-30", "31-60", "61-200", "200+")],
+  c("0", "1-5", "6-15", "16-30", "31-60", "61-200", "200+")
 )
 
 
@@ -114,17 +115,18 @@ measles_map <- function(state) {
     mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
     mutate(
       measles_category = case_when(
-        total_cases <= 5 ~ "≤5",
-        total_cases >= 6 & total_cases <= 15 ~ "6-15",
-        total_cases >= 16 & total_cases <= 30 ~ "16-30",
-        total_cases >= 31 & total_cases <= 60 ~ "31-60",
-        total_cases >= 61 & total_cases <= 200 ~ "61-200",
-        total_cases >= 201 ~ "200+",
+        total == 0 ~ "0",
+        total >= 1 & total <= 5 ~ "1-5",
+        total >= 6 & total <= 15 ~ "6-15",
+        total >= 16 & total <= 30 ~ "16-30",
+        total >= 31 & total <= 60 ~ "31-60",
+        total >= 61 & total <= 200 ~ "61-200",
+        total >= 201 ~ "200+",
         TRUE ~ NA_character_
       ),
       measles_category = factor(
         measles_category,
-        levels = names(measles_pal) # Ensures palette order
+        levels = names(measles_pal) # puts "0" first, then ascending bins
       )
     ) |>
     ggplot(aes(fill = measles_category)) +
@@ -137,8 +139,18 @@ measles_map <- function(state) {
     ) +
     scale_fill_manual(
       values = measles_pal,
-      name = "Measles Cases",
-      na.value = "grey90"
+      name = "Measles cases",
+      na.value = "grey90",
+      breaks = names(measles_pal),
+      labels = c(
+        "0",
+        "1–5",
+        "6–15",
+        "16–30",
+        "31–60",
+        "61–200",
+        "200+"
+      )
     ) +
     theme_minimal(base_family = "Gentona") +
     theme(
@@ -146,7 +158,7 @@ measles_map <- function(state) {
       axis.text = element_blank(),
       axis.title = element_blank(),
       panel.grid = element_blank(),
-      legend.key.width = unit(1.3, "cm")
+      legend.key.width = grid::unit(1.3, "cm")
     ) +
     guides(
       fill = guide_legend(
@@ -156,75 +168,9 @@ measles_map <- function(state) {
       )
     )
 }
+measles_map("Utah")
+measles_map("Puerto Rico")
 
-
-measles_map <- function(state) {
-  map_data <- get_neighboring_states(state) |>
-    st_cast("POLYGON") |>
-    group_by(name) |>
-    mutate(area = st_area(geometry)) |>
-    slice_max(area, n = 1) |>
-    ungroup() |>
-    select(-area) |>
-    mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
-    mutate(
-      measles_category = case_when(
-        total_cases <= 5 ~ "≤5",
-        total_cases >= 6 & total_cases <= 15 ~ "6-15",
-        total_cases >= 16 & total_cases <= 30 ~ "16-30",
-        total_cases >= 31 & total_cases <= 60 ~ "31-60",
-        total_cases >= 61 & total_cases <= 200 ~ "61-200",
-        total_cases >= 201 ~ "200+",
-        TRUE ~ NA_character_
-      ),
-      measles_category = factor(measles_category, levels = names(measles_pal))
-    )
-
-  # Centroids for circles
-  centers <- st_point_on_surface(map_data)
-
-  ggplot() +
-    geom_sf(data = map_data, aes(fill = measles_category), color = "white") +
-    geom_sf_text(
-      data = map_data,
-      aes(label = name),
-      color = "black",
-      size = 3,
-      family = "Gentona",
-      vjust = -3
-    ) +
-    # circles filled with same palette color
-    geom_sf(
-      data = centers,
-      aes(fill = measles_category),
-      shape = 21,
-      size = 8,
-      stroke = 0.5,
-      color = "black"
-    ) +
-    # case counts — white text for dark fills, black for light
-    geom_sf_text(
-      data = centers,
-      aes(label = total_cases),
-      family = "Gentona",
-      fontface = "bold",
-      size = 3,
-      color = "black"
-    ) +
-    scale_fill_manual(values = measles_pal, na.value = "grey90") +
-    theme_minimal(base_family = "Gentona") +
-    theme(
-      legend.position = "none",
-      axis.text = element_blank(),
-      axis.title = element_blank(),
-      panel.grid = element_blank()
-    )
-}
-
-
-# Usage
-measles_map("Texas")
-measles_map("Alaska")
 
 #-----------------------------------------------------------------------------
 
@@ -320,7 +266,7 @@ mmr_vaccination_comparison_chart <- function(state_name) {
 }
 
 
-mmr_vaccination_comparison_chart("Hawaii")
+mmr_vaccination_comparison_chart("Oregon")
 mmr_vaccination_comparison_chart("Alaska")
 
 
@@ -510,22 +456,24 @@ dtap_vaccination_comparison_chart <- function(state_name) {
   neighboring_data <- get_neighboring_states(state_name) |>
     st_drop_geometry() |>
     filter(name != state_name) |>
-    left_join(df_mmr, by = c("name" = "geography")) |>
+    left_join(df_dtap, by = c("name" = "geography")) |>
     filter(!is.na(total_population)) |>
     slice_max(total_population, n = 2) |>
     pull(name)
 
+  # Prepare chart data
   chart_data <- df_dtap |>
     filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
       estimate_percent = as.numeric(estimate_percent), # Convert to numeric
       geography = factor(
         geography,
-        levels = c("United States", neighboring_data, state_name)
+        levels = unique(c("United States", neighboring_data, state_name))
       ),
       bar_color = ifelse(geography == "United States", "#FF9E1B", "#002D72")
     )
 
+  # Create the chart
   ggplot(chart_data, aes(x = estimate_percent, y = geography)) +
     geom_vline(
       xintercept = 90,
@@ -586,9 +534,12 @@ dtap_vaccination_comparison_chart <- function(state_name) {
     )
 }
 
+# Usage:
+dtap_vaccination_comparison_chart("Montana")
+dtap_vaccination_comparison_chart("Maine")
 
-dtap_vaccination_comparison_chart("Alaska")
-dtap_vaccination_comparison_chart("Hawaii")
+
+dtap_vaccination_comparison_chart("Massachusetts")
 dtap_vaccination_comparison_chart("Puerto Rico")
 
 #------------------------------------------------------------------------------------------
@@ -625,7 +576,7 @@ dtap_vaccination_over_time_chart <- function(state_name) {
       family = "Gentona",
       size = 3
     ) +
-
+    # optional free text at x=5, y=91 (clamped so it never goes off the panel)
     annotate(
       "text",
       x = min(5, n_x),
@@ -656,4 +607,4 @@ dtap_vaccination_over_time_chart <- function(state_name) {
 }
 
 
-dtap_vaccination_over_time_chart("District of Columbia")
+dtap_vaccination_over_time_chart("Maine")

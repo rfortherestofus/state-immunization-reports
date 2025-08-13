@@ -5,3 +5,19 @@
 3. Unusual States in Dtap Data:  IL-City of Chicago, IL-Rest of state, NY-City of New York, NY-Rest of state, PA-Philadelphia, PA-Rest of state, TX-Bexar County, TX-City of Houston, TX-Dallas County, TX-Rest of state
 
 4. Unusual States in mmr data: TX-City of San Antonio, TX-City of Houston, NY-City of New York
+
+
+### mmr_comparison_chart (comaring with 2024-25)
+
+1. For mmr_comparison chart Only one states shows for Maine, instead of top 2 nearest.(why??)
+2. Montana has only value for 2020-21
+3. West Virginia does not have value for 2024-25
+
+### mmr_over_time
+
+1. Illinois has value NR for 2020-21
+2. West Virginia has value NR for 2020-21
+
+### Dtap comparison
+
+1. Only one states shows for Maine and Montana, instead of top 2 nearest.(Figure out why)
