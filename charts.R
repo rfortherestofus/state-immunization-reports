@@ -87,22 +87,40 @@ get_nearest_states <- function(state, k = 5, pool = df) {
     slice_min(dist_m, n = k)
 }
 
-# Define the get_neighboring_states function outside of measles_map
-get_neighboring_states <- function(state, k_nearest = 5) {
+
+get_neighboring_states <- function(state, k_nearest = 5, min_neighbors = 2) {
   single_state <- df |> filter(name == state)
 
   if (state %in% c("Alaska", "Hawaii", "Puerto Rico")) {
-    # include the state itself + its k nearest states
-    bind_rows(single_state, get_nearest_states(state, k = k_nearest))
+    result <- bind_rows(single_state, get_nearest_states(state, k = k_nearest))
   } else {
-    # contiguous neighbors (touching)
-    df |>
+    touching_neighbors <- df |>
       filter(sf::st_touches(geometry, single_state$geometry, sparse = FALSE)[,
         1
-      ]) |>
-      bind_rows(single_state)
+      ])
+    if (nrow(touching_neighbors) < min_neighbors) {
+      cat(
+        "State",
+        state,
+        "has only",
+        nrow(touching_neighbors),
+        "touching neighbors. Adding nearest states.\n"
+      )
+
+      needed <- min_neighbors - nrow(touching_neighbors)
+      nearest_states <- get_nearest_states(state, k = needed + 2) # Get extra in case some overlap
+
+      result <- bind_rows(single_state, touching_neighbors, nearest_states) |>
+        distinct(name, .keep_all = TRUE)
+    } else {
+      result <- bind_rows(single_state, touching_neighbors)
+    }
   }
+
+  result |> distinct(name, .keep_all = TRUE)
 }
+
+
 # Create the measles_map function that uses get_neighboring_states
 measles_map <- function(state) {
   get_neighboring_states(state) |>
@@ -266,7 +284,7 @@ mmr_vaccination_comparison_chart <- function(state_name) {
 }
 
 
-mmr_vaccination_comparison_chart("Oregon")
+mmr_vaccination_comparison_chart("Maine")
 mmr_vaccination_comparison_chart("Alaska")
 
 

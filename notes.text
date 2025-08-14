@@ -20,4 +20,13 @@
 
 ### Dtap comparison
 
-1. Only one states shows for Maine and Montana, instead of top 2 nearest.(Figure out why)
+1. Only one states shows for Maine and Montana, instead of top 2 nearest.(Figure out why) (Solved)
+
+### Problem with Maine
+
+Maine only has **one geographic neighbor** according to your spatial analysis - just New Hampshire. 
+
+1. Maine only borders New Hampshire - it doesn't share land borders with other states
+2. The Atlantic Ocean is on the other sides of Maine
+3. `get_neighboring_states()` function uses `st_touches()` which only finds states that physically touch Maine's borders.
+Updated the get_neighboring_states function to handle above.
