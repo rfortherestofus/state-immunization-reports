@@ -294,7 +294,7 @@ mmr_line_df <- mmr_coverage_final |>
   select(geography, school_year, estimate_percent)
 
 
-mmr_vaccination_over_time_chart <- function(state_name) {
+mmr_vaccination_over_time_chart_line <- function(state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -364,9 +364,9 @@ mmr_vaccination_over_time_chart <- function(state_name) {
 }
 
 
-mmr_vaccination_over_time_chart("Delaware")
-mmr_vaccination_over_time_chart("Alabama")
-mmr_vaccination_over_time_chart("California")
+mmr_vaccination_over_time_chart_line("Delaware")
+mmr_vaccination_over_time_chart_line("Alabama")
+mmr_vaccination_over_time_chart_line("California")
 
 
 ## Bar chart
@@ -374,7 +374,7 @@ mmr_vaccination_over_time_chart("California")
 mmr_line_df <- mmr_coverage_final |>
   select(geography, school_year, estimate_percent)
 
-mmr_vaccination_over_time_chart <- function(state_name) {
+mmr_vaccination_over_time_chart_bar <- function(state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -441,12 +441,12 @@ mmr_vaccination_over_time_chart <- function(state_name) {
     )
 }
 
-mmr_vaccination_over_time_chart("Delaware")
-mmr_vaccination_over_time_chart("Indiana")
+mmr_vaccination_over_time_chart_bar("Delaware")
+mmr_vaccination_over_time_chart_bar("Indiana")
 
 # Lollipop
 
-mmr_vaccination_over_time_chart <- function(state_name) {
+mmr_vaccination_over_time_chart_lollipop <- function(state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -527,7 +527,7 @@ mmr_vaccination_over_time_chart <- function(state_name) {
 }
 
 
-mmr_vaccination_over_time_chart("Delaware")
+mmr_vaccination_over_time_chart_lollipop("Delaware")
 
 #---------------------------------------------------------------------------------------
 
@@ -639,7 +639,7 @@ dtap_vaccination_comparison_chart("Puerto Rico")
 dtap_line_df <- dtap_coverage_final |>
   select(geography, birth_year_birth_cohort, estimate_percent)
 
-dtap_vaccination_over_time_chart <- function(state_name) {
+dtap_vaccination_over_time_chart_line <- function(state_name) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -708,7 +708,7 @@ dtap_vaccination_over_time_chart <- function(state_name) {
     )
 }
 
-dtap_vaccination_over_time_chart("Delaware")
+dtap_vaccination_over_time_chart_line("Delaware")
 
 
 # Bar chart
@@ -716,7 +716,7 @@ dtap_vaccination_over_time_chart("Delaware")
 dtap_line_df <- dtap_coverage_final |>
   select(geography, birth_year_birth_cohort, estimate_percent)
 
-dtap_vaccination_over_time_chart <- function(state_name) {
+dtap_vaccination_over_time_chart_bar <- function(state_name) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -775,11 +775,11 @@ dtap_vaccination_over_time_chart <- function(state_name) {
 }
 
 
-dtap_vaccination_over_time_chart("Delaware")
+dtap_vaccination_over_time_chart_bar("Delaware")
 
 # Lollipop Chart
 
-dtap_vaccination_over_time_chart <- function(state_name) {
+dtap_vaccination_over_time_chart_lollipop <- function(state_name) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -851,4 +851,4 @@ dtap_vaccination_over_time_chart <- function(state_name) {
     )
 }
 
-dtap_vaccination_over_time_chart("Delaware")
+dtap_vaccination_over_time_chart_lollipop("Delaware")
