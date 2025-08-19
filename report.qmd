@@ -125,7 +125,7 @@ Maintaining sufficient vaccination coverage is critical for establishing communi
 ::: {layout="[[1,1]]"}
 
 ```{r}
-dtap_line_df |> dtap_vaccination_over_time_chart_line(state_title)
+dtap_line_df |> dtap_vaccination_over_time_chart_lollipop(state_title)
 ```
 
 ```{r}
@@ -156,7 +156,7 @@ In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, 
 ::: {layout="[[1,1]]"}
 
 ```{r}
-mmr_line_df |> mmr_vaccination_over_time_chart_line(state_title)
+mmr_line_df |> mmr_vaccination_over_time_chart_lollipop(state_title)
 ```
 
 

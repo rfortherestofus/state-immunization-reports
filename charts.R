@@ -8,7 +8,7 @@ library(showtext)
 
 pal <- c(
   "#002D72",
-  "#68ACE5",
+  #"#68ACE5",
   "#FF6900",
   "#A7BCD6",
   "#FF9E1B",
@@ -412,18 +412,18 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
       aes(xend = school_year, y = 0, yend = estimate_percent),
       linewidth = 1,
       lineend = "round",
-      color = "#68ACE5"
+      color = "#002D72"
     ) +
     geom_point(
       shape = 21,
       size = 8,
       stroke = 1,
-      fill = "#68ACE5",
-      color = "#68ACE5"
+      fill = "#002D72",
+      color = "#002D72"
     ) +
     geom_text(
       aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "black",
+      color = "white",
       fontface = "bold",
       family = "Gentona",
       size = 3
@@ -715,18 +715,18 @@ dtap_vaccination_over_time_chart_lollipop <- function(
       aes(xend = birth_year_birth_cohort, y = 0, yend = estimate_percent),
       linewidth = 1,
       lineend = "round",
-      color = "#68ACE5"
+      color = "#002D72"
     ) +
     geom_point(
       shape = 21,
       size = 8,
       stroke = 1,
-      fill = "#68ACE5",
-      color = "#68ACE5"
+      fill = "#002D72",
+      color = "#002D72"
     ) +
     geom_text(
       aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "black",
+      color = "white",
       fontface = "bold",
       family = "Gentona",
       size = 3
