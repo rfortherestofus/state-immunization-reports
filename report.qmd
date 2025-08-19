@@ -22,7 +22,10 @@ library(tidyverse)
 library(maps)
 library(glue)
 
+source("charts.R")
+
 state <- params$state
+state_title <- str_to_title(state)
 hey <- "heyyy"
 
 mock_maplot <- function() {
@@ -90,8 +93,7 @@ Maintaining sufficient vaccination coverage is critical for establishing communi
 ::: {layout="[[1,1]]"}
 
 ```{r}
-mock_lineplot() +
-    ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
+mmr_vaccination_over_time_chart_line(state_title)
 ```
 
 ```{r}

@@ -53,3 +53,5 @@ report.pdf
 documents/
 reports/
 *.zip
+
+/.quarto/

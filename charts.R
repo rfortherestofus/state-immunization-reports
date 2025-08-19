@@ -186,9 +186,8 @@ measles_map <- function(state) {
       )
     )
 }
-measles_map("Utah")
-measles_map("Puerto Rico")
-
+# measles_map("Utah")
+# measles_map("Puerto Rico")
 
 #-----------------------------------------------------------------------------
 
@@ -284,9 +283,8 @@ mmr_vaccination_comparison_chart <- function(state_name) {
 }
 
 
-mmr_vaccination_comparison_chart("Maine")
-mmr_vaccination_comparison_chart("Alaska")
-
+# mmr_vaccination_comparison_chart("Maine")
+# mmr_vaccination_comparison_chart("Alaska")
 
 #------------------------------------------------------------------------------
 
@@ -364,10 +362,9 @@ mmr_vaccination_over_time_chart_line <- function(state_name) {
 }
 
 
-mmr_vaccination_over_time_chart_line("Delaware")
-mmr_vaccination_over_time_chart_line("Alabama")
-mmr_vaccination_over_time_chart_line("California")
-
+# mmr_vaccination_over_time_chart_line("Delaware")
+# mmr_vaccination_over_time_chart_line("Alabama")
+# mmr_vaccination_over_time_chart_line("California")
 
 ## Bar chart
 
@@ -441,8 +438,8 @@ mmr_vaccination_over_time_chart_bar <- function(state_name) {
     )
 }
 
-mmr_vaccination_over_time_chart_bar("Delaware")
-mmr_vaccination_over_time_chart_bar("Indiana")
+# mmr_vaccination_over_time_chart_bar("Delaware")
+# mmr_vaccination_over_time_chart_bar("Indiana")
 
 # Lollipop
 
@@ -527,7 +524,7 @@ mmr_vaccination_over_time_chart_lollipop <- function(state_name) {
 }
 
 
-mmr_vaccination_over_time_chart_lollipop("Delaware")
+#mmr_vaccination_over_time_chart_lollipop("Delaware")
 
 #---------------------------------------------------------------------------------------
 
@@ -627,12 +624,11 @@ dtap_vaccination_comparison_chart <- function(state_name) {
 }
 
 # Usage:
-dtap_vaccination_comparison_chart("Montana")
-dtap_vaccination_comparison_chart("Maine")
+# dtap_vaccination_comparison_chart("Montana")
+# dtap_vaccination_comparison_chart("Maine")
 
-
-dtap_vaccination_comparison_chart("Massachusetts")
-dtap_vaccination_comparison_chart("Puerto Rico")
+# dtap_vaccination_comparison_chart("Massachusetts")
+# dtap_vaccination_comparison_chart("Puerto Rico")
 
 #------------------------------------------------------------------------------------------
 
@@ -708,8 +704,7 @@ dtap_vaccination_over_time_chart_line <- function(state_name) {
     )
 }
 
-dtap_vaccination_over_time_chart_line("Delaware")
-
+#dtap_vaccination_over_time_chart_line("Delaware")
 
 # Bar chart
 
@@ -775,7 +770,7 @@ dtap_vaccination_over_time_chart_bar <- function(state_name) {
 }
 
 
-dtap_vaccination_over_time_chart_bar("Delaware")
+#dtap_vaccination_over_time_chart_bar("Delaware")
 
 # Lollipop Chart
 
@@ -851,4 +846,4 @@ dtap_vaccination_over_time_chart_lollipop <- function(state_name) {
     )
 }
 
-dtap_vaccination_over_time_chart_lollipop("Delaware")
+#dtap_vaccination_over_time_chart_lollipop("Delaware")
