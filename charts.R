@@ -6,21 +6,6 @@ library(tidycensus)
 library(showtext)
 
 
-census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
-
-total_measles_cases <- read_csv(
-  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/total_measles_cases.csv"
-)
-
-mmr_coverage_final <- read_csv(
-  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
-)
-
-dtap_coverage_final <- read_csv(
-  "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
-)
-
-
 pal <- c(
   "#002D72",
   "#68ACE5",
@@ -52,30 +37,6 @@ measles_pal <- setNames(
   c("0", "1-5", "6-15", "16-30", "31-60", "61-200", "200+")
 )
 
-
-# Measles cases map ------------------------------------------------------
-
-us_states <-
-  states() |>
-  clean_names() |>
-  select(name)
-
-population_by_state <-
-  get_decennial(
-    geography = "state",
-    variables = "P1_001N", # Total population variable
-    year = 2020,
-    survey = "pl" # PL 94-171 Redistricting Data
-  ) |>
-  select(NAME, value) |>
-  rename(
-    state = NAME,
-    total_population = value
-  ) |>
-  arrange(desc(total_population))
-
-df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
-
 get_nearest_states <- function(state, k = 5, pool = df) {
   target <- pool |> filter(name == state)
   others <- pool |> filter(name != state)
@@ -87,8 +48,12 @@ get_nearest_states <- function(state, k = 5, pool = df) {
     slice_min(dist_m, n = k)
 }
 
-
-get_neighboring_states <- function(state, k_nearest = 5, min_neighbors = 2) {
+get_neighboring_states <- function(
+  df,
+  state,
+  k_nearest = 5,
+  min_neighbors = 2
+) {
   single_state <- df |> filter(name == state)
 
   if (state %in% c("Alaska", "Hawaii", "Puerto Rico")) {
@@ -122,8 +87,8 @@ get_neighboring_states <- function(state, k_nearest = 5, min_neighbors = 2) {
 
 
 # Create the measles_map function that uses get_neighboring_states
-measles_map <- function(state) {
-  get_neighboring_states(state) |>
+measles_map <- function(df, state) {
+  df_plot <- get_neighboring_states(df, state) |>
     st_cast("POLYGON") |>
     group_by(name) |>
     mutate(area = st_area(geometry)) |>
@@ -146,12 +111,18 @@ measles_map <- function(state) {
         measles_category,
         levels = names(measles_pal) # puts "0" first, then ascending bins
       )
-    ) |>
+    )
+
+  med_val <- median(df_plot$total, na.rm = TRUE)
+
+  df_plot |>
     ggplot(aes(fill = measles_category)) +
     geom_sf(color = "white") +
     geom_sf_text(
-      aes(label = name),
-      color = "black",
+      aes(
+        label = name,
+        color = ifelse(total > med_val, "above", "below")
+      ),
       size = 3,
       family = "Gentona"
     ) +
@@ -170,6 +141,10 @@ measles_map <- function(state) {
         "200+"
       )
     ) +
+    scale_color_manual(
+      values = c("above" = "white", "below" = "black"),
+      guide = "none"
+    ) +
     theme_minimal(base_family = "Gentona") +
     theme(
       legend.position = "bottom",
@@ -186,24 +161,11 @@ measles_map <- function(state) {
       )
     )
 }
-# measles_map("Utah")
-# measles_map("Puerto Rico")
 
 #-----------------------------------------------------------------------------
 
-df_mmr_coverage_final <- mmr_coverage_final |>
-  select(geography, school_year, estimate_percent) |>
-  filter(school_year == "2024-25")
-
-df_mmr <- left_join(
-  df_mmr_coverage_final,
-  population_by_state,
-  by = c("geography" = "state")
-)
-
-
-mmr_vaccination_comparison_chart <- function(state_name) {
-  neighboring_data <- get_neighboring_states(state_name) |>
+mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
+  neighboring_data <- get_neighboring_states(df, state_name) |>
     st_drop_geometry() |>
     filter(name != state_name) |>
     left_join(df_mmr, by = c("name" = "geography")) |>
@@ -282,17 +244,9 @@ mmr_vaccination_comparison_chart <- function(state_name) {
     )
 }
 
-
-# mmr_vaccination_comparison_chart("Maine")
-# mmr_vaccination_comparison_chart("Alaska")
-
 #------------------------------------------------------------------------------
 
-mmr_line_df <- mmr_coverage_final |>
-  select(geography, school_year, estimate_percent)
-
-
-mmr_vaccination_over_time_chart_line <- function(state_name) {
+mmr_vaccination_over_time_chart_line <- function(mmr_line_df, state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -361,17 +315,9 @@ mmr_vaccination_over_time_chart_line <- function(state_name) {
     )
 }
 
-
-# mmr_vaccination_over_time_chart_line("Delaware")
-# mmr_vaccination_over_time_chart_line("Alabama")
-# mmr_vaccination_over_time_chart_line("California")
-
 ## Bar chart
 
-mmr_line_df <- mmr_coverage_final |>
-  select(geography, school_year, estimate_percent)
-
-mmr_vaccination_over_time_chart_bar <- function(state_name) {
+mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -438,12 +384,9 @@ mmr_vaccination_over_time_chart_bar <- function(state_name) {
     )
 }
 
-# mmr_vaccination_over_time_chart_bar("Delaware")
-# mmr_vaccination_over_time_chart_bar("Indiana")
-
 # Lollipop
 
-mmr_vaccination_over_time_chart_lollipop <- function(state_name) {
+mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -523,26 +466,12 @@ mmr_vaccination_over_time_chart_lollipop <- function(state_name) {
     )
 }
 
-
-#mmr_vaccination_over_time_chart_lollipop("Delaware")
-
 #---------------------------------------------------------------------------------------
 
 ## DTap
 
-df_dtap_coverage_final <- dtap_coverage_final |>
-  select(geography, birth_year_birth_cohort, estimate_percent) |>
-  filter(birth_year_birth_cohort == "2021")
-
-df_dtap <- left_join(
-  df_dtap_coverage_final,
-  population_by_state,
-  by = c("geography" = "state")
-)
-
-
-dtap_vaccination_comparison_chart <- function(state_name) {
-  neighboring_data <- get_neighboring_states(state_name) |>
+dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
+  neighboring_data <- get_neighboring_states(df, state_name) |>
     st_drop_geometry() |>
     filter(name != state_name) |>
     left_join(df_dtap, by = c("name" = "geography")) |>
@@ -623,19 +552,9 @@ dtap_vaccination_comparison_chart <- function(state_name) {
     )
 }
 
-# Usage:
-# dtap_vaccination_comparison_chart("Montana")
-# dtap_vaccination_comparison_chart("Maine")
-
-# dtap_vaccination_comparison_chart("Massachusetts")
-# dtap_vaccination_comparison_chart("Puerto Rico")
-
 #------------------------------------------------------------------------------------------
 
-dtap_line_df <- dtap_coverage_final |>
-  select(geography, birth_year_birth_cohort, estimate_percent)
-
-dtap_vaccination_over_time_chart_line <- function(state_name) {
+dtap_vaccination_over_time_chart_line <- function(dtap_line_df, state_name) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -704,14 +623,9 @@ dtap_vaccination_over_time_chart_line <- function(state_name) {
     )
 }
 
-#dtap_vaccination_over_time_chart_line("Delaware")
-
 # Bar chart
 
-dtap_line_df <- dtap_coverage_final |>
-  select(geography, birth_year_birth_cohort, estimate_percent)
-
-dtap_vaccination_over_time_chart_bar <- function(state_name) {
+dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -769,12 +683,12 @@ dtap_vaccination_over_time_chart_bar <- function(state_name) {
     )
 }
 
-
-#dtap_vaccination_over_time_chart_bar("Delaware")
-
 # Lollipop Chart
 
-dtap_vaccination_over_time_chart_lollipop <- function(state_name) {
+dtap_vaccination_over_time_chart_lollipop <- function(
+  dtap_line_df,
+  state_name
+) {
   state_data <- dtap_line_df |>
     filter(geography == state_name) |>
     mutate(
@@ -845,5 +759,3 @@ dtap_vaccination_over_time_chart_lollipop <- function(state_name) {
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
     )
 }
-
-#dtap_vaccination_over_time_chart_lollipop("Delaware")

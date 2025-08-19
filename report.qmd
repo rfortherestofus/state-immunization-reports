@@ -9,60 +9,89 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: utah
+   state: texas
 execute:
   echo: false
   message: false
   warning: false
   fig-align: center
+  cache: false
 ---
 
 ```{r}
+#| output: false
 library(tidyverse)
-library(maps)
 library(glue)
+library(tigris)
+library(sf)
+library(janitor)
+library(tidycensus)
+library(showtext)
 
 source("charts.R")
 
 state <- params$state
 state_title <- str_to_title(state)
-hey <- "heyyy"
 
-mock_maplot <- function() {
-    world <- map_data("world")
+census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
 
-    ggplot(world, aes(long, lat, group = group)) +
-        geom_polygon(fill = "#d9d9d9", color = "#2c3e50", size = 0.3) +
-        coord_fixed(1.3) +
-        theme_void()
-}
+total_measles_cases <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/total_measles_cases.csv"
+)
 
-mock_barplot <- function() {
-    df <- data.frame(
-        category = c("A", "B", "C", "D"),
-        value = c(4, 7, 3, 6)
-    )
+mmr_coverage_final <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
+)
 
-    ggplot(df, aes(x = value, y = reorder(category, value))) +
-        geom_col(fill = "#2c3e50", width = 0.6) +
-        theme_minimal(base_size = 14) +
-        xlab("") +
-        ylab("")
-}
+dtap_coverage_final <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
+)
 
-mock_lineplot <- function() {
-    df <- data.frame(
-        x = 1:10,
-        y = c(3, 5, 4, 6, 8, 7, 9, 8, 10, 12)
-    )
+us_states <- states() |>
+    clean_names() |>
+    select(name)
 
-    ggplot(df, aes(x = x, y = y)) +
-        geom_line(color = "#2c3e50", size = 1) +
-        geom_point(color = "#2c3e50", size = 5) +
-        theme_minimal(base_size = 14) +
-        xlab("") +
-        ylab("")
-}
+population_by_state <-
+    get_decennial(
+        geography = "state",
+        variables = "P1_001N", # Total population variable
+        year = 2020,
+        survey = "pl" # PL 94-171 Redistricting Data
+    ) |>
+    select(NAME, value) |>
+    rename(
+        state = NAME,
+        total_population = value
+    ) |>
+    arrange(desc(total_population))
+
+df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
+
+df_mmr_coverage_final <- mmr_coverage_final |>
+    select(geography, school_year, estimate_percent) |>
+    filter(school_year == "2024-25")
+
+df_mmr <- left_join(
+    df_mmr_coverage_final,
+    population_by_state,
+    by = c("geography" = "state")
+)
+
+mmr_line_df <- mmr_coverage_final |>
+    select(geography, school_year, estimate_percent)
+
+df_dtap_coverage_final <- dtap_coverage_final |>
+    select(geography, birth_year_birth_cohort, estimate_percent) |>
+    filter(birth_year_birth_cohort == "2021")
+
+df_dtap <- left_join(
+    df_dtap_coverage_final,
+    population_by_state,
+    by = c("geography" = "state")
+)
+
+dtap_line_df <- dtap_coverage_final |>
+    select(geography, birth_year_birth_cohort, estimate_percent)
 ```
 
 This brief illustrates the current status of childhood immunization in Maryland and is intended to inform state-level policy decisions and priorities. Takeaways include: 
@@ -93,11 +122,11 @@ Maintaining sufficient vaccination coverage is critical for establishing communi
 ::: {layout="[[1,1]]"}
 
 ```{r}
-mmr_vaccination_over_time_chart_line(state_title)
+dtap_line_df |> dtap_vaccination_over_time_chart_line(state_title)
 ```
 
 ```{r}
-mock_barplot() + ggtitle("Vaccination comparison (2023)")
+df_dtap |> dtap_vaccination_comparison_chart(df, state_title)
 ```
 
 :::
@@ -124,13 +153,12 @@ In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, 
 ::: {layout="[[1,1]]"}
 
 ```{r}
-mock_lineplot() +
-    ggtitle(glue("Vaccination in {str_to_title(state)} over time"))
+mmr_line_df |> mmr_vaccination_over_time_chart_line(state_title)
 ```
 
 
 ```{r}
-mock_barplot() + ggtitle("Vaccination comparison (2023)")
+mmr_line_df |> mmr_vaccination_over_time_chart_bar(state_title)
 ```
 
 :::
@@ -303,9 +331,9 @@ Measles outbreaks can indicate insufficient vaccination coverage within a popula
 
 ```{r}
 #| layout: [[10]]
-#| fig-height: 1.5
-#| fig-width: 4
-mock_maplot()
+#| fig-height: 5
+#| fig-width: 6
+df |> measles_map(state_title)
 ```
 
 </div>
