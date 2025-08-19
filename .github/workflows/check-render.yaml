@@ -1,0 +1,26 @@
+name: Quarto Check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install R (if needed for .qmd)
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "latest"
+
+      - name: Render Quarto project
+        run: quarto render
