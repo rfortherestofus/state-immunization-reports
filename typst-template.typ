@@ -95,7 +95,8 @@
   state: none,
   doc,
 ) = {
-  let state_flag = "assets/flags/" + str.replace(lower(to-string(state)), " ", "_") + ".svg"
+  let state = if state == none { "texas" } else { to-string(state) }
+  let state_flag = "assets/flags/" + str.replace(lower(state), " ", "_") + ".svg"
   let formatted_title = title + " in " + state
   let formatted_title = upper(formatted_title)
 

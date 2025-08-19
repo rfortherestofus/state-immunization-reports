@@ -9,7 +9,7 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: texas
+   state: NULL
 execute:
   echo: false
   message: false
@@ -31,6 +31,9 @@ library(showtext)
 source("charts.R")
 
 state <- params$state
+if (is.null(state)) {
+    state <- "texas" # Default (same in typst template)
+}
 state_title <- str_to_title(state)
 
 census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
