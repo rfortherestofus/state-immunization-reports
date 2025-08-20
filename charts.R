@@ -397,6 +397,8 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
       )
     )
 
+  n_x <- nlevels(state_data$school_year)
+
   if (nrow(state_data) == 0) {
     stop(paste("No data found for state:", state_name))
   }
@@ -430,15 +432,14 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
     ) +
     annotate(
       "text",
-      x = length(unique(state_data$school_year)) * 0.85,
-      y = 91.5,
+      x = min(5, n_x),
+      y = 96,
       label = "HP2030 Target: 95%",
-      vjust = -5,
-      hjust = -0.5,
-      size = 2.8,
-      color = "gray30",
       family = "Gentona",
-      fontface = "bold"
+      size = 3,
+      color = "gray30",
+      fontface = "bold",
+      vjust = -1.5
     ) +
     scale_y_continuous(
       limits = c(0, 100),
@@ -450,8 +451,7 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
     ) +
     theme_minimal() +
     theme(
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
+      panel.grid = element_blank(),
       plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
       plot.subtitle = element_text(
         hjust = 0.5,

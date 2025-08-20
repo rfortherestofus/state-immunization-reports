@@ -161,7 +161,7 @@ mmr_line_df |> mmr_vaccination_over_time_chart_lollipop(state_title)
 
 
 ```{r}
-mmr_line_df |> mmr_vaccination_over_time_chart_bar(state_title)
+df_mmr |> mmr_vaccination_comparison_chart(df, state_title)
 ```
 
 :::
