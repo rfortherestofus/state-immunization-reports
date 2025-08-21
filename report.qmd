@@ -10,6 +10,7 @@ format:
       keep-typ: true
 params:
    state: NULL
+   end_date: "August 7, 2025"
 execute:
   echo: false
   message: false
@@ -369,7 +370,7 @@ Strong policy commitment to immunization is critical for effective vaccination p
 ```{r}
 #| output: asis
 print(glue(
-    "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and June 27, 2025. "
+    "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and {params$end_date}."
 ))
 ```
 
