@@ -98,12 +98,27 @@ dtap_line_df <- dtap_coverage_final |>
     select(geography, birth_year_birth_cohort, estimate_percent)
 ```
 
-This brief illustrates the current status of childhood immunization in Maryland and is intended to inform state-level policy decisions and priorities. Takeaways include: 
-
-- State-level immunization coverage in Maryland for key childhood vaccines, such as DTaP and MMR, is above national averages. 
-- Maryland's non-medical exemption rate among kindergartners is lower than the U.S. median.
-- State-level per capita public health spending is higher than the national average. 
-- Maryland has had relatively low levels of measles transmission in 2025.
+```{r}
+#| output: asis
+print(glue(
+    "This brief illustrates the current status of childhood immunization in {state_title} and is intended to inform state-level policy decisions and priorities. Takeaways include:"
+))
+cat("\n\n")
+cat(
+    glue(
+        "- State-level immunization coverage in {state_title} for key childhood vaccines, such as DTaP and MMR, is above national averages.\n\n"
+    ),
+    glue(
+        "- {state_title}'s non-medical exemption rate among kindergartners is lower than the U.S. median.\n\n"
+    ),
+    glue(
+        "- State-level per capita public health spending is higher than the national average.\n\n"
+    ),
+    glue(
+        "- {state_title} has had relatively low levels of measles transmission in 2025."
+    )
+)
+```
 
 ```{=typst} 
 #blueline()
@@ -115,7 +130,13 @@ This brief illustrates the current status of childhood immunization in Maryland 
 #v(3pt)
 ```
 
-Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in Maryland and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets.
+```{r}
+#| output: asis
+print(glue(
+    "Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in {state_title} and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets."
+))
+```
+
 
 <div style="background-color: #F8F8F8;">
 
@@ -135,9 +156,15 @@ df_dtap |> dtap_vaccination_comparison_chart(df, state_title)
 
 :::
 
+```{r}
+text_content <- glue(
+    "In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has higher coverage than the US median and higher coverage than neighboring states. Coverage in {state_title} is below the HP2030 target of 90%."
+)
+```
+
 ```{=typst}
 #box(inset: 10pt)[
-  In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland is below the HP2030 target of 90%.
+  #text("`r text_content`")
   #source("Source: ChildVaxView")
 ]
 ```
@@ -167,9 +194,15 @@ df_mmr |> mmr_vaccination_comparison_chart(df, state_title)
 
 :::
 
+```{r}
+text_content <- glue(
+    "In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has higher coverage than the US median and higher coverage than neighboring states. Coverage in {state_title} exceeds the HP2030 target of 95%."
+)
+```
+
 ```{=typst}
 #box(inset: 10pt)[
-  In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland exceeds the HP2030 target of 95%.
+  #text("`r text_content`")
   #source("Source: SchoolVaxView")
 ]
 ```
@@ -184,7 +217,7 @@ df_mmr |> mmr_vaccination_comparison_chart(df, state_title)
 
 ```{=typst}
 #box(inset: 10pt)[
-  Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
+  Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as "philosophical exemptions". Higher rates of non-medical exemptions have been linked with increased disease transmission.
 ]
 ```
 
@@ -198,6 +231,9 @@ first_box <- "NO"
 second_box <- "YES"
 third_box <- "2%"
 fourth_box <- "4%"
+text_content <- glue(
+    "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate."
+)
 ```
 
 ```{=typst}
@@ -215,7 +251,7 @@ fourth_box <- "4%"
   ]
 )
 #box(inset: 10pt)[
-  Maryland's rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate. \ \
+  #text("`r text_content`") \ \
   #text(weight: "bold")[Additional details on exemption requirements:] \
   A child's parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
   #source("Source: NCSL, SchoolVaxView")
@@ -236,6 +272,9 @@ fourth_box <- "4%"
 ```{r}
 left_box <- "$210"
 right_box <- "$124"
+text_content <- glue(
+    "Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, {state_title} ranks 4th in public health spending."
+)
 ```
 
 ```{=typst}
@@ -244,7 +283,7 @@ right_box <- "$124"
     columns: (70%, 1fr),
     column-gutter: 8pt,
     align: horizon,
-    [Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.],
+    [#text("`r text_content`")],
 
     stack(
       dir: ttb,
@@ -327,7 +366,12 @@ Strong policy commitment to immunization is critical for effective vaccination p
 
 ## DISEASE STATUS
 
-Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in Maryland and neighboring states between January 1, 2025, and June 27, 2025. 
+```{r}
+#| output: asis
+print(glue(
+    "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and June 27, 2025. "
+))
+```
 
 <div style="background-color: #F8F8F8;">
 
@@ -371,7 +415,6 @@ df |> measles_map(state_title)
 ## DATA SOURCES
 
 ```{=typst}
-#show par: set block(spacing: 0.8em) // reduce line height
 #show list: set block(spacing: 0.5em) // reduce line height
 #set text(size: 9pt) // reduce all text font size
 ```
