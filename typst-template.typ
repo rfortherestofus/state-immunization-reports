@@ -143,7 +143,7 @@
   // header cover page (title, logo, flag, etc)
   stack(
     place(dx: 0in, dy: 1.5in, align(block(width: 5.5in, [
-      #text(fill: rgb("#002D72"), weight: "bold", size: 25pt, font: "Bitter", formatted_title)]))),
+      #text(fill: rgb("#002D72"), weight: "bold", size: 20pt, font: "Bitter", formatted_title)]))),
     place(dx: 5.5in, dy: 1.35in, align(block([
       #image(state_flag, width: 20%)]))),
     place(dx: 0.2in, dy: 0.3in, align(block(width: 5in, [
@@ -154,7 +154,7 @@
     ]))),
   )
 
-  v(2.3in) // hardcoded margin before main content of the doc
+  v(2.1in) // hardcoded margin before main content of the doc
   blueline()
 
   doc

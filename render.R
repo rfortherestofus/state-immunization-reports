@@ -49,6 +49,10 @@ file_copy(
     path = states_flags,
     new_path = "documents/assets/flags"
 )
+file_copy(
+    path = "charts.R",
+    new_path = "documents/charts.R"
+)
 
 change_parameters_yaml <- function(state) {
     gsub_file(
