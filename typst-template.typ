@@ -4,8 +4,8 @@
   line(length: 100%, stroke: 2pt + rgb("#68ACE5"))
 }
 
-#let source(body) = {
-  align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt)]
+#let source(color: black, body) = {
+  align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt, fill: color)]
 }
 
 #let status-boxes(top-text: "", bottom-text: "") = {
@@ -36,31 +36,32 @@
   let box-style = (
     width: auto,
     fill: rgb("#002D72"),
-    inset: 12pt,
+    inset: (y: 10pt, x: 20pt),
   )
 
   let left = box(
     ..box-style,
-    align(center + horizon)[#text(fill: white, weight: "bold", font: "Bitter", text1)],
+    align(center + horizon)[
+      #text(fill: white, weight: "bold", font: "Bitter", text1)
+    ],
   )
 
   let right = box(
     ..box-style,
-    align(center + horizon)[#text(fill: white, weight: "bold", font: "Bitter", text2)],
+    align(center + horizon)[
+      #text(fill: white, weight: "bold", font: "Bitter", text2)
+    ],
   )
 
-  let connector = align(horizon)[#line(
-    length: 30pt,
-    stroke: (paint: rgb("#68ACE5"), thickness: 3pt),
-  )]
+  let connector = align(center + horizon)[
+    #line(
+      length: 61pt,
+      stroke: (paint: rgb("#68ACE5"), thickness: 3pt),
+    )
+  ]
 
-  stack(
-    dir: ltr,
-    spacing: 0pt,
-    left,
-    connector,
-    right,
-  )
+  // Now we return three elements: left box, connector, right box
+  (left, connector, right)
 }
 
 #let chart-title(body) = {

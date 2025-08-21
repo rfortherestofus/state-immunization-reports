@@ -20,6 +20,7 @@ execute:
 
 ```{r}
 #| output: false
+#| cache: true
 library(tidyverse)
 library(glue)
 library(tigris)
@@ -134,17 +135,17 @@ df_dtap |> dtap_vaccination_comparison_chart(df, state_title)
 
 :::
 
-In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland is below the HP2030 target of 90%.
-
 ```{=typst}
-#source("Source: ChildVaxView")
-#v(7pt)
+#box(inset: 10pt)[
+  In 2023, fewer two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland is below the HP2030 target of 90%.
+  #source("Source: ChildVaxView")
+]
 ```
 
 </div>
 
 ```{=typst} 
-#pagebreak() // force pagebreak here
+#pagebreak()
 ```
 
 <div style="background-color: #F8F8F8;">
@@ -166,11 +167,11 @@ df_mmr |> mmr_vaccination_comparison_chart(df, state_title)
 
 :::
 
-In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland exceeds the HP2030 target of 95%.
-
 ```{=typst}
-#source("Source: SchoolVaxView")
-#v(7pt)
+#box(inset: 10pt)[
+  In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in Maryland compared to the previous year. Maryland has higher coverage than the US median and higher coverage than neighboring states. Coverage in Maryland exceeds the HP2030 target of 95%.
+  #source("Source: SchoolVaxView")
+]
 ```
 
 </div>
@@ -182,15 +183,14 @@ In 2023, the same proportion of kindergarteners received at least 1 dose of meas
 ## Vaccination exemptions
 
 ```{=typst}
-#v(3pt)
+#box(inset: 10pt)[
+  Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
+]
 ```
-
-Many states allow children attending public school to receive vaccination exemptions for religious reasons or for personal reasons, sometimes referred to as “philosophical exemptions.” Higher rates of non-medical exemptions have been linked with increased disease transmission.
 
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#v(7pt)
 ```
 
 ```{r}
@@ -214,22 +214,18 @@ fourth_box <- "4%"
     )
   ]
 )
-```
-
-Maryland's rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate.
-
-**Additional details on exemption requirements:**
-
-A child's parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
-
-```{=typst}
-#source("Source: NCSL, SchoolVaxView")
-#v(7pt)
+#box(inset: 10pt)[
+  Maryland's rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate. \ \
+  #text(weight: "bold")[Additional details on exemption requirements:] \
+  A child's parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
+  #source("Source: NCSL, SchoolVaxView")
+]
 ```
 
 </div>
 
-```{=typst} 
+```{=typst}
+#pagebreak()
 #blueline()
 ```
 
@@ -237,31 +233,38 @@ A child's parent or guardian may request an exemption in writing for medical or 
 
 <div style="background-color: #F8F8F8;">
 
-```{=typst}
-#v(7pt)
-```
-
 ```{r}
 left_box <- "$210"
 right_box <- "$124"
 ```
 
-::: {layout="[[5, 2, 1]]"}
-
-Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.
-
 ```{=typst}
-#text("State")
-#h(0.7in)
-#text("National")
-#connected-boxes(text1: "`r left_box`", text2: "`r right_box`")
-```
+#box(inset: 10pt)[
+  #grid(
+    columns: (70%, 1fr),
+    column-gutter: 8pt,
+    align: horizon,
+    [Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, Maryland ranks 4th in public health spending.],
 
-:::
-
-```{=typst}
-#source("Source: America's Health Rankings")
-#v(7pt)
+    stack(
+      dir: ttb,
+      spacing: 6pt,
+      align(center + horizon)[
+        #text(weight: "bold", size: 10pt)[State dollars dedicated to public health per capita (2022-23)]
+      ],
+      grid(
+        columns: (auto, auto, auto),
+        column-gutter: 12pt,
+        row-gutter: 6pt,
+        align(center + horizon)[State],
+        [],
+        align(center + horizon)[National],
+        ..connected-boxes(text1: "$210", text2: "$124")
+      )
+    )
+  )
+  #source("Source: America's Health Rankings")
+]
 ```
 
 </div>
@@ -274,23 +277,21 @@ Low levels of public health spending are thought to contribute to suboptimal imm
 
 <div style="background-color: #F8F8F8;">
 
-```{=typst}
-#v(7pt)
+```{r}
+fourth_box <- "4%"
 ```
 
-::: {layout="[[3,1]]"}
-
-In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.
-
 ```{=typst}
-#status-boxes(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
-```
-
-:::
-
-```{=typst}
-#source("Source: AIM")
-#v(7pt)
+#box(inset: 10pt)[
+  #grid(
+    columns: (70%, 1fr),
+    column-gutter: 20pt,
+    align: horizon,
+    [In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.],
+    status-boxes(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
+  )
+  #source("Source: AIM")
+]
 ```
 
 </div>
@@ -306,23 +307,21 @@ Strong policy commitment to immunization is critical for effective vaccination p
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#v(7pt)
-```
+#box(inset: 10pt)[
+  - HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.
 
-- HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.
+  - HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)
 
-- HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)
-
-- SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days.
-
-```{=typst}
-#source("Source: AIM, LegiScan")
-#v(7pt)
+  - SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days.
+  
+  #source("Source: AIM, LegiScan")
+]
 ```
 
 </div>
 
 ```{=typst} 
+#pagebreak()
 #blueline()
 ```
 
@@ -333,38 +332,49 @@ Measles outbreaks can indicate insufficient vaccination coverage within a popula
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-#| layout: [[10]]
-#| fig-height: 5
-#| fig-width: 6
+#| fig-height: 4
+#| fig-width: 10
 df |> measles_map(state_title)
 ```
 
 </div>
 
-<div style="background-color: #002D72; color: white;">
-
 ```{=typst} 
 #box(
   inset: 1em,
+  fill: rgb("#002D72"),
   [
     #grid(
       columns: (1fr, 10fr),
       gutter: 0.1em,
+      align: horizon,
       [#image("assets/coins.svg")],
-      [#text(font: "Gentona", size: 11pt)[Vaccines can help prevent expensive disease outbreaks. A 2018–19 measles outbreak in Washington was estimated to cost #text(fill: rgb("#f1c400"))[US\$47,479] per case for both direct medical and public health response expenses.]]
+      [#text(
+        font: "Gentona",
+        size: 11pt,
+        fill: white
+      )[Vaccines can help prevent expensive disease outbreaks. A 2018–19 measles outbreak in Washington was estimated to cost #text(fill: rgb("#f1c400"))[US\$47,479] per case for both direct medical and public health response expenses.]]
     )
-    #source("Source: Pike, 2022")
+    #place(
+      bottom + right,
+      dy: 3pt,
+      source(color: white, "Source: Pike, 2022")
+    )
   ]
 )
 ```
-
-</div>
 
 ```{=typst} 
 #blueline()
 ```
 
 ## DATA SOURCES
+
+```{=typst}
+#show par: set block(spacing: 0.8em) // reduce line height
+#show list: set block(spacing: 0.5em) // reduce line height
+#set text(size: 9pt) // reduce all text font size
+```
 
 Vaccination coverage:
 
