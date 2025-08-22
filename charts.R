@@ -223,7 +223,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     scale_x_continuous(
       limits = c(0, 100),
       breaks = seq(0, 100, 20),
-      labels = function(x) ifelse(x == 0, "0%", as.character(x))
+      labels = scales::label_number(accuracy = 1, suffix = "%")
     ) +
     labs(
       title = paste("Vaccination comparison (2024)"),
@@ -531,7 +531,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
     scale_x_continuous(
       limits = c(0, 100),
       breaks = seq(0, 100, 20),
-      labels = function(x) ifelse(x == 0, "0%", as.character(x))
+      labels = scales::label_number(accuracy = 1, suffix = "%")
     ) +
     labs(
       title = paste("Vaccination comparison (2021)"),
