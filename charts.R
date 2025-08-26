@@ -113,6 +113,33 @@ measles_map <- function(df, state) {
       )
     )
 
+  if (state == "Alaska") {
+    alpha <- 0.30
+    scale_factor <- 1.18
+
+    ak_idx <- which(df_plot$name == "Alaska")
+    neigh_idx <- which(df_plot$name != "Alaska")
+
+    ak_cent <- st_coordinates(st_centroid(st_geometry(df_plot)[ak_idx]))
+    neigh_cent <- st_coordinates(st_centroid(st_union(st_geometry(df_plot)[
+      neigh_idx
+    ])))
+
+    geoms <- st_geometry(df_plot)
+    geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
+      (g - c(neigh_cent[1], neigh_cent[2])) *
+        scale_factor +
+        c(neigh_cent[1], neigh_cent[2])
+    })
+
+    delta <- (ak_cent - neigh_cent) * alpha
+    geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
+      g + c(delta[1], delta[2])
+    })
+
+    st_geometry(df_plot) <- geoms
+  }
+
   med_val <- median(df_plot$total, na.rm = TRUE)
 
   df_plot |>
