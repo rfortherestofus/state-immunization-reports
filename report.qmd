@@ -9,7 +9,7 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: "Alaska"
+   state: "Hawaii"
    end_date: "August 7, 2025"
 execute:
   echo: false
@@ -32,7 +32,7 @@ source("charts.R")
 
 state <- params$state
 if (is.null(state)) {
-    state <- "Alaska" # Default (same in typst template)
+    state <- "Hawaii" # Default (same in typst template)
 }
 state_title <- gsub(" Of ", " of ", str_to_title(state))
 
@@ -52,7 +52,10 @@ dtap_coverage_final <- read_csv(
 
 us_states <- states() |>
     clean_names() |>
-    select(name)
+    select(name) |>
+    filter(!name %in% c("Commonwealth of the Northern Mariana Islands", 
+                        "American Samoa", 
+                        "United States Virgin Islands"))
 
 population_by_state <-
     get_decennial(
@@ -84,8 +87,8 @@ mmr_line_df <- mmr_coverage_final |>
     select(geography, school_year, estimate_percent)
 
 df_dtap_coverage_final <- dtap_coverage_final |>
-    select(geography, birth_year_birth_cohort, estimate_percent) |>
-    filter(birth_year_birth_cohort == "2021")
+    select(geography, year, estimate_percent) |>
+    filter(year == "2023")
 
 df_dtap <- left_join(
     df_dtap_coverage_final,
@@ -94,7 +97,7 @@ df_dtap <- left_join(
 )
 
 dtap_line_df <- dtap_coverage_final |>
-    select(geography, birth_year_birth_cohort, estimate_percent)
+    select(geography, year, estimate_percent)
 ```
 
 ```{r}
