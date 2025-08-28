@@ -181,6 +181,8 @@ if (spending_state >= spending_us) {
     label_spending_comparison <- "lower"
 }
 
+transmission_label <- "low"
+
 print(glue(
     "This brief illustrates the current status of childhood immunization in {state_title} and is intended to inform state-level policy decisions and priorities. Takeaways include:"
 ))
@@ -196,7 +198,7 @@ cat(
         "- State-level per capita public health spending is {label_spending_comparison} than the national average.\n\n"
     ),
     glue(
-        "- {state_title} has had relatively low levels of measles transmission in 2025."
+        "- {state_title} has had relatively {transmission_label} levels of measles transmission in 2025."
     )
 )
 ```
@@ -238,12 +240,46 @@ df_dtap |> dtap_vaccination_comparison_chart(df, state_title)
 :::
 
 ```{r}
-label_yoy_comparison <- "fewer"
-label_coverage1 <- "higher"
-label_coverage2 <- "higher"
-label_target <- "below"
+is_above_yoy_comparison <- dtap_line_df |>
+    filter(geography == state_title, year %in% c(2022, 2023)) |>
+    summarise(
+        increase = estimate_percent[year == 2023] >
+            estimate_percent[year == 2022]
+    ) |>
+    pull(increase)
+
+if (is_above_yoy_comparison) {
+    label_yoy_comparison <- "higher"
+} else {
+    label_yoy_comparison <- "lower"
+}
+
+coverage_state <- dtap_line_df |>
+    filter(geography == state_title) |>
+    filter(year == 2023) |>
+    pull(estimate_percent)
+if (coverage_state < 90) {
+    label_target <- "below"
+} else {
+    label_target <- "above"
+}
+
+is_above_us <- df_dtap |>
+    filter(geography %in% c(state_title, "United States")) |>
+    summarise(
+        higher = estimate_percent[geography == state_title] >
+            estimate_percent[geography == "United States"]
+    ) |>
+    pull(higher)
+if (is_above_us) {
+    label_coverage_us <- "higher"
+} else {
+    label_coverage_us <- "lower"
+}
+
+label_coverage_neighbors <- "higher"
 text_content <- glue(
-    "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage1} coverage than the US median and {label_coverage2} coverage than neighboring states. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
+    "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage_us} coverage than the US median and {label_coverage_neighbors} coverage than neighboring states. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
 )
 ```
 
