@@ -878,3 +878,17 @@ dtap_vaccination_over_time_chart_lollipop <- function(
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
     )
 }
+
+# utility function for some labels in the report
+ordinal <- function(x) {
+  suffix <- ifelse(
+    x %% 100 %in% 11:13,
+    "th",
+    ifelse(
+      x %% 10 == 1,
+      "st",
+      ifelse(x %% 10 == 2, "nd", ifelse(x %% 10 == 3, "rd", "th"))
+    )
+  )
+  paste0(x, suffix)
+}
