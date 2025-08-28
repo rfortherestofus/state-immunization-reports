@@ -57,7 +57,7 @@ file_copy(
 change_parameters_yaml <- function(state) {
     gsub_file(
         file = str_glue("documents/{state}.qmd"),
-        "state: NULL",
+        "state:.*",
         glue("state: ", gsub("_", " ", state))
     )
 }

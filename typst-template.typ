@@ -142,11 +142,11 @@
 
   // header cover page (title, logo, flag, etc)
   stack(
-    place(dx: 0in, dy: 1.5in, align(block(width: 5.5in, [
+    place(dx: 0in, dy: 1.45in, align(block(width: 5.5in, [
       #text(fill: rgb("#002D72"), weight: "bold", size: 20pt, font: "Bitter", formatted_title)]))),
     place(dx: 5.5in, dy: 1.35in, align(block([
-      #image(state_flag, width: 20%)]))),
-    place(dx: 0.2in, dy: 0.3in, align(block(width: 5in, [
+      #image(state_flag, width: 18%)]))),
+    place(dx: 0.2in, dy: 0.28in, align(block(width: 5in, [
       #image("assets/logo.png", width: 70%)
     ]))),
     place(dx: 0in, dy: 1.2in, align(block([

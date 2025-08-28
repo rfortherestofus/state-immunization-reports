@@ -9,7 +9,7 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: "Hawaii"
+   state: ohio
    end_date: "August 7, 2025"
 execute:
   echo: false
@@ -50,12 +50,46 @@ dtap_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
 )
 
+exemption_policies <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption_policies_final.csv"
+)
+
+exemption <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption.csv"
+)
+
+exemption_policies_state <- exemption_policies |> filter(State == state_title)
+exemption_state <- exemption |>
+    filter(geography == state_title) |>
+    filter(school_year == "2024-25")
+exemption_state_year_before <- exemption |>
+    filter(geography == state_title) |>
+    filter(school_year == "2023-24")
+
+is_universal_purchaser <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/universal_purchase_final.csv"
+) |>
+    filter(State == state_title) |>
+    pull("Universal Purchase") |>
+    toupper()
+
+health_spending <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/health_spending_final.csv"
+)
+health_spending_state <- health_spending |>
+    filter(State == state_title)
+
 us_states <- states() |>
     clean_names() |>
     select(name) |>
-    filter(!name %in% c("Commonwealth of the Northern Mariana Islands", 
-                        "American Samoa", 
-                        "United States Virgin Islands"))
+    filter(
+        !name %in%
+            c(
+                "Commonwealth of the Northern Mariana Islands",
+                "American Samoa",
+                "United States Virgin Islands"
+            )
+    )
 
 population_by_state <-
     get_decennial(
@@ -225,16 +259,37 @@ text_content <- glue(
 
 <div style="background-color: #F8F8F8;">
 
-```{=typst}
-```
-
 ```{r}
-first_box <- "NO"
-second_box <- "YES"
-third_box <- "2%"
-fourth_box <- "4%"
+first_box <- exemption_policies_state |> pull("Personal Exemption") |> toupper()
+second_box <- exemption_policies_state |>
+    pull("Religious Exemption") |>
+    toupper()
+third_box <- exemption_state |> pull("estimate_percent")
+third_box_label <- paste0(third_box |> round(1), "%")
+fourth_box <- paste0(
+    exemption_state |> pull("estimate_percent") |> mean() |> round(1),
+    "%"
+)
+third_box_before <- exemption_state_year_before |> pull("estimate_percent")
+variation <- (third_box - third_box_before) / third_box_before
+if (variation >= 0.0) {
+    variation_label <- "increase"
+} else {
+    variation_label <- "decrease"
+}
+additional_details <- exemption_policies_state |>
+    pull(
+        "Additional Details on Exemption Exceptions & Educational Requirements"
+    ) |>
+    as.character()
+if (is.na(additional_details)) {
+    additional_details <- ""
+    heading_ad <- ""
+} else {
+    heading_ad <- "Additional details on exemption requirements:"
+}
 text_content <- glue(
-    "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight increase from the state's 2023-24 rate."
+    "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight {variation_label} from the state's 2023-24 rate."
 )
 ```
 
@@ -247,15 +302,15 @@ text_content <- glue(
       gutter: 1em,
       [#status-boxes(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
       [#status-boxes(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
-      [#status-boxes(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box`")],
+      [#status-boxes(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box_label`")],
       [#status-boxes(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box`")]
     )
   ]
 )
 #box(inset: 10pt)[
   #text("`r text_content`") \ \
-  #text(weight: "bold")[Additional details on exemption requirements:] \
-  A child's parent or guardian may request an exemption in writing for medical or religious  reasons. The exemption does not apply during an emergency or epidemic of disease.
+  #text(weight: "bold", "`r heading_ad`") \
+  #text("`r additional_details`")
   #source("Source: NCSL, SchoolVaxView")
 ]
 ```
@@ -272,10 +327,34 @@ text_content <- glue(
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-left_box <- "$210"
-right_box <- "$124"
+ordinal <- function(x) {
+    suffix <- ifelse(
+        x %% 100 %in% 11:13,
+        "th",
+        ifelse(
+            x %% 10 == 1,
+            "st",
+            ifelse(x %% 10 == 2, "nd", ifelse(x %% 10 == 3, "rd", "th"))
+        )
+    )
+    paste0(x, suffix)
+}
+rank_spending <- health_spending_state |> pull("Rank") |> ordinal()
+left_box <- paste0(
+    "$",
+    health_spending_state |>
+        pull("Public Health Funding Per Capita ($)") |>
+        round()
+)
+right_box <- paste0(
+    "$",
+    health_spending |>
+        filter(State == "United States") |>
+        pull("Public Health Funding Per Capita ($)") |>
+        round()
+)
 text_content <- glue(
-    "Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, {state_title} ranks 4th in public health spending."
+    "Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, {state_title} ranks {rank_spending} in public health spending."
 )
 ```
 
@@ -300,7 +379,7 @@ text_content <- glue(
         align(center + horizon)[State],
         [],
         align(center + horizon)[National],
-        ..connected-boxes(text1: "$210", text2: "$124")
+        ..connected-boxes(text1: "`r left_box`", text2: "`r right_box`")
       )
     )
   )
@@ -318,10 +397,6 @@ text_content <- glue(
 
 <div style="background-color: #F8F8F8;">
 
-```{r}
-fourth_box <- "4%"
-```
-
 ```{=typst}
 #box(inset: 10pt)[
   #grid(
@@ -329,7 +404,7 @@ fourth_box <- "4%"
     column-gutter: 20pt,
     align: horizon,
     [In states with Universal Purchase programs, the state government purchases all recommended vaccines for all children, regardless of insurance status. These initiatives can help to address disparities in vaccine coverage and support equitable vaccine access.],
-    status-boxes(top-text: "Universal Purchaser?", bottom-text: "`r fourth_box`")
+    status-boxes(top-text: "Universal Purchaser?", bottom-text: "`r is_universal_purchaser`")
   )
   #source("Source: AIM")
 ]
