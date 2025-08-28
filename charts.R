@@ -25,7 +25,7 @@ pal <- c(
 # Measles cases map ------------------------------------------------------
 
 m_pal <- c(
-  "0" = "#B8B8B8", # gray for zero cases
+  "CDC-0" = "#B8B8B8", # gray for zero cases
   "1-9" = "#8ebce3",
   "10-49" = "#6b98c7",
   "50-99" = "#4775aa",
@@ -35,20 +35,21 @@ m_pal <- c(
 
 measles_pal <- setNames(
   m_pal[c("0", "1-9", "10-49", "50-99", "100-249", "250+")],
-  c("0", "1-9", "10-49", "50-99", "100-249", "250+")
+  c("CDC-0", "1-9", "10-49", "50-99", "100-249", "250+")
 )
 
-get_nearest_states <- function(state, k = 5, pool = df) {
+# -------------------------------------------------------------------
+# Helpers
+# -------------------------------------------------------------------
+get_nearest_states <- function(state, k = 5, pool) {
   target <- pool |> filter(name == state)
   others <- pool |> filter(name != state)
 
-  # distance in meters (s2 great-circle if geometry is lon/lat)
   dmat <- st_distance(target, others)
   others |>
     mutate(dist_m = as.numeric(dmat[1, ])) |>
     slice_min(dist_m, n = k)
 }
-
 
 get_neighboring_states <- function(
   df,
@@ -57,16 +58,21 @@ get_neighboring_states <- function(
   min_neighbors = 2
 ) {
   single_state <- df |> filter(name == state)
+
   if (state %in% c("Alaska", "Hawaii", "Puerto Rico")) {
-    result <- bind_rows(single_state, get_nearest_states(state, k = k_nearest))
+    result <- bind_rows(
+      single_state,
+      get_nearest_states(state, k = k_nearest, pool = df)
+    )
   } else {
     touching_neighbors <- df |>
       filter(sf::st_touches(geometry, single_state$geometry, sparse = FALSE)[,
         1
       ])
+
     if (nrow(touching_neighbors) < min_neighbors) {
       needed <- min_neighbors - nrow(touching_neighbors)
-      nearest_states <- get_nearest_states(state, k = needed + 2) # Get extra in case some overlap
+      nearest_states <- get_nearest_states(state, k = needed + 2, pool = df)
       result <- bind_rows(single_state, touching_neighbors, nearest_states) |>
         distinct(name, .keep_all = TRUE)
     } else {
@@ -76,8 +82,10 @@ get_neighboring_states <- function(
   result |> distinct(name, .keep_all = TRUE)
 }
 
-
-# Create the measles_map function that uses get_neighboring_states
+# -------------------------------------------------------------------
+# Main map
+# df must have columns: name (state), total (cases), geometry (sfc)
+# -------------------------------------------------------------------
 measles_map <- function(df, state) {
   df_plot <- get_neighboring_states(df, state) |>
     st_cast("POLYGON") |>
@@ -89,18 +97,15 @@ measles_map <- function(df, state) {
     mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
     mutate(
       measles_category = case_when(
-        total == 0 ~ "0",
-        total >= 1 & total <= 9 ~ "1-9",
-        total >= 10 & total <= 49 ~ "10-49",
-        total >= 50 & total <= 99 ~ "50-99",
-        total >= 100 & total <= 249 ~ "100-249",
-        total >= 250 ~ "250+",
+        !is.na(total) & total == 0 ~ "CDC-0",
+        !is.na(total) & total >= 1 & total <= 9 ~ "1-9",
+        !is.na(total) & total >= 10 & total <= 49 ~ "10-49",
+        !is.na(total) & total >= 50 & total <= 99 ~ "50-99",
+        !is.na(total) & total >= 100 & total <= 249 ~ "100-249",
+        !is.na(total) & total >= 250 ~ "250+",
         TRUE ~ NA_character_
       ),
-      measles_category = factor(
-        measles_category,
-        levels = names(measles_pal) # puts "0" first, then ascending bins
-      )
+      measles_category = factor(measles_category, levels = names(measles_pal))
     )
 
   if (state == "Alaska") {
@@ -127,15 +132,17 @@ measles_map <- function(df, state) {
 
   if (state == "Hawaii") {
     hi_idx <- which(df_plot$name == "Hawaii")
-    neigh_idx <- which(df_plot$name != "Hawaii")
+    ak_idx <- which(df_plot$name == "Alaska")
+    neigh_idx <- which(df_plot$name != "Hawaii" & df_plot$name != "Alaska")
+
     geoms <- st_geometry(df_plot)
 
     hi_cent <- st_coordinates(st_centroid(st_union(geoms[hi_idx])))
     neigh_cent <- st_coordinates(st_centroid(st_union(geoms[neigh_idx])))
 
     scale_hi <- 4.5
-    scale_neighbors <- 2.2
-    pull_in <- 0.25
+    scale_neighbors <- 2.8
+    pull_in <- 0.30
 
     geoms[hi_idx] <- lapply(geoms[hi_idx], function(g) {
       (g - c(hi_cent[1], hi_cent[2])) * scale_hi + c(hi_cent[1], hi_cent[2])
@@ -164,25 +171,67 @@ measles_map <- function(df, state) {
 
   med_val <- median(df_plot$total, na.rm = TRUE)
 
-  df_centroids |>
+  label_df <- if (state == "Hawaii") {
+    hi <- df_centroids |> dplyr::filter(name == "Hawaii")
+    hi_bb <- sf::st_bbox(hi$geometry)
+    dx <- as.numeric((hi_bb["xmax"] - hi_bb["xmin"]) * 1.1)
+    dy <- as.numeric((hi_bb["ymax"] - hi_bb["ymin"]) * -0.50)
+    hi |> dplyr::mutate(lon = lon + dx, lat = lat + dy)
+  } else {
+    df_centroids |> dplyr::filter(name == state)
+  }
+
+  legend_seed <- df_centroids |>
+    slice(1) |>
+    slice(rep(1, length(measles_pal))) |>
+    mutate(
+      measles_category = factor(names(measles_pal), levels = names(measles_pal))
+    )
+
+  p <- df_centroids |>
     ggplot(aes(fill = measles_category)) +
     geom_sf(
       data = df_centroids |> filter(name != state),
       color = "white",
       size = 0.1
-    ) +
-    with_shadow(
+    )
+
+  if (state %in% c("Alaska", "Hawaii")) {
+    p <- p +
       geom_sf(
         data = df_centroids |> filter(name == state),
         aes(fill = measles_category),
         linewidth = 0.5,
         color = "white"
-      ),
-      sigma = 0,
-      x_offset = 3,
-      y_offset = 3
-    ) +
+      )
+  } else {
+    p <- p +
+      with_shadow(
+        geom_sf(
+          data = df_centroids |> filter(name == state),
+          aes(fill = measles_category),
+          linewidth = 0.5,
+          color = "white"
+        ),
+        sigma = 0,
+        x_offset = 3,
+        y_offset = 3
+      )
+  }
+
+  p <- p +
+    geom_sf(
+      data = legend_seed,
+      aes(fill = measles_category),
+      alpha = 0,
+      color = NA,
+      inherit.aes = FALSE,
+      show.legend = TRUE
+    )
+
+  p <- p +
     ggrepel::geom_text_repel(
+      data = label_df,
       aes(
         x = lon,
         y = lat,
@@ -201,9 +250,11 @@ measles_map <- function(df, state) {
     scale_fill_manual(
       values = measles_pal,
       name = "Measles cases",
-      na.value = "grey90",
+      na.value = "#B8B8B8",
+      limits = names(measles_pal),
       breaks = names(measles_pal),
-      labels = c("0", "1-9", "10-49", "50-99", "100-249", "250+")
+      labels = names(measles_pal),
+      drop = FALSE
     ) +
     scale_color_manual(
       values = c("above" = "white", "below" = "black"),
@@ -221,10 +272,14 @@ measles_map <- function(df, state) {
       fill = guide_legend(
         nrow = 1,
         title.position = "top",
-        label.position = "bottom"
+        label.position = "bottom",
+        override.aes = list(alpha = 1, colour = NA)
       )
     )
+
+  p
 }
+
 
 #-----------------------------------------------------------------------------
 
