@@ -308,9 +308,9 @@ is_above_yoy_comparison <- dtap_line_df |>
     round()
 
 if (is_above_yoy_comparison) {
-    label_yoy_comparison <- "higher"
+    label_yoy_comparison <- "more"
 } else {
-    label_yoy_comparison <- "lower"
+    label_yoy_comparison <- "fewer"
 }
 
 coverage_state <- dtap_line_df |>
