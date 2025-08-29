@@ -4,6 +4,7 @@ library(tidyverse)
 library(here)
 library(fs)
 library(xfun)
+library(googledrive)
 
 states_flags <- list.files(
     path = "assets/flags",
@@ -36,6 +37,14 @@ file_copy(
 file_copy(
     path = "assets/logo.png",
     new_path = "documents/assets/logo.png"
+)
+file_copy(
+    path = "assets/down-arrow.png",
+    new_path = "documents/assets/down-arrow.png"
+)
+file_copy(
+    path = "assets/up-arrow.png",
+    new_path = "documents/assets/up-arrow.png"
 )
 file_copy(
     path = "typst-template.typ",
@@ -72,4 +81,14 @@ file_move(
     new_path = "reports"
 )
 pdf_files <- list.files("reports", pattern = "\\.pdf$", full.names = TRUE)
-zip("reports_pdfs.zip", files = pdf_files)
+
+folder <- as_id("1fxoUQYyKK0ef4BRzb3Ab4w1x39s722su")
+
+# upload with overwrite
+lapply(pdf_files, function(f) {
+    drive_upload(
+        media = f,
+        path = folder,
+        overwrite = TRUE
+    )
+})
