@@ -9,7 +9,7 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: ohio
+   state: kentucky
    end_date: "August 7, 2025"
 execute:
   echo: false
@@ -52,11 +52,67 @@ dtap_coverage_final <- read_csv(
 
 exemption_policies <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption_policies_final.csv"
-)
+) |>
+    # mock district of columbia because currently missing from the data
+    bind_rows(data.frame(
+        State = "District of Columbia",
+        `Personal Exemption` = "Yes",
+        `Religious Exemption` = "Yes",
+        `Additional Details on Exemption Exceptions & Educational Requirements` = NA
+    ))
 
 exemption <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption.csv"
-)
+) |>
+    # mock data because currently missing
+    # https://github.com/rfortherestofus/state-immunization-reports/issues/15
+    bind_rows(data.frame(
+        geography = c(
+            "California",
+            "California",
+            "New York",
+            "New York",
+            "Montana",
+            "Montana",
+            "West Virginia",
+            "West Virginia",
+            "Maine"
+        ),
+        school_year = c(
+            "2024-25",
+            "2023-24",
+            "2024-25",
+            "2023-24",
+            "2024-25",
+            "2023-24",
+            "2024-25",
+            "2023-24",
+            "2024-25"
+        ),
+        `Personal Exemption` = c(
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA"
+        ),
+        `Religious Exemption` = c(
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA",
+            "NA"
+        ),
+        estimate_percent = c(1, 1, 1, 1, 1, 1, 1, 1, 1)
+    ))
 
 exemption_policies_state <- exemption_policies |> filter(State == state_title)
 exemption_state <- exemption |>
@@ -72,10 +128,10 @@ first_box <- exemption_policies_state |> pull("Personal Exemption") |> toupper()
 second_box <- exemption_policies_state |>
     pull("Religious Exemption") |>
     toupper()
-third_box <- exemption_state |> pull("estimate_percent")
-third_box_label <- paste0(third_box |> round(1), "%")
+third_box <- exemption_state |> pull("estimate_percent") |> round(1)
+third_box_label <- paste0(third_box, "%")
 fourth_box <- exemption_us |> pull("estimate_percent") |> round(1)
-fourth_box_label <- paste0(fourth_box |> round(1), "%")
+fourth_box_label <- paste0(fourth_box, "%")
 third_box_before <- exemption_state_year_before |> pull("estimate_percent")
 
 is_universal_purchaser <- read_csv(
@@ -92,12 +148,14 @@ health_spending_state <- health_spending |>
     filter(State == state_title)
 rank_spending <- health_spending_state |> pull("Rank") |> ordinal()
 spending_state <- health_spending_state |>
-    pull("Public Health Funding Per Capita ($)")
+    pull("Public Health Funding Per Capita ($)") |>
+    round()
 spending_us <- health_spending |>
     filter(State == "United States") |>
-    pull("Public Health Funding Per Capita ($)")
-spending_state_label <- paste0("$", spending_state |> round())
-spending_us_label <- paste0("$", spending_us |> round())
+    pull("Public Health Funding Per Capita ($)") |>
+    round()
+spending_state_label <- paste0("$", spending_state)
+spending_us_label <- paste0("$", spending_us)
 
 us_states <- states() |>
     clean_names() |>
@@ -246,7 +304,8 @@ is_above_yoy_comparison <- dtap_line_df |>
         increase = estimate_percent[year == 2023] >
             estimate_percent[year == 2022]
     ) |>
-    pull(increase)
+    pull(increase) |>
+    round()
 
 if (is_above_yoy_comparison) {
     label_yoy_comparison <- "higher"
@@ -257,7 +316,8 @@ if (is_above_yoy_comparison) {
 coverage_state <- dtap_line_df |>
     filter(geography == state_title) |>
     filter(year == 2023) |>
-    pull(estimate_percent)
+    pull(estimate_percent) |>
+    round()
 if (coverage_state < 90) {
     label_target <- "below"
 } else {
@@ -277,9 +337,8 @@ if (is_above_us) {
     label_coverage_us <- "lower"
 }
 
-label_coverage_neighbors <- "higher"
 text_content <- glue(
-    "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage_us} coverage than the US median and {label_coverage_neighbors} coverage than neighboring states. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
+    "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage_us} coverage than the US median. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
 )
 ```
 
@@ -320,7 +379,7 @@ label_coverage1 <- "higher"
 label_coverage2 <- "higher"
 label_target <- "falls short of"
 text_content <- glue(
-    "In 2023, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage1} coverage than the US median and {label_coverage2} coverage than neighboring states. Coverage in {state_title} {label_target} the HP2030 target of 95%."
+    "In 2024, the same proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage1} coverage than the US median and {label_coverage2} coverage than neighboring states. Coverage in {state_title} {label_target} the HP2030 target of 95%."
 )
 ```
 
@@ -380,7 +439,7 @@ text_content <- glue(
       [#status-boxes(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
       [#status-boxes(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
       [#status-boxes(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box_label`")],
-      [#status-boxes(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box`")]
+      [#status-boxes(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box_label`")]
     )
   ]
 )
@@ -475,12 +534,15 @@ Strong policy commitment to immunization is critical for effective vaccination p
 
 ```{=typst}
 #box(inset: 10pt)[
-  - HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.
-
-  - HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)
-
-  - SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days.
-  
+  #list(
+    marker: image("assets/down-arrow.png", width: 23pt)
+  )[HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.]
+  #list(
+    marker: image("assets/down-arrow.png", width: 23pt)
+  )[HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)]
+  #list(
+    marker: image("assets/up-arrow.png", width: 23pt)
+  )[SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days.]
   #source("Source: AIM, LegiScan")
 ]
 ```
@@ -495,19 +557,32 @@ Strong policy commitment to immunization is critical for effective vaccination p
 ## DISEASE STATUS
 
 ```{r}
-#| output: asis
-print(glue(
+text_content <- glue(
     "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and {params$end_date}."
-))
+)
 ```
 
 <div style="background-color: #F8F8F8;">
 
+::: {layout="[[1,1]]"}
+
+```{=typst} 
+#box(inset: 10pt)[
+    #align(horizon)[#text("`r text_content`")]
+]
+```
+
 ```{r}
 #| fig-height: 4
-#| fig-width: 10
+#| fig-width: 6
 df |> measles_map(state_title)
 ```
+
+```{=typst} 
+#source("Source: ChildVaxView")
+```
+
+:::
 
 </div>
 
