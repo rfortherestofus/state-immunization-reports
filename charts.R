@@ -25,7 +25,7 @@ pal <- c(
 # Measles cases map ------------------------------------------------------
 
 m_pal <- c(
-  "CDC-0" = "#B8B8B8", # gray for zero cases
+  "0" = "#B8B8B8", # gray for zero cases
   "1-9" = "#8ebce3",
   "10-49" = "#6b98c7",
   "50-99" = "#4775aa",
@@ -35,7 +35,7 @@ m_pal <- c(
 
 measles_pal <- setNames(
   m_pal[c("0", "1-9", "10-49", "50-99", "100-249", "250+")],
-  c("CDC-0", "1-9", "10-49", "50-99", "100-249", "250+")
+  c("0", "1-9", "10-49", "50-99", "100-249", "250+")
 )
 
 # -------------------------------------------------------------------
@@ -87,17 +87,39 @@ get_neighboring_states <- function(
 # df must have columns: name (state), total (cases), geometry (sfc)
 # -------------------------------------------------------------------
 measles_map <- function(df, state) {
-  df_plot <- get_neighboring_states(df, state) |>
-    st_cast("POLYGON") |>
-    group_by(name) |>
-    mutate(area = st_area(geometry)) |>
-    slice_max(area, n = 1) |>
-    ungroup() |>
-    select(-area) |>
-    mutate(geometry = st_simplify(geometry, dTolerance = 1000)) |>
+  df_shifted <- shift_geometry(df, position = "outside")
+
+  df_plot <- get_neighboring_states(df_shifted, state)
+
+  michigan_data <- df_plot |> filter(name == "Michigan")
+  other_states <- df_plot |> filter(name != "Michigan")
+
+  if (nrow(michigan_data) > 0) {
+    michigan_data <- michigan_data |>
+      mutate(
+        geometry = st_simplify(
+          geometry,
+          dTolerance = 500,
+          preserveTopology = TRUE
+        )
+      )
+  }
+
+  if (nrow(other_states) > 0) {
+    other_states <- other_states |>
+      st_cast("POLYGON") |>
+      group_by(name) |>
+      mutate(area = sf::st_area(geometry)) |>
+      slice_max(area, n = 1) |>
+      ungroup() |>
+      select(-area) |>
+      mutate(geometry = sf::st_simplify(geometry, dTolerance = 1000))
+  }
+
+  df_plot <- bind_rows(michigan_data, other_states) |>
     mutate(
       measles_category = case_when(
-        !is.na(total) & total == 0 ~ "CDC-0",
+        !is.na(total) & total == 0 ~ "0",
         !is.na(total) & total >= 1 & total <= 9 ~ "1-9",
         !is.na(total) & total >= 10 & total <= 49 ~ "10-49",
         !is.na(total) & total >= 50 & total <= 99 ~ "50-99",
@@ -109,21 +131,18 @@ measles_map <- function(df, state) {
     )
 
   if (state == "Alaska") {
-    alpha <- 0.2
-    scale_factor <- 2
     ak_idx <- which(df_plot$name == "Alaska")
     neigh_idx <- which(df_plot$name != "Alaska")
+
     ak_cent <- st_coordinates(st_centroid(st_geometry(df_plot)[ak_idx]))
     neigh_cent <- st_coordinates(st_centroid(st_union(st_geometry(df_plot)[
       neigh_idx
     ])))
+
     geoms <- st_geometry(df_plot)
-    geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
-      (g - c(neigh_cent[1], neigh_cent[2])) *
-        scale_factor +
-        c(neigh_cent[1], neigh_cent[2])
-    })
-    delta <- (ak_cent - neigh_cent) * alpha
+    pull_factor <- 0.15
+    delta <- (ak_cent - neigh_cent) * pull_factor
+
     geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
       g + c(delta[1], delta[2])
     })
@@ -132,34 +151,25 @@ measles_map <- function(df, state) {
 
   if (state == "Hawaii") {
     hi_idx <- which(df_plot$name == "Hawaii")
-    ak_idx <- which(df_plot$name == "Alaska")
-    neigh_idx <- which(df_plot$name != "Hawaii" & df_plot$name != "Alaska")
+    neigh_idx <- which(df_plot$name != "Hawaii")
 
-    geoms <- st_geometry(df_plot)
+    if (length(neigh_idx) > 0) {
+      hi_cent <- st_coordinates(st_centroid(st_union(st_geometry(df_plot)[
+        hi_idx
+      ])))
+      neigh_cent <- st_coordinates(st_centroid(st_union(st_geometry(df_plot)[
+        neigh_idx
+      ])))
 
-    hi_cent <- st_coordinates(st_centroid(st_union(geoms[hi_idx])))
-    neigh_cent <- st_coordinates(st_centroid(st_union(geoms[neigh_idx])))
+      geoms <- st_geometry(df_plot)
+      pull_factor <- 0.25
+      delta <- (hi_cent - neigh_cent) * pull_factor
 
-    scale_hi <- 4.5
-    scale_neighbors <- 2.8
-    pull_in <- 0.30
-
-    geoms[hi_idx] <- lapply(geoms[hi_idx], function(g) {
-      (g - c(hi_cent[1], hi_cent[2])) * scale_hi + c(hi_cent[1], hi_cent[2])
-    })
-
-    geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
-      (g - c(neigh_cent[1], neigh_cent[2])) *
-        scale_neighbors +
-        c(neigh_cent[1], neigh_cent[2])
-    })
-
-    delta <- (hi_cent - neigh_cent) * pull_in
-    geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
-      g + c(delta[1], delta[2])
-    })
-
-    st_geometry(df_plot) <- geoms
+      geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
+        g + c(delta[1], delta[2])
+      })
+      st_geometry(df_plot) <- geoms
+    }
   }
 
   df_centroids <- df_plot |>
@@ -168,18 +178,6 @@ measles_map <- function(df, state) {
       lon = st_coordinates(centroid)[, 1],
       lat = st_coordinates(centroid)[, 2]
     )
-
-  med_val <- median(df_plot$total, na.rm = TRUE)
-
-  label_df <- if (state == "Hawaii") {
-    hi <- df_centroids |> dplyr::filter(name == "Hawaii")
-    hi_bb <- sf::st_bbox(hi$geometry)
-    dx <- as.numeric((hi_bb["xmax"] - hi_bb["xmin"]) * 1.1)
-    dy <- as.numeric((hi_bb["ymax"] - hi_bb["ymin"]) * -0.50)
-    hi |> dplyr::mutate(lon = lon + dx, lat = lat + dy)
-  } else {
-    df_centroids |> dplyr::filter(name == state)
-  }
 
   legend_seed <- df_centroids |>
     slice(1) |>
@@ -191,7 +189,7 @@ measles_map <- function(df, state) {
   p <- df_centroids |>
     ggplot(aes(fill = measles_category)) +
     geom_sf(
-      data = df_centroids |> filter(name != state),
+      data = df_centroids |> dplyr::filter(name != state),
       color = "white",
       size = 0.1
     )
@@ -199,23 +197,23 @@ measles_map <- function(df, state) {
   if (state %in% c("Alaska", "Hawaii")) {
     p <- p +
       geom_sf(
-        data = df_centroids |> filter(name == state),
+        data = df_centroids |> dplyr::filter(name == state),
         aes(fill = measles_category),
-        linewidth = 0.5,
+        linewidth = 0.3,
         color = "white"
       )
   } else {
     p <- p +
       with_shadow(
         geom_sf(
-          data = df_centroids |> filter(name == state),
+          data = df_centroids |> dplyr::filter(name == state),
           aes(fill = measles_category),
           linewidth = 0.5,
           color = "white"
         ),
         sigma = 0,
-        x_offset = 3,
-        y_offset = 3
+        x_offset = 2,
+        y_offset = 2
       )
   }
 
@@ -229,24 +227,36 @@ measles_map <- function(df, state) {
       show.legend = TRUE
     )
 
+  sel_row <- df_plot |> filter(name == state)
+  sel_val <- sel_row$total[1]
+  if (is.na(sel_val)) {
+    sel_val <- 0
+  }
+  sel_xy <- st_coordinates(st_point_on_surface(sel_row$geometry))[1, ]
+
   p <- p +
-    ggrepel::geom_text_repel(
-      data = label_df,
-      aes(
-        x = lon,
-        y = lat,
-        label = name,
-        color = ifelse(total > med_val, "above", "below")
-      ),
-      size = 3.2,
-      family = "Gentona",
-      min.segment.length = 0,
-      segment.color = "black",
-      segment.size = 0.3,
-      max.overlaps = Inf,
-      force = 2,
-      point.size = NA
+    annotate(
+      "point",
+      x = sel_xy[1],
+      y = sel_xy[2],
+      shape = 21,
+      size = 10,
+      fill = "white",
+      color = "black",
+      stroke = 0.8
     ) +
+    annotate(
+      "text",
+      x = sel_xy[1],
+      y = sel_xy[2],
+      label = sel_val,
+      family = "Gentona",
+      fontface = "bold",
+      size = 3.8,
+      vjust = 0.35
+    )
+
+  p <- p +
     scale_fill_manual(
       values = measles_pal,
       name = "Measles cases",
@@ -255,10 +265,6 @@ measles_map <- function(df, state) {
       breaks = names(measles_pal),
       labels = names(measles_pal),
       drop = FALSE
-    ) +
-    scale_color_manual(
-      values = c("above" = "white", "below" = "black"),
-      guide = "none"
     ) +
     theme_minimal(base_family = "Gentona") +
     theme(
@@ -295,12 +301,13 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
   chart_data <- df_mmr |>
     filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
-      estimate_percent = as.numeric(estimate_percent), # Convert to numeric
+      estimate_percent = as.numeric(estimate_percent),
       geography = factor(
         geography,
         levels = c("United States", neighboring_data, state_name)
       ),
-      bar_color = ifelse(geography == "United States", "#FF9E1B", "#002D72")
+      bar_fill = ifelse(geography == state_name, "#002D72", NA_character_),
+      txt_col = ifelse(geography == state_name, "white", "black")
     )
 
   ggplot(chart_data, aes(x = estimate_percent, y = geography)) +
@@ -310,23 +317,27 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       color = "gray30",
       alpha = 0.8
     ) +
-    geom_col(width = 0.5, aes(fill = bar_color)) +
-    scale_fill_identity() + # Use the colors we specified
+    geom_col(
+      aes(fill = bar_fill),
+      width = 0.5,
+      color = "#002D72",
+      linewidth = 1
+    ) +
+    scale_fill_identity() +
     geom_text(
-      aes(label = paste0(round(estimate_percent), "%")),
+      aes(label = paste0(round(estimate_percent), "%"), color = txt_col),
       hjust = 1.5,
       size = 4,
       fontface = "bold",
-      color = "white",
       family = "Gentona"
     ) +
     geom_text(
-      aes(label = geography, x = 2),
+      aes(label = geography, x = 2, color = txt_col),
       hjust = 0,
       size = 4,
-      color = "white",
       family = "Gentona"
     ) +
+    scale_color_identity() +
     annotate(
       "text",
       x = 91,
@@ -344,11 +355,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       breaks = seq(0, 100, 20),
       labels = scales::label_number(accuracy = 1, suffix = "%")
     ) +
-    labs(
-      title = paste("Vaccination comparison (2024)"),
-      x = NULL,
-      y = NULL
-    ) +
+    labs(title = "Vaccination comparison (2024)", x = NULL, y = NULL) +
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
@@ -363,145 +370,8 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     )
 }
 
+
 #------------------------------------------------------------------------------
-
-mmr_vaccination_over_time_chart_line <- function(mmr_line_df, state_name) {
-  state_data <- mmr_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      school_year = factor(
-        school_year,
-        levels = unique(school_year[order(school_year)])
-      )
-    )
-
-  if (nrow(state_data) == 0) {
-    stop(paste("No data found for state:", state_name))
-  }
-
-  ggplot(state_data, aes(x = school_year, y = estimate_percent, group = 1)) +
-    geom_hline(
-      yintercept = 95,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_line(color = "#002D72", size = 0.5) +
-    geom_point(color = "#002D72", size = 1) +
-    geom_text(
-      aes(label = paste0(round(estimate_percent, 0), "%")),
-      vjust = -0.8,
-      size = 3.5,
-      fontface = "bold",
-      color = "#002D72",
-      family = "Gentona"
-    ) +
-    annotate(
-      "text",
-      x = length(unique(state_data$school_year)) * 0.85,
-      y = 91.5,
-      label = "HP2030 Target: 95%",
-      vjust = 2,
-      hjust = 0.5,
-      size = 2.8,
-      color = "gray30",
-      family = "Gentona",
-      fontface = "bold"
-    ) +
-    scale_y_continuous(
-      limits = c(0, max(state_data$estimate_percent) + 3),
-      labels = function(x) paste0(x, "%")
-    ) +
-    labs(
-      title = paste(state_name, "Vaccination Rates Over Time"),
-    ) +
-    theme_minimal() +
-    theme(
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      plot.subtitle = element_text(
-        hjust = 0.5,
-        size = 11,
-        family = "Gentona",
-        color = "gray40"
-      ),
-      axis.text.x = element_text(size = 10, family = "Gentona", hjust = 1),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
-    )
-}
-
-## Bar chart
-
-mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
-  state_data <- mmr_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      school_year = factor(
-        school_year,
-        levels = unique(school_year[order(school_year)])
-      )
-    )
-
-  if (nrow(state_data) == 0) {
-    stop(paste("No data found for state:", state_name))
-  }
-
-  n_x <- nlevels(state_data$school_year)
-
-  ggplot(state_data, aes(x = school_year, y = estimate_percent)) +
-    geom_hline(
-      yintercept = 95,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_col(fill = "#002D72", width = 0.4) +
-    geom_text(
-      aes(
-        y = estimate_percent,
-        label = paste0(round(estimate_percent, 0), "%")
-      ),
-      vjust = 2,
-      color = "white",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-    annotate(
-      "text",
-      x = min(5, n_x),
-      y = 96,
-      label = "HP2030 Target: 95%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      vjust = -1.5
-    ) +
-    scale_y_continuous(
-      limits = c(0, 100),
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      expand = expansion(mult = c(0, 0.08))
-    ) +
-    labs(
-      title = glue::glue("Vaccination in {state_name} over time")
-    ) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
-    )
-}
 
 # Lollipop
 
@@ -672,135 +542,6 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
 }
 
 #------------------------------------------------------------------------------------------
-
-dtap_vaccination_over_time_chart_line <- function(dtap_line_df, state_name) {
-  state_data <- dtap_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      birth_year_birth_cohort = factor(
-        birth_year_birth_cohort,
-        levels = unique(birth_year_birth_cohort[order(birth_year_birth_cohort)])
-      )
-    )
-
-  n_x <- nlevels(state_data$birth_year_birth_cohort)
-
-  ggplot(
-    state_data,
-    aes(x = birth_year_birth_cohort, y = estimate_percent, group = 1)
-  ) +
-    geom_hline(
-      yintercept = 90,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_line(color = "#002D72", linewidth = 0.5) +
-    geom_point(color = "#002D72", size = 3) +
-    geom_text(
-      aes(label = paste0(round(estimate_percent, 0), "%")),
-      vjust = -1,
-      color = "#002D72",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-    annotate(
-      "text",
-      x = min(5, n_x),
-      y = 91,
-      label = "HP2030 Target: 90%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      vjust = -1.5
-    ) +
-    scale_y_continuous(
-      limits = c(0, 100),
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      expand = ggplot2::expansion(mult = c(0, 0.08))
-    ) +
-    labs(title = glue::glue("Vaccination in {state_name} over time")) +
-    theme_minimal() +
-    theme(
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      plot.subtitle = element_text(
-        hjust = 0.5,
-        size = 11,
-        family = "Gentona",
-        color = "gray40"
-      ),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
-    )
-}
-
-# Bar chart
-
-dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
-  state_data <- dtap_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      birth_year_birth_cohort = factor(
-        birth_year_birth_cohort,
-        levels = unique(birth_year_birth_cohort[order(birth_year_birth_cohort)])
-      )
-    )
-
-  n_x <- nlevels(state_data$birth_year_birth_cohort)
-
-  ggplot(state_data, aes(x = birth_year_birth_cohort, y = estimate_percent)) +
-    geom_hline(
-      yintercept = 90,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_col(fill = "#002D72", width = 0.4) +
-    geom_text(
-      aes(label = paste0(round(estimate_percent, 0), "%")),
-      vjust = 2,
-      color = "white",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-    annotate(
-      "text",
-      x = min(5, n_x),
-      y = 91,
-      label = "HP2030 Target: 90%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      vjust = -1.5
-    ) +
-    scale_y_continuous(
-      limits = c(0, 100),
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      expand = ggplot2::expansion(mult = c(0, 0.08))
-    ) +
-    labs(title = glue::glue("Vaccination in {state_name} over time")) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
-    )
-}
 
 # Lollipop Chart
 
