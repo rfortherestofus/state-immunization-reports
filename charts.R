@@ -10,7 +10,7 @@ library(ggfx)
 
 pal <- c(
   "#002D72",
-  #"#68ACE5",
+  "#68ACE5",
   "#FF6900",
   "#A7BCD6",
   "#FF9E1B",
@@ -23,6 +23,9 @@ pal <- c(
 
 
 # Measles cases map ------------------------------------------------------
+library(tigris)
+library(tidyverse)
+library(janitor)
 
 m_pal <- c(
   "0" = "#B8B8B8", # gray for zero cases
@@ -46,6 +49,7 @@ get_nearest_states <- function(state, k = 5, pool) {
   others <- pool |> filter(name != state)
 
   dmat <- st_distance(target, others)
+
   others |>
     mutate(dist_m = as.numeric(dmat[1, ])) |>
     slice_min(dist_m, n = k)
@@ -73,12 +77,67 @@ get_neighboring_states <- function(
     if (nrow(touching_neighbors) < min_neighbors) {
       needed <- min_neighbors - nrow(touching_neighbors)
       nearest_states <- get_nearest_states(state, k = needed + 2, pool = df)
+
       result <- bind_rows(single_state, touching_neighbors, nearest_states) |>
         distinct(name, .keep_all = TRUE)
     } else {
       result <- bind_rows(single_state, touching_neighbors)
     }
   }
+
+  result |> distinct(name, .keep_all = TRUE)
+}
+
+michigan_detailed_cache <- counties("MI", cb = TRUE) |>
+  clean_names() |>
+  filter(stusps == "MI") |>
+  summarize()
+
+
+# -------------------------------------------------------------------
+# Helpers
+# -------------------------------------------------------------------
+get_nearest_states <- function(state, k = 5, pool) {
+  target <- pool |> filter(name == state)
+  others <- pool |> filter(name != state)
+
+  dmat <- st_distance(target, others)
+
+  others |>
+    mutate(dist_m = as.numeric(dmat[1, ])) |>
+    slice_min(dist_m, n = k)
+}
+
+get_neighboring_states <- function(
+  df,
+  state,
+  k_nearest = 5,
+  min_neighbors = 2
+) {
+  single_state <- df |> filter(name == state)
+
+  if (state %in% c("Alaska", "Hawaii", "Puerto Rico")) {
+    result <- bind_rows(
+      single_state,
+      get_nearest_states(state, k = k_nearest, pool = df)
+    )
+  } else {
+    touching_neighbors <- df |>
+      filter(sf::st_touches(geometry, single_state$geometry, sparse = FALSE)[,
+        1
+      ])
+
+    if (nrow(touching_neighbors) < min_neighbors) {
+      needed <- min_neighbors - nrow(touching_neighbors)
+      nearest_states <- get_nearest_states(state, k = needed + 2, pool = df)
+
+      result <- bind_rows(single_state, touching_neighbors, nearest_states) |>
+        distinct(name, .keep_all = TRUE)
+    } else {
+      result <- bind_rows(single_state, touching_neighbors)
+    }
+  }
+
   result |> distinct(name, .keep_all = TRUE)
 }
 
@@ -88,21 +147,24 @@ get_neighboring_states <- function(
 # -------------------------------------------------------------------
 measles_map <- function(df, state) {
   df_shifted <- shift_geometry(df, position = "outside")
-
   df_plot <- get_neighboring_states(df_shifted, state)
 
   michigan_data <- df_plot |> filter(name == "Michigan")
   other_states <- df_plot |> filter(name != "Michigan")
 
   if (nrow(michigan_data) > 0) {
-    michigan_data <- michigan_data |>
+    michigan_detailed <- michigan_detailed_cache
+    michigan_detailed <- st_transform(michigan_detailed, st_crs(michigan_data))
+    michigan_detailed <- michigan_detailed |>
       mutate(
         geometry = st_simplify(
           geometry,
-          dTolerance = 500,
+          dTolerance = 200,
           preserveTopology = TRUE
         )
       )
+    michigan_data <- michigan_data |>
+      mutate(geometry = st_geometry(michigan_detailed))
   }
 
   if (nrow(other_states) > 0) {
@@ -146,6 +208,7 @@ measles_map <- function(df, state) {
     geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
       g + c(delta[1], delta[2])
     })
+
     st_geometry(df_plot) <- geoms
   }
 
@@ -168,6 +231,7 @@ measles_map <- function(df, state) {
       geoms[neigh_idx] <- lapply(geoms[neigh_idx], function(g) {
         g + c(delta[1], delta[2])
       })
+
       st_geometry(df_plot) <- geoms
     }
   }
@@ -185,6 +249,16 @@ measles_map <- function(df, state) {
     mutate(
       measles_category = factor(names(measles_pal), levels = names(measles_pal))
     )
+
+  # Get the measles count for the selected state
+  sel_row <- df_plot |> filter(name == state)
+  sel_val <- sel_row$total[1]
+  if (is.na(sel_val)) {
+    sel_val <- 0
+  }
+
+  # Create the title text
+  title_text <- paste0(sel_val, " measles cases in ", state)
 
   p <- df_centroids |>
     ggplot(aes(fill = measles_category)) +
@@ -227,11 +301,6 @@ measles_map <- function(df, state) {
       show.legend = TRUE
     )
 
-  sel_row <- df_plot |> filter(name == state)
-  sel_val <- sel_row$total[1]
-  if (is.na(sel_val)) {
-    sel_val <- 0
-  }
   sel_xy <- st_coordinates(st_point_on_surface(sel_row$geometry))[1, ]
 
   p <- p +
@@ -272,7 +341,14 @@ measles_map <- function(df, state) {
       axis.text = element_blank(),
       axis.title = element_blank(),
       panel.grid = element_blank(),
-      legend.key.width = grid::unit(1.3, "cm")
+      legend.key.width = grid::unit(1.3, "cm"),
+      plot.title = element_text(
+        family = "Gentona",
+        size = 16,
+        hjust = 0.5,
+        color = "black",
+        margin = margin(b = 15)
+      )
     ) +
     guides(
       fill = guide_legend(
@@ -281,7 +357,8 @@ measles_map <- function(df, state) {
         label.position = "bottom",
         override.aes = list(alpha = 1, colour = NA)
       )
-    )
+    ) +
+    labs(title = title_text)
 
   p
 }
@@ -387,7 +464,6 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
     )
 
   n_x <- nlevels(state_data$school_year)
-
   if (nrow(state_data) == 0) {
     stop(paste("No data found for state:", state_name))
   }
@@ -403,63 +479,59 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
       aes(xend = school_year, y = 0, yend = estimate_percent),
       linewidth = 1,
       lineend = "round",
-      color = "#002D72"
+      color = "#68ACE5"
     ) +
     geom_point(
       shape = 21,
       size = 8,
       stroke = 1,
-      fill = "#002D72",
-      color = "#002D72"
+      fill = "#68ACE5",
+      color = "#68ACE5"
     ) +
     geom_text(
       aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "white",
+      color = "black",
       fontface = "bold",
       family = "Gentona",
       size = 3
     ) +
     annotate(
       "text",
-      x = min(5, n_x),
-      y = 96,
-      label = "HP2030 Target: 95%",
+      x = n_x + 0.2,
+      y = 94,
+      label = "HP2030\nTarget: 95%",
       family = "Gentona",
       size = 3,
       color = "gray30",
       fontface = "bold",
-      vjust = -1.5
+      hjust = 0,
+      vjust = 1.2
     ) +
     scale_y_continuous(
-      limits = c(0, 100),
+      breaks = seq(0, 100, 25),
       labels = function(x) paste0(x, "%"),
-      expand = expansion(mult = c(0, 0.05))
+      expand = expansion(mult = c(0, 0.08))
     ) +
-    labs(
-      title = glue::glue("Vaccination in {state_name} over time")
-    ) +
+    coord_cartesian(ylim = c(0, 100), clip = "off") +
+    labs(title = glue::glue("Vaccination in {state_name} over time")) +
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
       plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      plot.subtitle = element_text(
-        hjust = 0.5,
-        size = 11,
-        family = "Gentona",
-        color = "gray40"
-      ),
       axis.text.x = element_text(size = 10, family = "Gentona"),
       axis.text.y = element_text(size = 10, family = "Gentona"),
       axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
+      plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
     )
 }
+
 
 #---------------------------------------------------------------------------------------
 
 ## DTap
 
 dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
+  # pick two largest-pop neighbors (excluding the state itself)
   neighboring_data <- get_neighboring_states(df, state_name) |>
     st_drop_geometry() |>
     filter(name != state_name) |>
@@ -468,6 +540,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
     slice_max(total_population, n = 2) |>
     pull(name)
 
+  # prepare chart data with fill/outline + text color logic copied from MMR version
   chart_data <- df_dtap |>
     filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
@@ -476,6 +549,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
         geography,
         levels = c("United States", neighboring_data, state_name)
       ),
+      # selected state gets fill; others are outline-only
       bar_fill = ifelse(geography == state_name, "#002D72", NA_character_),
       txt_col = ifelse(geography == state_name, "white", "black")
     )
@@ -490,10 +564,11 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
     geom_col(
       aes(fill = bar_fill),
       width = 0.5,
-      color = "#002D72",
+      color = "#002D72", # outline color for all bars
       linewidth = 1
     ) +
     scale_fill_identity() +
+    # value labels: white on filled bar, black on outlined bars
     geom_text(
       aes(label = paste0(round(estimate_percent), "%"), color = txt_col),
       hjust = 1.5,
@@ -501,6 +576,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
       fontface = "bold",
       family = "Gentona"
     ) +
+    # left-side category labels
     geom_text(
       aes(label = geography, x = 2, color = txt_col),
       hjust = 0,
@@ -514,7 +590,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
       y = 0.2,
       label = "HP2030 Target: 90%",
       vjust = -0.7,
-      hjust = 0.9,
+      hjust = 1.2,
       size = 2.5,
       color = "gray30",
       family = "Gentona",
@@ -543,6 +619,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
     )
 }
+
 
 #------------------------------------------------------------------------------------------
 
@@ -596,21 +673,22 @@ dtap_vaccination_over_time_chart_lollipop <- function(
     ) +
     annotate(
       "text",
-      x = min(5, n_x),
+      x = n_x + 0.2,
       y = 91,
-      label = "HP2030 Target: 90%",
+      label = "HP2030\nTarget: 90%",
       family = "Gentona",
       size = 3,
       color = "gray30",
       fontface = "bold",
-      vjust = -1.5
+      hjust = 0,
+      vjust = 1.3
     ) +
     scale_y_continuous(
-      limits = c(0, 100),
       breaks = seq(0, 100, 25),
       labels = function(x) paste0(x, "%"),
       expand = expansion(mult = c(0, 0.08))
     ) +
+    coord_cartesian(ylim = c(0, 100), clip = "off") +
     labs(title = glue::glue("Vaccination in {state_name} Over Time")) +
     theme_minimal() +
     theme(
@@ -619,7 +697,7 @@ dtap_vaccination_over_time_chart_lollipop <- function(
       axis.text.x = element_text(size = 10, family = "Gentona"),
       axis.text.y = element_text(size = 10, family = "Gentona"),
       axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
+      plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
     )
 }
 

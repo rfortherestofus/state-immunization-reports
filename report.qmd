@@ -9,7 +9,7 @@ format:
          - typst-show.typ
       keep-typ: true
 params:
-   state: kentucky
+   state: Michigan
    end_date: "August 7, 2025"
 execute:
   echo: false
@@ -32,7 +32,7 @@ source("charts.R")
 
 state <- params$state
 if (is.null(state)) {
-    state <- "Hawaii" # Default (same in typst template)
+    state <- "Michigan" # Default (same in typst template)
 }
 state_title <- gsub(" Of ", " of ", str_to_title(state))
 
