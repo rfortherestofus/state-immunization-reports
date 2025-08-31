@@ -306,7 +306,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
         geography,
         levels = c("United States", neighboring_data, state_name)
       ),
-      bar_fill = ifelse(geography == state_name, "#002D72", NA_character_),
+      bar_fill = ifelse(geography == state_name, "#68ACE5", NA_character_),
       txt_col = ifelse(geography == state_name, "white", "black")
     )
 
@@ -320,7 +320,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     geom_col(
       aes(fill = bar_fill),
       width = 0.5,
-      color = "#002D72",
+      color = "#68ACE5",
       linewidth = 1
     ) +
     scale_fill_identity() +
@@ -468,19 +468,18 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
     slice_max(total_population, n = 2) |>
     pull(name)
 
-  # Prepare chart data
   chart_data <- df_dtap |>
     filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
-      estimate_percent = as.numeric(estimate_percent), # Convert to numeric
+      estimate_percent = as.numeric(estimate_percent),
       geography = factor(
         geography,
-        levels = unique(c("United States", neighboring_data, state_name))
+        levels = c("United States", neighboring_data, state_name)
       ),
-      bar_color = ifelse(geography == "United States", "#FF9E1B", "#002D72")
+      bar_fill = ifelse(geography == state_name, "#002D72", NA_character_),
+      txt_col = ifelse(geography == state_name, "white", "black")
     )
 
-  # Create the chart
   ggplot(chart_data, aes(x = estimate_percent, y = geography)) +
     geom_vline(
       xintercept = 90,
@@ -488,30 +487,34 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
       color = "gray30",
       alpha = 0.8
     ) +
-    geom_col(width = 0.5, aes(fill = bar_color)) +
-    scale_fill_identity() + # Use the colors we specified
+    geom_col(
+      aes(fill = bar_fill),
+      width = 0.5,
+      color = "#002D72",
+      linewidth = 1
+    ) +
+    scale_fill_identity() +
     geom_text(
-      aes(label = paste0(round(estimate_percent), "%")),
+      aes(label = paste0(round(estimate_percent), "%"), color = txt_col),
       hjust = 1.5,
       size = 4,
       fontface = "bold",
-      color = "white",
       family = "Gentona"
     ) +
     geom_text(
-      aes(label = geography, x = 2),
+      aes(label = geography, x = 2, color = txt_col),
       hjust = 0,
       size = 4,
-      color = "white",
       family = "Gentona"
     ) +
+    scale_color_identity() +
     annotate(
       "text",
       x = 91,
       y = 0.2,
       label = "HP2030 Target: 90%",
       vjust = -0.7,
-      hjust = 1.2,
+      hjust = 0.9,
       size = 2.5,
       color = "gray30",
       family = "Gentona",
@@ -523,7 +526,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
       labels = scales::label_number(accuracy = 1, suffix = "%")
     ) +
     labs(
-      title = paste("Vaccination comparison (2023)"),
+      title = "Vaccination comparison (2023)",
       x = NULL,
       y = NULL
     ) +
