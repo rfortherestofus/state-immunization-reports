@@ -7,7 +7,6 @@ format:
       template-partials:
          - typst-template.typ
          - typst-show.typ
-      keep-typ: true
 params:
    state: Michigan
    end_date: "August 7, 2025"
@@ -44,7 +43,14 @@ total_measles_cases <- read_csv(
 
 mmr_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
-)
+) |>
+    # mock data because missing
+    bind_rows(data.frame(
+        geography = c("Montana", "Montana", "West Virginia"),
+        school_year = c("2023-24", "2024-25", "2024-25"),
+        estimate_percent = c("1", "1", "1")
+    ))
+
 
 dtap_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
