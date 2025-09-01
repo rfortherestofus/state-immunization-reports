@@ -490,7 +490,7 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
     ) +
     geom_text(
       aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "black",
+      color = "white",
       fontface = "bold",
       family = "Gentona",
       size = 3
@@ -499,7 +499,7 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
       "text",
       x = n_x + 0.2,
       y = 94,
-      label = "HP2030\nTarget: 95%",
+      label = "HP2030 Target: 95%",
       family = "Gentona",
       size = 3,
       color = "gray30",
