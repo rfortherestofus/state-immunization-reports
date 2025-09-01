@@ -505,7 +505,7 @@ mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
       color = "gray30",
       fontface = "bold",
       hjust = 0,
-      vjust = 1.2
+      vjust = -1.2
     ) +
     scale_y_continuous(
       breaks = seq(0, 100, 25),
@@ -675,13 +675,13 @@ dtap_vaccination_over_time_chart_lollipop <- function(
       "text",
       x = n_x + 0.2,
       y = 91,
-      label = "HP2030\nTarget: 90%",
+      label = "HP2030 Target: 90%",
       family = "Gentona",
       size = 3,
       color = "gray30",
       fontface = "bold",
       hjust = 0,
-      vjust = 1.3
+      vjust = -1.3
     ) +
     scale_y_continuous(
       breaks = seq(0, 100, 25),
