@@ -376,12 +376,12 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     pull(name)
 
   chart_data <- df_mmr |>
-    filter(geography %in% c(state_name, neighboring_data, "United States")) |>
+    filter(geography %in% c(state_name, neighboring_data, "U.S. Median")) |>
     mutate(
       estimate_percent = as.numeric(estimate_percent),
       geography = factor(
         geography,
-        levels = c("United States", neighboring_data, state_name)
+        levels = c("U.S. Median", neighboring_data, state_name)
       ),
       bar_fill = ifelse(geography == state_name, "#68ACE5", NA_character_),
       txt_col = ifelse(geography == state_name, "white", "black")
@@ -559,7 +559,7 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
         label = paste0(round(estimate_percent, 0), "%")
       ),
       vjust = 2.4,
-      color = "black",
+      color = "white",
       fontface = "bold",
       family = "Gentona",
       size = 3

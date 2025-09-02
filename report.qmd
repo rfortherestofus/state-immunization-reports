@@ -278,7 +278,7 @@ print(glue(
 ::: {layout="[[1,1]]"}
 
 ```{r}
-dtap_line_df |> dtap_vaccination_over_time_chart_lollipop(state_title)
+dtap_line_df |> dtap_vaccination_over_time_chart_bar(state_title)
 ```
 
 ```{r}
@@ -354,7 +354,7 @@ text_content <- glue(
 ::: {layout="[[1,1]]"}
 
 ```{r}
-mmr_line_df |> mmr_vaccination_over_time_chart_lollipop(state_title)
+mmr_line_df |> mmr_vaccination_over_time_chart_bar(state_title)
 ```
 
 
