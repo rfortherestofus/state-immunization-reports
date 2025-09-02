@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: ohio
+   state: Texas
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -43,38 +43,12 @@ total_measles_cases <- read_csv(
 
 mmr_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
-) |>
-    # missing data
-    bind_rows(data.frame(
-        vaccine_exemption = c("MMR", "MMR", "MMR", "MMR", "MMR"),
-        dose = c(NA, NA, NA, NA, NA),
-        geography_type = c(
-            "National",
-            "National",
-            "National",
-            "National",
-            "National"
-        ),
-        geography = c(
-            "U.S. Median",
-            "U.S. Median",
-            "U.S. Median",
-            "U.S. Median",
-            "U.S. Median"
-        ),
-        school_year = c("2020-21", "2021-22", "2022-23", "2023-24", "2024-25"),
-        estimate_percent = c("93.7", "92.9", "92.1", "92.0", "91.3"),
-        population_size = c(3510744, 3835130, 3832381, 3823506, 51319),
-        percent_surveyed = c(90.0, 92.2, 92.9, 93.1, 99.5),
-        footnotes = c(NA, NA, NA, NA, NA),
-        number_of_exemptions = c(NA, NA, NA, NA, NA),
-        survey_type = c(NA, NA, NA, NA, NA)
-    ))
+)
 
 state_policies <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/state_policies_final.csv"
 ) |>
-    filter(state == "Tennessee") |>
+    filter(state == state_title) |>
     filter(`1_include_in_brief` == 1) |>
     filter(!(is.na(bill_number)))
 
@@ -581,21 +555,36 @@ text_content <- glue(
 
 Strong policy commitment to immunization is critical for effective vaccination programs. The state legislature has recently introduced several bills that would affect state-wide childhood vaccination, a selection of which are described below. The arrows below indicate whether these bills would strengthen (↑) or weaken (↓) vaccine safety nets.
 
+```{r}
+typst_list <- state_policies |>
+    mutate(
+        arrow = ifelse(
+            bill_valency == "Good",
+            "up-arrow.png",
+            "down-arrow.png"
+        ),
+        list_item = glue(
+            '#list(marker: image("assets/{arrow}", width: 23pt))[',
+            '{bill_number} ({bill_status}) – {text_description}]'
+        )
+    ) |>
+    pull(list_item)
+
+typst_code <- glue(
+    'box(inset: 10pt)[\n',
+    '{paste(typst_list, collapse = "\n")}\n]',
+    .trim = FALSE
+)
+
+writeLines(typst_code, "state_policies.typ")
+```
+
 <div style="background-color: #F8F8F8;">
 
 ```{=typst}
-#box(inset: 10pt)[
-  #list(
-    marker: image("assets/down-arrow.png", width: 23pt)
-  )[HB1315 (enacted) – Broadens pharmacists' immunization roles and mandates health insurers cover all CDC-recommended childhood vaccinations.]
-  #list(
-    marker: image("assets/down-arrow.png", width: 23pt)
-  )[HB974 (enacted): Authorizes the health commissioner to establish regulations requiring health insurers to cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP)]
-  #list(
-    marker: image("assets/up-arrow.png", width: 23pt)
-  )[SB821/HB608 (proposed) – Would extend the temporary school admission period for students lacking required immunizations from 20 to 60 days.]
-  #source("Source: AIM, LegiScan")
-]
+#let policies = read("state_policies.typ")
+#eval(policies)
+#box(inset: 10pt)[#source("Source: AIM, LegiScan")]
 ```
 
 </div>
