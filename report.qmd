@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: Michigan
+   state: Maine
    end_date: "August 7, 2025"
 execute:
   echo: false
@@ -44,13 +44,20 @@ total_measles_cases <- read_csv(
 mmr_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
 ) |>
-    # mock data because missing
+    # mock data because currently missing
+    # https://github.com/rfortherestofus/state-immunization-reports/issues/15
     bind_rows(data.frame(
         geography = c("Montana", "Montana", "West Virginia"),
         school_year = c("2023-24", "2024-25", "2024-25"),
         estimate_percent = c("1", "1", "1")
     ))
 
+state_policies <- read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/state_policies_final.csv"
+) |>
+    filter(state == "Texas") |>
+    filter(`1_include_in_brief` == 1) |>
+    filter(!(is.na(bill_number)))
 
 dtap_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
@@ -58,49 +65,28 @@ dtap_coverage_final <- read_csv(
 
 exemption_policies <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption_policies_final.csv"
-) |>
-    # mock district of columbia because currently missing from the data
-    bind_rows(data.frame(
-        State = "District of Columbia",
-        `Personal Exemption` = "Yes",
-        `Religious Exemption` = "Yes",
-        `Additional Details on Exemption Exceptions & Educational Requirements` = NA
-    ))
+)
 
 exemption <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption.csv"
 ) |>
     # mock data because currently missing
     # https://github.com/rfortherestofus/state-immunization-reports/issues/15
+    filter(geography != "Maine") |>
     bind_rows(data.frame(
         geography = c(
-            "California",
-            "California",
-            "New York",
-            "New York",
-            "Montana",
-            "Montana",
             "West Virginia",
             "West Virginia",
+            "Maine",
             "Maine"
         ),
         school_year = c(
             "2024-25",
             "2023-24",
-            "2024-25",
-            "2023-24",
-            "2024-25",
-            "2023-24",
-            "2024-25",
             "2023-24",
             "2024-25"
         ),
         `Personal Exemption` = c(
-            "NA",
-            "NA",
-            "NA",
-            "NA",
-            "NA",
             "NA",
             "NA",
             "NA",
@@ -110,26 +96,27 @@ exemption <- read_csv(
             "NA",
             "NA",
             "NA",
-            "NA",
-            "NA",
-            "NA",
-            "NA",
-            "NA",
             "NA"
         ),
-        estimate_percent = c(1, 1, 1, 1, 1, 1, 1, 1, 1)
+        estimate_percent = c(1, 1, 1, 1)
     ))
 
 exemption_policies_state <- exemption_policies |> filter(State == state_title)
 exemption_state <- exemption |>
     filter(geography == state_title) |>
     filter(school_year == "2024-25")
+if (nrow(exemption_state) == 0) {
+    stop(glue("Missing state {state} in exemption dataset."))
+}
 exemption_state_year_before <- exemption |>
     filter(geography == state_title) |>
     filter(school_year == "2023-24")
 exemption_us <- exemption |>
-    filter(geography == "United States") |>
+    filter(geography == "U.S. Median") |>
     filter(school_year == "2024-25")
+if (nrow(exemption_us) == 0) {
+    stop(glue("Missing US in exemption dataset."))
+}
 first_box <- exemption_policies_state |> pull("Personal Exemption") |> toupper()
 second_box <- exemption_policies_state |>
     pull("Religious Exemption") |>
@@ -152,6 +139,9 @@ health_spending <- read_csv(
 )
 health_spending_state <- health_spending |>
     filter(State == state_title)
+if (nrow(health_spending_state) == 0) {
+    stop(glue("Missing state {state} in health spending dataset."))
+}
 rank_spending <- health_spending_state |> pull("Rank") |> ordinal()
 spending_state <- health_spending_state |>
     pull("Public Health Funding Per Capita ($)") |>
@@ -394,12 +384,12 @@ is_decreasing_yoy <- mmr_coverage_final |>
 
 is_lower_us <- mmr_coverage_final |>
     filter(
-        geography %in% c(state_title, "United States"),
+        geography %in% c(state_title, "U.S. Median"),
         school_year == "2024-25"
     ) |>
     summarise(
         lower_than_us = estimate_percent[geography == state_title] <
-            estimate_percent[geography == "United States"]
+            estimate_percent[geography == "U.S. Median"]
     ) |>
     pull(lower_than_us)
 
