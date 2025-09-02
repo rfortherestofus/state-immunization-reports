@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: Texas
+   state: new york
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -30,9 +30,6 @@ library(showtext)
 source("charts.R")
 
 state <- params$state
-if (is.null(state)) {
-    state <- "Michigan" # Default (same in typst template)
-}
 state_title <- gsub(" Of ", " of ", str_to_title(state))
 
 census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
@@ -184,7 +181,10 @@ if (is_above_national_comparison) {
 }
 
 # some states have some missing data here
-if (!(state_title %in% c("Montana", "West Virginia", "Maine"))) {
+if (
+    !(state_title %in%
+        c("Montana", "West Virginia", "Maine", "California", "New York"))
+) {
     if (third_box >= fourth_box) {
         label_median_comparison <- "higher"
     } else {
@@ -423,7 +423,10 @@ if (!(state_title %in% c("West Virginia", "Montana"))) {
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-if (!(state_title %in% c("Montana", "West Virginia", "Maine"))) {
+if (
+    !(state_title %in%
+        c("Montana", "West Virginia", "Maine", "California", "New York"))
+) {
     variation <- (third_box - third_box_before) / third_box_before
     if (variation >= 0.0) {
         variation_label <- "increase"
@@ -569,6 +572,7 @@ typst_list <- state_policies |>
         )
     ) |>
     pull(list_item)
+typst_list <- gsub("\\$", "\\\\\\$", typst_list)
 
 typst_code <- glue(
     'box(inset: 10pt)[\n',
