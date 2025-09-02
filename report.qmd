@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: Maine
+   state: ohio
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -74,7 +74,7 @@ mmr_coverage_final <- read_csv(
 state_policies <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/state_policies_final.csv"
 ) |>
-    filter(state == "Texas") |>
+    filter(state == "Tennessee") |>
     filter(`1_include_in_brief` == 1) |>
     filter(!(is.na(bill_number)))
 
@@ -220,7 +220,7 @@ if (!(state_title %in% c("Montana", "West Virginia", "Maine"))) {
         "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
     )
 } else {
-    sentence_median_comparison <- ""
+    sentence_median_comparison <- "\n\n"
 }
 
 if (spending_state >= spending_us) {
