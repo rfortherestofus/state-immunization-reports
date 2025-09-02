@@ -9,7 +9,7 @@ format:
          - typst-show.typ
 params:
    state: Maine
-   end_date: "August 7, 2025"
+   end_date: "September 1, 2025"
 execute:
   echo: false
   message: false
@@ -44,12 +44,31 @@ total_measles_cases <- read_csv(
 mmr_coverage_final <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
 ) |>
-    # mock data because currently missing
-    # https://github.com/rfortherestofus/state-immunization-reports/issues/15
+    # missing data
     bind_rows(data.frame(
-        geography = c("Montana", "Montana", "West Virginia"),
-        school_year = c("2023-24", "2024-25", "2024-25"),
-        estimate_percent = c("1", "1", "1")
+        vaccine_exemption = c("MMR", "MMR", "MMR", "MMR", "MMR"),
+        dose = c(NA, NA, NA, NA, NA),
+        geography_type = c(
+            "National",
+            "National",
+            "National",
+            "National",
+            "National"
+        ),
+        geography = c(
+            "U.S. Median",
+            "U.S. Median",
+            "U.S. Median",
+            "U.S. Median",
+            "U.S. Median"
+        ),
+        school_year = c("2020-21", "2021-22", "2022-23", "2023-24", "2024-25"),
+        estimate_percent = c("93.7", "92.9", "92.1", "92.0", "91.3"),
+        population_size = c(3510744, 3835130, 3832381, 3823506, 51319),
+        percent_surveyed = c(90.0, 92.2, 92.9, 93.1, 99.5),
+        footnotes = c(NA, NA, NA, NA, NA),
+        number_of_exemptions = c(NA, NA, NA, NA, NA),
+        survey_type = c(NA, NA, NA, NA, NA)
     ))
 
 state_policies <- read_csv(
@@ -69,45 +88,12 @@ exemption_policies <- read_csv(
 
 exemption <- read_csv(
     "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption.csv"
-) |>
-    # mock data because currently missing
-    # https://github.com/rfortherestofus/state-immunization-reports/issues/15
-    filter(geography != "Maine") |>
-    bind_rows(data.frame(
-        geography = c(
-            "West Virginia",
-            "West Virginia",
-            "Maine",
-            "Maine"
-        ),
-        school_year = c(
-            "2024-25",
-            "2023-24",
-            "2023-24",
-            "2024-25"
-        ),
-        `Personal Exemption` = c(
-            "NA",
-            "NA",
-            "NA",
-            "NA"
-        ),
-        `Religious Exemption` = c(
-            "NA",
-            "NA",
-            "NA",
-            "NA"
-        ),
-        estimate_percent = c(1, 1, 1, 1)
-    ))
+)
 
 exemption_policies_state <- exemption_policies |> filter(State == state_title)
 exemption_state <- exemption |>
     filter(geography == state_title) |>
     filter(school_year == "2024-25")
-if (nrow(exemption_state) == 0) {
-    stop(glue("Missing state {state} in exemption dataset."))
-}
 exemption_state_year_before <- exemption |>
     filter(geography == state_title) |>
     filter(school_year == "2023-24")
@@ -223,10 +209,18 @@ if (is_above_national_comparison) {
     label_national_comparison <- "below"
 }
 
-if (third_box >= fourth_box) {
-    label_median_comparison <- "higher"
+# some states have some missing data here
+if (!(state_title %in% c("Montana", "West Virginia", "Maine"))) {
+    if (third_box >= fourth_box) {
+        label_median_comparison <- "higher"
+    } else {
+        label_median_comparison <- "lower"
+    }
+    sentence_median_comparison <- glue(
+        "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
+    )
 } else {
-    label_median_comparison <- "lower"
+    sentence_median_comparison <- ""
 }
 
 if (spending_state >= spending_us) {
@@ -235,7 +229,9 @@ if (spending_state >= spending_us) {
     label_spending_comparison <- "lower"
 }
 
-transmission_label <- "low"
+n_cases_measles <- df |>
+    filter(name == state_title) |>
+    pull(total)
 
 print(glue(
     "This brief illustrates the current status of childhood immunization in {state_title} and is intended to inform state-level policy decisions and priorities. Takeaways include:"
@@ -245,14 +241,12 @@ cat(
     glue(
         "- State-level immunization coverage in {state_title} for key childhood vaccines, such as DTaP and MMR, is {label_national_comparison} than national averages.\n\n"
     ),
-    glue(
-        "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
-    ),
+    sentence_median_comparison,
     glue(
         "- State-level per capita public health spending is {label_spending_comparison} than the national average.\n\n"
     ),
     glue(
-        "- {state_title} has had relatively {transmission_label} levels of measles transmission in 2025."
+        "- {state_title} has reported {n_cases_measles} cases of measles since January 1, 2025."
     )
 )
 ```
@@ -401,27 +395,34 @@ value <- mmr_coverage_final |>
     pull(estimate_percent)
 is_below_target <- value < 95
 
-if (is_decreasing_yoy) {
-    label_comparison_yoy <- "lower"
-} else {
-    label_comparison_yoy <- "higher"
-}
+# some states have some missing data which prevent us to display default text
+if (!(state_title %in% c("West Virginia", "Montana"))) {
+    if (is_decreasing_yoy) {
+        label_comparison_yoy <- "lower"
+    } else {
+        label_comparison_yoy <- "higher"
+    }
 
-if (is_lower_us) {
-    label_coverage <- "lower"
-} else {
-    label_coverage <- "higher"
-}
+    if (is_lower_us) {
+        label_coverage <- "lower"
+    } else {
+        label_coverage <- "higher"
+    }
 
-if (is_below_target) {
-    label_target <- "falls short of"
-} else {
-    label_target <- "exceeds"
-}
+    if (is_below_target) {
+        label_target <- "falls short of"
+    } else {
+        label_target <- "exceeds"
+    }
 
-text_content <- glue(
-    "In 2024, a {label_comparison_yoy} proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage} coverage than the US median. Coverage in {state_title} {label_target} the HP2030 target of 95%."
-)
+    text_content <- glue(
+        "In 2024, a {label_comparison_yoy} proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage} coverage than the US median. Coverage in {state_title} {label_target} the HP2030 target of 95%."
+    )
+} else {
+    text_content <- glue(
+        "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
+    )
+}
 ```
 
 ```{=typst}
@@ -448,26 +449,35 @@ text_content <- glue(
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-variation <- (third_box - third_box_before) / third_box_before
-if (variation >= 0.0) {
-    variation_label <- "increase"
+if (!(state_title %in% c("Montana", "West Virginia", "Maine"))) {
+    variation <- (third_box - third_box_before) / third_box_before
+    if (variation >= 0.0) {
+        variation_label <- "increase"
+    } else {
+        variation_label <- "decrease"
+    }
+    additional_details <- exemption_policies_state |>
+        pull(
+            "Additional Details on Exemption Exceptions & Educational Requirements"
+        ) |>
+        as.character()
+    if (is.na(additional_details)) {
+        additional_details <- ""
+        heading_ad <- ""
+    } else {
+        heading_ad <- "Additional details on exemption requirements:"
+    }
+    text_content <- glue(
+        "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight {variation_label} from the state's 2023-24 rate."
+    )
 } else {
-    variation_label <- "decrease"
-}
-additional_details <- exemption_policies_state |>
-    pull(
-        "Additional Details on Exemption Exceptions & Educational Requirements"
-    ) |>
-    as.character()
-if (is.na(additional_details)) {
-    additional_details <- ""
     heading_ad <- ""
-} else {
-    heading_ad <- "Additional details on exemption requirements:"
+    additional_details <- ""
+    third_box_label <- "NA"
+    text_content <- glue(
+        "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
+    )
 }
-text_content <- glue(
-    "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year is a slight {variation_label} from the state's 2023-24 rate."
-)
 ```
 
 ```{=typst}
