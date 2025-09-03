@@ -11,7 +11,7 @@ states_flags <- list.files(
     pattern = "\\.svg$",
     full.names = TRUE
 )
-states <- tools::file_path_sans_ext(basename(states_flags))
+states <- tools::file_path_sans_ext(basename(states_flags))[33:51]
 
 if (dir_exists("documents")) {
     print("Deleting documents/ and reports/")
