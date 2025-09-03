@@ -376,12 +376,16 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     pull(name)
 
   chart_data <- df_mmr |>
-    filter(geography %in% c(state_name, neighboring_data, "U.S. Median")) |>
+    # Normalize label so "U.S. Median" becomes "United States"
+    mutate(
+      geography = ifelse(geography == "U.S. Median", "United States", geography)
+    ) |>
+    filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
       estimate_percent = as.numeric(estimate_percent),
       geography = factor(
         geography,
-        levels = c("U.S. Median", neighboring_data, state_name)
+        levels = c("United States", neighboring_data, state_name)
       ),
       bar_fill = ifelse(geography == state_name, "#68ACE5", NA_character_),
       txt_col = ifelse(geography == state_name, "white", "black")
@@ -906,10 +910,6 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
     )
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d3c3e7e1b404114894b3353c36ef67d66db7efb2
 # utility function for some labels in the report
 ordinal <- function(x) {
   suffix <- ifelse(
