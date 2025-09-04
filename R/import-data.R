@@ -14,7 +14,7 @@ library(dplyr)
 # Import- measles cases dataset
 measles_cases <- read_csv("data-raw/measles_cases_09_01.csv")
 measles_cases <- janitor::clean_names(measles_cases)
-  total_measles_case <- measles_cases %>%
+total_measles_case <- measles_cases %>%
   select(state, total)
 
 
@@ -25,7 +25,7 @@ write_csv(total_measles_case, "data-clean/total_measles_cases.csv")
 # MMR Coverage ------------------------------------------------------------
 # CSV comes from CDC's SchoolVaxView (https://data.cdc.gov/Vaccinations/Vaccination-Coverage-and-Exemptions-among-Kinderga/ijqb-a7ye/about_data)
 # Import- MMR coverage data
-mmr_coverage <- read_csv("data-raw/mmr_coverage.csv")|>
+mmr_coverage <- read_csv("data-raw/mmr_coverage.csv") |>
   clean_names()
 
 # Desired years
@@ -116,14 +116,19 @@ me_filtered <- mmr_coverage %>%
   )
 
 # West Virginia: NA
-wv_filtered <-mmr_coverage %>%
+wv_filtered <- mmr_coverage %>%
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2018-19", "2019-20"),
     geography == "West Virginia"
   )
 non_medical_exemptions <- bind_rows(
-  non_medical_exemptions, ny_filtered, mt_filtered, ca_filtered, me_filtered, wv_filtered
+  non_medical_exemptions,
+  ny_filtered,
+  mt_filtered,
+  ca_filtered,
+  me_filtered,
+  wv_filtered
 )
 
 head(non_medical_exemptions)
