@@ -29,8 +29,6 @@ The `data-clean` folder holds all clean data:
 
 The CSV files in the `data-clean` folder are used to generate state-level immunization reports for all 50 states, the District of Columbia, and Puerto Rico.
 
-<br><br>
-
 ## How the report works
 
 The report file (`report.qmd`) relies on a Typst template that lives in `typst-template.typ` and uses many functions defined in the latest for easier styling. For instance, the following snippet adds a source section at the bottom right in the current element, and adds some vertical margin:
