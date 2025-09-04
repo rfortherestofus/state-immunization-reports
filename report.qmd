@@ -138,12 +138,36 @@ population_by_state <-
 
 df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
+priority_years <- c("2024-25","2023-24","2022-23","2021-22","2020-21","2019-20")
+
 df_mmr_coverage_final <- mmr_coverage_final |>
   select(geography, school_year, estimate_percent) |>
-  filter(
-    (geography == "Montana" & school_year == "2020-21") |
-    (geography != "Montana" & school_year == "2024-25")
-  )
+  filter(school_year %in% priority_years) |>
+  mutate(estimate_percent = readr::parse_number(as.character(estimate_percent))) |>
+  group_by(geography, school_year) |>
+  summarise(
+    estimate_percent = first(estimate_percent[!is.na(estimate_percent)], default = NA_real_),
+    .groups = "drop"
+  ) |>
+  pivot_wider(
+    names_from  = school_year,
+    values_from = estimate_percent,
+    values_fill = NA_real_
+  ) |>
+  mutate(
+    estimate_percent = coalesce(`2024-25`, `2023-24`, `2022-23`, `2021-22`, `2020-21`, `2019-20`),
+    school_year = case_when(
+      !is.na(`2024-25`) ~ "2024-25",
+      !is.na(`2023-24`) ~ "2023-24",
+      !is.na(`2022-23`) ~ "2022-23",
+      !is.na(`2021-22`) ~ "2021-22",
+      !is.na(`2020-21`) ~ "2020-21",
+      !is.na(`2019-20`) ~ "2019-20",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(estimate_percent)) |>
+  select(geography, school_year, estimate_percent)
 
 df_mmr <- left_join(
   df_mmr_coverage_final,
