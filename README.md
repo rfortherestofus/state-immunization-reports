@@ -1,8 +1,6 @@
 # State Immunization Reports
 
-<br>
-
-### Data
+## Data
 
 This repo has data on state-level immunization. The `data-raw` folder holds all raw data:
 
@@ -33,7 +31,7 @@ The CSV files in the `data-clean` folder are used to generate state-level immuni
 
 <br><br>
 
-### How the report works
+## How the report works
 
 The report file (`report.qmd`) relies on a Typst template that lives in `typst-template.typ` and uses many functions defined in the latest for easier styling. For instance, the following snippet adds a source section at the bottom right in the current element, and adds some vertical margin:
 
