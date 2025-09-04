@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: West Virginia
+   state: Montana
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -141,7 +141,6 @@ df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 priority_years <- c("2024-25","2023-24","2022-23","2021-22","2020-21","2019-20")
 
 df_mmr_coverage_final <- mmr_coverage_final |>
-<<<<<<< HEAD
   select(geography, school_year, estimate_percent) |>
   filter(school_year %in% priority_years) |>
   mutate(estimate_percent = readr::parse_number(as.character(estimate_percent))) |>
@@ -169,13 +168,6 @@ df_mmr_coverage_final <- mmr_coverage_final |>
   ) |>
   filter(!is.na(estimate_percent)) |>
   select(geography, school_year, estimate_percent)
-=======
-    select(geography, school_year, estimate_percent) |>
-    filter(
-        (geography == "Montana" & school_year == "2020-21") |
-            (geography != "Montana" & school_year == "2024-25")
-    )
->>>>>>> 166a05b8e72cfd00e8adaade920eb1b5df15d1e5
 
 df_mmr <- left_join(
     df_mmr_coverage_final,
