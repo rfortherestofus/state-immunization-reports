@@ -1,0 +1,363 @@
+fips,county,state,longitude,latitude,cases_total,type,count
+,Allegan,Michigan,-85.8883,42.5913,1,imported,0
+,Allegan,Michigan,-85.8883,42.5913,1,local,1
+,Allen,Indiana,-85.0665,41.0909,8,imported,0
+,Allen,Indiana,-85.0665,41.0909,8,local,8
+,Allen,Ohio,-84.1058,40.7715,1,imported,1
+,Allen,Ohio,-84.1058,40.7715,1,local,0
+,Anchorage,Alaska,-149.1082,61.1498,2,imported,1
+,Anchorage,Alaska,-149.1082,61.1498,2,local,1
+,Andrews,Texas,-102.6377,32.305,3,imported,0
+,Andrews,Texas,-102.6377,32.305,3,local,3
+,Arapahoe,Colorado,-104.3393,39.6498,4,imported,4
+,Arapahoe,Colorado,-104.3393,39.6498,4,local,0
+,Archuleta,Colorado,-107.0483,37.1935,1,imported,0
+,Archuleta,Colorado,-107.0483,37.1935,1,local,1
+,Ashtabula,Ohio,-80.7482,41.7072,16,imported,3
+,Ashtabula,Ohio,-80.7482,41.7072,16,local,13
+,Atascosa,Texas,-98.5272,28.8935,1,imported,0
+,Atascosa,Texas,-98.5272,28.8935,1,local,1
+,Bailey,Texas,-102.8299,34.0686,2,imported,0
+,Bailey,Texas,-102.8299,34.0686,2,local,2
+,Bell,Texas,-97.4788,31.0373,1,imported,0
+,Bell,Texas,-97.4788,31.0373,1,local,1
+,Benton,Arkansas,-94.2561,36.3387,1,imported,0
+,Benton,Arkansas,-94.2561,36.3387,1,local,1
+,Bergen,New Jersey,-74.0742,40.9597,3,imported,1
+,Bergen,New Jersey,-74.0742,40.9597,3,local,2
+,Bexar,Texas,-98.52,29.4489,1,imported,0
+,Bexar,Texas,-98.52,29.4489,1,local,1
+,Borden,Texas,-101.4317,32.7436,1,imported,0
+,Borden,Texas,-101.4317,32.7436,1,local,1
+,Boulder,Colorado,-105.3577,40.0925,1,imported,1
+,Boulder,Colorado,-105.3577,40.0925,1,local,0
+,Brazoria,Texas,-95.4521,29.1898,1,imported,0
+,Brazoria,Texas,-95.4521,29.1898,1,local,1
+,Brewster,Texas,-103.2517,29.8119,1,imported,0
+,Brewster,Texas,-103.2517,29.8119,1,local,1
+,Broward,Florida,-80.4871,26.1523,1,imported,0
+,Broward,Florida,-80.4871,26.1523,1,local,1
+,Brown,Texas,-98.9998,31.7742,1,imported,0
+,Brown,Texas,-98.9998,31.7742,1,local,1
+,Bucks,Pennsylvania,-75.1069,40.337,1,imported,1
+,Bucks,Pennsylvania,-75.1069,40.337,1,local,0
+,Burke,North Dakota,-102.5182,48.791,1,imported,1
+,Burke,North Dakota,-102.5182,48.791,1,local,0
+,Carbon,Wyoming,-106.9306,41.6944,5,imported,1
+,Carbon,Wyoming,-106.9306,41.6944,5,local,4
+,Carson,Texas,-101.3542,35.4035,1,imported,0
+,Carson,Texas,-101.3542,35.4035,1,local,1
+,Cascade,Montana,-111.347,47.308,1,imported,0
+,Cascade,Montana,-111.347,47.308,1,local,1
+,Cass,North Dakota,-97.248,46.933,7,imported,2
+,Cass,North Dakota,-97.248,46.933,7,local,5
+,Cedar,Missouri,-93.8566,37.7239,5,imported,0
+,Cedar,Missouri,-93.8566,37.7239,5,local,5
+,Central,Iowa,-93.40754375,41.84471875,1,imported,0
+,Central,Iowa,-93.40754375,41.84471875,1,local,1
+,Chaves,New Mexico,-104.4669,33.3633,1,imported,0
+,Chaves,New Mexico,-104.4669,33.3633,1,local,1
+,Cochran,Texas,-102.8285,33.6042,14,imported,0
+,Cochran,Texas,-102.8285,33.6042,14,local,14
+,Collin,Texas,-96.5724,33.188,4,imported,0
+,Collin,Texas,-96.5724,33.188,4,local,4
+,Cook,Illinois,-87.8168,41.8401,6,imported,1
+,Cook,Illinois,-87.8168,41.8401,6,local,5
+,Curry,New Mexico,-103.347,34.5742,1,imported,0
+,Curry,New Mexico,-103.347,34.5742,1,local,1
+,Cuyahoga,Ohio,-81.6586,41.4243,1,imported,1
+,Cuyahoga,Ohio,-81.6586,41.4243,1,local,0
+,Dakota,Minnesota,-93.0654,44.6719,1,imported,0
+,Dakota,Minnesota,-93.0654,44.6719,1,local,1
+,Dallam,Texas,-102.6022,36.2779,7,imported,0
+,Dallam,Texas,-102.6022,36.2779,7,local,7
+,Dallas,Texas,-96.7778,32.7666,1,imported,0
+,Dallas,Texas,-96.7778,32.7666,1,local,1
+,Dawson,Texas,-101.9476,32.7426,26,imported,0
+,Dawson,Texas,-101.9476,32.7426,26,local,26
+,Defiance,Ohio,-84.4905,41.3239,1,imported,1
+,Defiance,Ohio,-84.4905,41.3239,1,local,0
+,Denton,Texas,-97.1168,33.2055,2,imported,0
+,Denton,Texas,-97.1168,33.2055,2,local,2
+,Denver,Colorado,-104.8758,39.762,4,imported,3
+,Denver,Colorado,-104.8758,39.762,4,local,1
+,Dona Ana,New Mexico,-106.8328,32.3526,2,imported,0
+,Dona Ana,New Mexico,-106.8328,32.3526,2,local,2
+,Eastern,Iowa,-91.64545556,41.92909259,6,imported,1
+,Eastern,Iowa,-91.64545556,41.92909259,6,local,5
+,Eastland,Texas,-98.8323,32.3271,2,imported,0
+,Eastland,Texas,-98.8323,32.3271,2,local,2
+,Ector,Texas,-102.5429,31.8692,12,imported,0
+,Ector,Texas,-102.5429,31.8692,12,local,12
+,Eddy,New Mexico,-104.3044,32.4714,3,imported,0
+,Eddy,New Mexico,-104.3044,32.4714,3,local,3
+,El Paso,Colorado,-104.5254,38.8321,4,imported,4
+,El Paso,Colorado,-104.5254,38.8321,4,local,0
+,El Paso,Texas,-106.2348,31.7686,61,imported,0
+,El Paso,Texas,-106.2348,31.7686,61,local,61
+,Erath,Texas,-98.2179,32.2363,1,imported,0
+,Erath,Texas,-98.2179,32.2363,1,local,1
+,Erie,Pennsylvania,-80.0327,41.9925,8,imported,2
+,Erie,Pennsylvania,-80.0327,41.9925,8,local,6
+,Fannin,Texas,-96.1069,33.5938,4,imported,0
+,Fannin,Texas,-96.1069,33.5938,4,local,4
+,Faulkner,Arkansas,-92.332,35.147,6,imported,1
+,Faulkner,Arkansas,-92.332,35.147,6,local,5
+,Fayette,Kentucky,-84.4587,38.0423,6,imported,0
+,Fayette,Kentucky,-84.4587,38.0423,6,local,6
+,Flathead,Montana,-114.0497,48.2951,2,imported,2
+,Flathead,Montana,-114.0497,48.2951,2,local,0
+,Fort Bend,Texas,-95.7709,29.5275,1,imported,0
+,Fort Bend,Texas,-95.7709,29.5275,1,local,1
+,Franklin,Kentucky,-84.877,38.2392,1,imported,1
+,Franklin,Kentucky,-84.877,38.2392,1,local,0
+,Franklin,Ohio,-83.0093,39.9695,1,imported,0
+,Franklin,Ohio,-83.0093,39.9695,1,local,1
+,Fresno,California,-119.6493,36.7582,2,imported,1
+,Fresno,California,-119.6493,36.7582,2,local,1
+,Fulton,Georgia,-84.467,33.7902,6,imported,2
+,Fulton,Georgia,-84.467,33.7902,6,local,4
+,Gaines,Texas,-102.6352,32.7408,414,imported,0
+,Gaines,Texas,-102.6352,32.7408,414,local,414
+,Gallatin,Montana,-111.1704,45.5404,19,imported,5
+,Gallatin,Montana,-111.1704,45.5404,19,local,14
+,Garza,Texas,-101.2984,33.1799,2,imported,0
+,Garza,Texas,-101.2984,33.1799,2,local,2
+,Grand Forks,North Dakota,-97.4569,47.9219,10,imported,2
+,Grand Forks,North Dakota,-97.4569,47.9219,10,local,8
+,Grand Traverse,Michigan,-85.5605,44.6687,4,imported,0
+,Grand Traverse,Michigan,-85.5605,44.6687,4,local,4
+,Gray,Kansas,-100.4379,37.7382,29,imported,0
+,Gray,Kansas,-100.4379,37.7382,29,local,29
+,Guilford,North Carolina,-79.7889,36.0795,1,imported,1
+,Guilford,North Carolina,-79.7889,36.0795,1,local,0
+,Hale,Texas,-101.8269,34.0705,5,imported,0
+,Hale,Texas,-101.8269,34.0705,5,local,5
+,Hardeman,Texas,-99.7457,34.2902,1,imported,0
+,Hardeman,Texas,-99.7457,34.2902,1,local,1
+,Harris,Texas,-95.3938,29.8578,4,imported,0
+,Harris,Texas,-95.3938,29.8578,4,local,4
+,Harrison,Texas,-94.3715,32.5481,1,imported,0
+,Harrison,Texas,-94.3715,32.5481,1,local,1
+,Haskell,Kansas,-100.8712,37.5622,21,imported,0
+,Haskell,Kansas,-100.8712,37.5622,21,local,21
+,Hays,Texas,-98.0312,30.0579,1,imported,0
+,Hays,Texas,-98.0312,30.0579,1,local,1
+,Hennepin,Minnesota,-93.477,45.0046,2,imported,2
+,Hennepin,Minnesota,-93.477,45.0046,2,local,0
+,Hill,Montana,-110.1112,48.6282,4,imported,0
+,Hill,Montana,-110.1112,48.6282,4,local,4
+,Hockley,Texas,-102.3432,33.6076,6,imported,0
+,Hockley,Texas,-102.3432,33.6076,6,local,6
+,Holmes,Ohio,-81.9293,40.5612,1,imported,0
+,Holmes,Ohio,-81.9293,40.5612,1,local,1
+,Honolulu,Hawaii,-158.0739,21.4899,2,imported,2
+,Honolulu,Hawaii,-158.0739,21.4899,2,local,0
+,Howard,Maryland,-76.9312,39.2507,1,imported,1
+,Howard,Maryland,-76.9312,39.2507,1,local,0
+,Hudson,New Jersey,-74.0751,40.7408,1,imported,0
+,Hudson,New Jersey,-74.0751,40.7408,1,local,1
+,Ingham,Michigan,-84.3735,42.5971,1,imported,1
+,Ingham,Michigan,-84.3735,42.5971,1,local,0
+,Jefferson,Kentucky,-85.6591,38.1872,2,imported,1
+,Jefferson,Kentucky,-85.6591,38.1872,2,local,1
+,Kenai Peninsula,Alaska,-151.5651,60.2654,1,imported,1
+,Kenai Peninsula,Alaska,-151.5651,60.2654,1,local,0
+,Kent,Michigan,-85.5493,43.0322,4,imported,2
+,Kent,Michigan,-85.5493,43.0322,4,local,2
+,King,Washington,-121.8052,47.4902,6,imported,3
+,King,Washington,-121.8052,47.4902,6,local,3
+,Kiowa,Kansas,-99.2861,37.5582,6,imported,0
+,Kiowa,Kansas,-99.2861,37.5582,6,local,6
+,Knox,Ohio,-82.4215,40.3988,14,imported,0
+,Knox,Ohio,-82.4215,40.3988,14,local,14
+,Lamar,Texas,-95.5712,33.6673,28,imported,0
+,Lamar,Texas,-95.5712,33.6673,28,local,28
+,Lamb,Texas,-102.3517,34.0686,1,imported,0
+,Lamb,Texas,-102.3517,34.0686,1,local,1
+,Lamoille,Vermont,-72.6419,44.607,1,imported,1
+,Lamoille,Vermont,-72.6419,44.607,1,local,0
+,Lancaster,Pennsylvania,-76.2477,40.0424,1,imported,0
+,Lancaster,Pennsylvania,-76.2477,40.0424,1,local,1
+,Lea,New Mexico,-103.4125,32.7921,67,imported,0
+,Lea,New Mexico,-103.4125,32.7921,67,local,67
+,Leon,Florida,-84.2779,30.458,2,imported,1
+,Leon,Florida,-84.2779,30.458,2,local,1
+,Lincoln,South Dakota,-96.7218,43.2789,8,imported,7
+,Lincoln,South Dakota,-96.7218,43.2789,8,local,1
+,Los Angeles,California,-118.2247,34.3219,5,imported,5
+,Los Angeles,California,-118.2247,34.3219,5,local,0
+,Lubbock,Texas,-101.8205,33.6102,53,imported,0
+,Lubbock,Texas,-101.8205,33.6102,53,local,53
+,Luna,New Mexico,-107.7499,32.1823,14,imported,0
+,Luna,New Mexico,-107.7499,32.1823,14,local,14
+,Lynn,Texas,-101.8161,33.1768,2,imported,0
+,Lynn,Texas,-101.8161,33.1768,2,local,2
+,Macomb,Michigan,-82.9323,42.6957,2,imported,1
+,Macomb,Michigan,-82.9323,42.6957,2,local,1
+,Marquette,Michigan,-87.6416,46.4313,2,imported,0
+,Marquette,Michigan,-87.6416,46.4313,2,local,2
+,Martin,Texas,-101.9513,32.306,3,imported,0
+,Martin,Texas,-101.9513,32.306,3,local,3
+,McLennan,Texas,-97.2018,31.5524,9,imported,0
+,McLennan,Texas,-97.2018,31.5524,9,local,9
+,Meade,South Dakota,-102.7169,44.5668,2,imported,1
+,Meade,South Dakota,-102.7169,44.5668,2,local,1
+,Miami-Dade,Florida,-80.5624,25.615,1,imported,0
+,Miami-Dade,Florida,-80.5624,25.615,1,local,1
+,Mid-Cumberland Region,Tennessee,-87.0033,36.2448,2,imported,0
+,Mid-Cumberland Region,Tennessee,-87.0033,36.2448,2,local,2
+,Midland,Texas,-102.0316,31.8691,6,imported,0
+,Midland,Texas,-102.0316,31.8691,6,local,6
+,Montcalm,Michigan,-85.1525,43.311,4,imported,1
+,Montcalm,Michigan,-85.1525,43.311,4,local,3
+,Montgomery,Pennsylvania,-75.3673,40.2108,1,imported,1
+,Montgomery,Pennsylvania,-75.3673,40.2108,1,local,0
+,Multnomah,Oregon,-122.4149,45.5468,1,imported,1
+,Multnomah,Oregon,-122.4149,45.5468,1,local,0
+,Muskegon,Michigan,-86.152,43.2912,1,imported,0
+,Muskegon,Michigan,-86.152,43.2912,1,local,1
+,Natrona,Wyoming,-106.7986,42.9622,1,imported,0
+,Natrona,Wyoming,-106.7986,42.9622,1,local,1
+,Navajo,Arizona,-110.3214,35.3996,4,imported,4
+,Navajo,Arizona,-110.3214,35.3996,4,local,0
+,New Madrid,Missouri,-89.6517,36.5946,1,imported,0
+,New Madrid,Missouri,-89.6517,36.5946,1,local,1
+,New York,New York,-73.9668,40.7792,8,imported,0
+,New York,New York,-73.9668,40.7792,8,local,8
+,Niobrara,Wyoming,-104.4754,43.0564,1,imported,0
+,Niobrara,Wyoming,-104.4754,43.0564,1,local,1
+,Northwest Region,Virginia,-78.1659225,38.47988218,3,imported,2
+,Northwest Region,Virginia,-78.1659225,38.47988218,3,local,1
+,Oakland,Michigan,-83.3858,42.6604,1,imported,1
+,Oakland,Michigan,-83.3858,42.6604,1,local,0
+,Ocean,New Jersey,-74.2814,39.8856,1,imported,0
+,Ocean,New Jersey,-74.2814,39.8856,1,local,1
+,Oconto,Wisconsin,-88.2697,45.0264,9,imported,9
+,Oconto,Wisconsin,-88.2697,45.0264,9,local,0
+,Ontario,New York,-77.2998,42.8528,1,imported,0
+,Ontario,New York,-77.2998,42.8528,1,local,1
+,Orange,California,-117.7609,33.7031,1,imported,1
+,Orange,California,-117.7609,33.7031,1,local,0
+,Orange,New York,-74.3056,41.4022,4,imported,3
+,Orange,New York,-74.3056,41.4022,4,local,1
+,Orleans,Louisiana,-89.9289,30.0687,2,imported,1
+,Orleans,Louisiana,-89.9289,30.0687,2,local,1
+,Osceola,Michigan,-85.3252,43.9898,7,imported,0
+,Osceola,Michigan,-85.3252,43.9898,7,local,7
+,Parmer,Texas,-102.7845,34.5301,5,imported,0
+,Parmer,Texas,-102.7845,34.5301,5,local,5
+,Passaic,New Jersey,-74.3009,41.0344,1,imported,1
+,Passaic,New Jersey,-74.3009,41.0344,1,local,0
+,Pawnee,Kansas,-99.2367,38.1813,7,imported,0
+,Pawnee,Kansas,-99.2367,38.1813,7,local,7
+,Pennington,South Dakota,-102.8238,44.0037,2,imported,1
+,Pennington,South Dakota,-102.8238,44.0037,2,local,1
+,Philadelphia,Pennsylvania,-75.1339,40.0077,2,imported,2
+,Philadelphia,Pennsylvania,-75.1339,40.0077,2,local,0
+,Placer,California,-120.7177,39.0634,1,imported,1
+,Placer,California,-120.7177,39.0634,1,local,0
+,Potter,Texas,-101.8939,35.4013,1,imported,0
+,Potter,Texas,-101.8939,35.4013,1,local,1
+,Prince George's,Maryland,-76.8473,38.8295,2,imported,2
+,Prince George's,Maryland,-76.8473,38.8295,2,local,0
+,Providence,Rhode Island,-71.58,41.8721,1,imported,1
+,Providence,Rhode Island,-71.58,41.8721,1,local,0
+,Pueblo,Colorado,-104.5127,38.1735,1,imported,1
+,Pueblo,Colorado,-104.5127,38.1735,1,local,0
+,Putnam,Indiana,-86.845,39.6663,1,imported,0
+,Putnam,Indiana,-86.845,39.6663,1,local,1
+,Putnam,New York,-73.7495,41.4267,1,imported,0
+,Putnam,New York,-73.7495,41.4267,1,local,1
+,Randall,Texas,-101.897,34.9659,3,imported,0
+,Randall,Texas,-101.897,34.9659,3,local,3
+,Reeves,Texas,-103.693,31.323,2,imported,0
+,Reeves,Texas,-103.693,31.323,2,local,2
+,Riverside,California,-115.9938,33.7436,1,imported,1
+,Riverside,California,-115.9938,33.7436,1,local,0
+,Rockwall,Texas,-96.4079,32.8978,2,imported,0
+,Rockwall,Texas,-96.4079,32.8978,2,local,2
+,Sacramento,California,-121.3443,38.4493,1,imported,1
+,Sacramento,California,-121.3443,38.4493,1,local,0
+,Saline,Arkansas,-92.6766,34.6466,1,imported,1
+,Saline,Arkansas,-92.6766,34.6466,1,local,0
+,San Juan,New Mexico,-108.3206,36.5085,1,imported,0
+,San Juan,New Mexico,-108.3206,36.5085,1,local,1
+,San Mateo,California,-122.3291,37.4228,1,imported,1
+,San Mateo,California,-122.3291,37.4228,1,local,0
+,Sandoval,New Mexico,-106.8659,35.6886,6,imported,0
+,Sandoval,New Mexico,-106.8659,35.6886,6,local,6
+,Santa Clara,California,-121.6951,37.2318,1,imported,1
+,Santa Clara,California,-121.6951,37.2318,1,local,0
+,Santa Fe,New Mexico,-105.9763,35.5069,1,imported,1
+,Santa Fe,New Mexico,-105.9763,35.5069,1,local,0
+,Scurry,Texas,-100.9164,32.7463,1,imported,0
+,Scurry,Texas,-100.9164,32.7463,1,local,1
+,Shackelford,Texas,-99.354,32.7359,1,imported,0
+,Shackelford,Texas,-99.354,32.7359,1,local,1
+,Sheridan,Nebraska,-102.4089,42.5048,1,imported,1
+,Sheridan,Nebraska,-102.4089,42.5048,1,local,0
+,Snohomish,Washington,-121.6972,48.0474,2,imported,2
+,Snohomish,Washington,-121.6972,48.0474,2,local,0
+,Southwest Health District,Utah,-113.3625,37.449,4,imported,0
+,Southwest Health District,Utah,-113.3625,37.449,4,local,4
+,Stevens,Kansas,-101.3121,37.1923,10,imported,0
+,Stevens,Kansas,-101.3121,37.1923,10,local,10
+,Suffolk,New York,-72.8456,40.8681,1,imported,0
+,Suffolk,New York,-72.8456,40.8681,1,local,1
+,Taney,Missouri,-93.0411,36.6548,1,imported,1
+,Taney,Missouri,-93.0411,36.6548,1,local,0
+,Tarrant,Texas,-97.2911,32.7719,4,imported,0
+,Tarrant,Texas,-97.2911,32.7719,4,local,4
+,Terry,Texas,-102.3352,33.1738,60,imported,0
+,Terry,Texas,-102.3352,33.1738,60,local,60
+,Todd,Kentucky,-87.1792,36.8357,1,imported,0
+,Todd,Kentucky,-87.1792,36.8357,1,local,1
+,Travis,Texas,-97.782,30.3344,2,imported,0
+,Travis,Texas,-97.782,30.3344,2,local,2
+,Tulare,California,-118.8005,36.2202,2,imported,0
+,Tulare,California,-118.8005,36.2202,2,local,2
+,Tuolumne,California,-119.9548,38.0276,2,imported,2
+,Tuolumne,California,-119.9548,38.0276,2,local,0
+,Unknown County,California,-119.347852,35.491035,1,imported,0
+,Unknown County,California,-119.347852,35.491035,1,local,1
+,Unknown County,Colorado,-105.185361,39.534747,1,imported,0
+,Unknown County,Colorado,-105.185361,39.534747,1,local,1
+,Unknown County,Kansas,-96.409286,38.480984,17,imported,0
+,Unknown County,Kansas,-96.409286,38.480984,17,local,17
+,Unknown County,Kentucky,-85.261296,37.838308,1,imported,1
+,Unknown County,Kentucky,-85.261296,37.838308,1,local,0
+,Unknown County,Minnesota,-93.558751,45.18999,1,imported,0
+,Unknown County,Minnesota,-93.558751,45.18999,1,local,1
+,Unknown County,Oklahoma,-96.854171,35.606866,17,imported,0
+,Unknown County,Oklahoma,-96.854171,35.606866,17,local,17
+,Upper Cumberland Region,Tennessee,-85.5394,36.1541,4,imported,0
+,Upper Cumberland Region,Tennessee,-85.5394,36.1541,4,local,4
+,Upshur,Texas,-94.9415,32.7363,5,imported,0
+,Upshur,Texas,-94.9415,32.7363,5,local,5
+,Upstate,South Carolina,-82.32325826,34.77834072,1,imported,1
+,Upstate,South Carolina,-82.32325826,34.77834072,1,local,0
+,Utah,Utah,-111.6702,40.1199,7,imported,0
+,Utah,Utah,-111.6702,40.1199,7,local,7
+,Washington,District of Columbia,-77.0163,38.9047,1,imported,1
+,Washington,District of Columbia,-77.0163,38.9047,1,local,0
+,Washington,Minnesota,-92.8838,45.0388,1,imported,1
+,Washington,Minnesota,-92.8838,45.0388,1,local,0
+,Western,Iowa,-95.10435,41.97493056,1,imported,0
+,Western,Iowa,-95.10435,41.97493056,1,local,1
+,Whatcom,Washington,-121.7199,48.8259,2,imported,0
+,Whatcom,Washington,-121.7199,48.8259,2,local,2
+,Williams,North Dakota,-103.4802,48.3437,18,imported,1
+,Williams,North Dakota,-103.4802,48.3437,18,local,17
+,Williamson,Illinois,-88.9299,37.7303,4,imported,0
+,Williamson,Illinois,-88.9299,37.7303,4,local,4
+,Williamson,Texas,-97.6004,30.6475,6,imported,0
+,Williamson,Texas,-97.6004,30.6475,6,local,6
+,Woodford,Kentucky,-84.7436,38.0424,3,imported,0
+,Woodford,Kentucky,-84.7436,38.0424,3,local,3
+,Yellowstone,Montana,-108.2744,45.9373,4,imported,0
+,Yellowstone,Montana,-108.2744,45.9373,4,local,4
+,Yoakum,Texas,-102.8278,33.173,20,imported,0
+,Yoakum,Texas,-102.8278,33.173,20,local,20
+,Yolo,California,-121.9011,38.6866,1,imported,0
+,Yolo,California,-121.9011,38.6866,1,local,1

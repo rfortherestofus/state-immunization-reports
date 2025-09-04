@@ -1,0 +1,372 @@
+vaccine,dose,geography_type,geography,birth_year_birth_cohort,dimension_type,dimension,estimate_percent,x95_percent_ci_percent,sample_size,year
+DTaP,≥4 Doses,States/Local Areas,Alabama,2017,Age,24 Months,83.2,75.9 to 89.3,259,2019
+DTaP,≥4 Doses,States/Local Areas,Alabama,2018,Age,24 Months,79.2,70.4 to 86.9,232,2020
+DTaP,≥4 Doses,States/Local Areas,Alabama,2019,Age,24 Months,80.4,73.1 to 86.8,227,2021
+DTaP,≥4 Doses,States/Local Areas,Alabama,2020,Age,24 Months,78.4,70.6 to 85.3,240,2022
+DTaP,≥4 Doses,States/Local Areas,Alabama,2021,Age,24 Months,81.7,71.4 to 90.0,160,2023
+DTaP,≥4 Doses,States/Local Areas,Alaska,2017,Age,24 Months,71.3,63.9 to 78.3,258,2019
+DTaP,≥4 Doses,States/Local Areas,Alaska,2018,Age,24 Months,76.9,70.6 to 82.7,275,2020
+DTaP,≥4 Doses,States/Local Areas,Alaska,2019,Age,24 Months,75.8,68.4 to 82.6,287,2021
+DTaP,≥4 Doses,States/Local Areas,Alaska,2020,Age,24 Months,73.9,66.7 to 80.6,302,2022
+DTaP,≥4 Doses,States/Local Areas,Alaska,2021,Age,24 Months,70.1,60.3 to 79.3,190,2023
+DTaP,≥4 Doses,States/Local Areas,Arizona,2017,Age,24 Months,81.7,75.3 to 87.3,278,2019
+DTaP,≥4 Doses,States/Local Areas,Arizona,2018,Age,24 Months,90,84.6 to 94.2,284,2020
+DTaP,≥4 Doses,States/Local Areas,Arizona,2019,Age,24 Months,81.7,74.7 to 87.8,235,2021
+DTaP,≥4 Doses,States/Local Areas,Arizona,2020,Age,24 Months,75.5,68.1 to 82.3,271,2022
+DTaP,≥4 Doses,States/Local Areas,Arizona,2021,Age,24 Months,75.8,65.1 to 85.3,166,2023
+DTaP,≥4 Doses,States/Local Areas,Arkansas,2017,Age,24 Months,72.5,65.7 to 78.8,390,2019
+DTaP,≥4 Doses,States/Local Areas,Arkansas,2018,Age,24 Months,71.1,64.8 to 77.2,426,2020
+DTaP,≥4 Doses,States/Local Areas,Arkansas,2019,Age,24 Months,76.6,69.7 to 82.8,357,2021
+DTaP,≥4 Doses,States/Local Areas,Arkansas,2020,Age,24 Months,76,69.1 to 82.3,323,2022
+DTaP,≥4 Doses,States/Local Areas,Arkansas,2021,Age,24 Months,70.7,60.1 to 80.7,190,2023
+DTaP,≥4 Doses,States/Local Areas,California,2017,Age,24 Months,81.4,74.4 to 87.5,418,2019
+DTaP,≥4 Doses,States/Local Areas,California,2018,Age,24 Months,88.6,84.2 to 92.2,559,2020
+DTaP,≥4 Doses,States/Local Areas,California,2019,Age,24 Months,77.9,71.8 to 83.4,537,2021
+DTaP,≥4 Doses,States/Local Areas,California,2020,Age,24 Months,77.1,69.8 to 83.7,434,2022
+DTaP,≥4 Doses,States/Local Areas,California,2021,Age,24 Months,67.5,57.6 to 77.0,253,2023
+DTaP,≥4 Doses,States/Local Areas,Colorado,2017,Age,24 Months,80.1,71.4 to 87.5,231,2019
+DTaP,≥4 Doses,States/Local Areas,Colorado,2018,Age,24 Months,80.9,74.1 to 86.9,296,2020
+DTaP,≥4 Doses,States/Local Areas,Colorado,2019,Age,24 Months,83.3,76.9 to 88.8,265,2021
+DTaP,≥4 Doses,States/Local Areas,Colorado,2020,Age,24 Months,79.2,73.0 to 84.8,311,2022
+DTaP,≥4 Doses,States/Local Areas,Colorado,2021,Age,24 Months,74.5,65.2 to 82.9,171,2023
+DTaP,≥4 Doses,States/Local Areas,Connecticut,2017,Age,24 Months,84.4,75.9 to 91.1,184,2019
+DTaP,≥4 Doses,States/Local Areas,Connecticut,2018,Age,24 Months,91.4,87.1 to 94.8,308,2020
+DTaP,≥4 Doses,States/Local Areas,Connecticut,2019,Age,24 Months,89.7,84.9 to 93.5,311,2021
+DTaP,≥4 Doses,States/Local Areas,Connecticut,2020,Age,24 Months,83.6,75.9 to 89.9,248,2022
+DTaP,≥4 Doses,States/Local Areas,Connecticut,2021,Age,24 Months,89.7,80.9 to 95.6,164,2023
+DTaP,≥4 Doses,States/Local Areas,Delaware,2017,Age,24 Months,87.4,82.2 to 91.7,308,2019
+DTaP,≥4 Doses,States/Local Areas,Delaware,2018,Age,24 Months,80.5,74.5 to 86.0,248,2020
+DTaP,≥4 Doses,States/Local Areas,Delaware,2019,Age,24 Months,86.5,79.3 to 92.1,205,2021
+DTaP,≥4 Doses,States/Local Areas,Delaware,2020,Age,24 Months,85.8,78.8 to 91.5,183,2022
+DTaP,≥4 Doses,States/Local Areas,Delaware,2021,Age,24 Months,76.6,66.3 to 85.6,110,2023
+DTaP,≥4 Doses,States/Local Areas,District of Columbia,2017,Age,24 Months,83.6,77.4 to 88.9,314,2019
+DTaP,≥4 Doses,States/Local Areas,District of Columbia,2018,Age,24 Months,84.7,79.5 to 89.1,350,2020
+DTaP,≥4 Doses,States/Local Areas,District of Columbia,2019,Age,24 Months,79.2,71.9 to 85.6,327,2021
+DTaP,≥4 Doses,States/Local Areas,District of Columbia,2020,Age,24 Months,82.6,75.2 to 88.8,293,2022
+DTaP,≥4 Doses,States/Local Areas,District of Columbia,2021,Age,24 Months,77.8,66.7 to 87.2,170,2023
+DTaP,≥4 Doses,States/Local Areas,Florida,2017,Age,24 Months,80.3,73.6 to 86.2,374,2019
+DTaP,≥4 Doses,States/Local Areas,Florida,2018,Age,24 Months,83,75.3 to 89.5,324,2020
+DTaP,≥4 Doses,States/Local Areas,Florida,2019,Age,24 Months,82.6,75.5 to 88.7,333,2021
+DTaP,≥4 Doses,States/Local Areas,Florida,2020,Age,24 Months,77.8,71.3 to 83.8,390,2022
+DTaP,≥4 Doses,States/Local Areas,Florida,2021,Age,24 Months,83.6,75.1 to 90.5,276,2023
+DTaP,≥4 Doses,States/Local Areas,Georgia,2017,Age,24 Months,77.1,69.3 to 84.1,292,2019
+DTaP,≥4 Doses,States/Local Areas,Georgia,2018,Age,24 Months,74.9,66.6 to 82.5,282,2020
+DTaP,≥4 Doses,States/Local Areas,Georgia,2019,Age,24 Months,78.1,69.6 to 85.6,273,2021
+DTaP,≥4 Doses,States/Local Areas,Georgia,2020,Age,24 Months,81.9,75.0 to 87.9,338,2022
+DTaP,≥4 Doses,States/Local Areas,Georgia,2021,Age,24 Months,70.4,61.8 to 78.6,255,2023
+DTaP,≥4 Doses,States/Local Areas,Guam,2017,Age,24 Months,53.4,43.3 to 64.1,155,2019
+DTaP,≥4 Doses,States/Local Areas,Guam,2018,Age,24 Months,59.4,49.5 to 69.5,140,2020
+DTaP,≥4 Doses,States/Local Areas,Guam,2019,Age,24 Months,63.9,51.9 to 75.8,97,2021
+DTaP,≥4 Doses,States/Local Areas,Guam,2020,Age,24 Months,54.6,41.2 to 69.1,97,2022
+DTaP,≥4 Doses,States/Local Areas,Guam,2021,Age,24 Months,55.3,40.8 to 71.0,64,2023
+DTaP,≥4 Doses,States/Local Areas,Hawaii,2017,Age,24 Months,73.6,65.8 to 80.8,229,2019
+DTaP,≥4 Doses,States/Local Areas,Hawaii,2018,Age,24 Months,83.4,76.5 to 89.2,268,2020
+DTaP,≥4 Doses,States/Local Areas,Hawaii,2019,Age,24 Months,77.7,70.9 to 83.9,246,2021
+DTaP,≥4 Doses,States/Local Areas,Hawaii,2020,Age,24 Months,78,70.6 to 84.7,201,2022
+DTaP,≥4 Doses,States/Local Areas,Hawaii,2021,Age,24 Months,85.3,77.7 to 91.4,152,2023
+DTaP,≥4 Doses,States/Local Areas,IL-City of Chicago,2017,Age,24 Months,79.6,70.5 to 87.3,162,2019
+DTaP,≥4 Doses,States/Local Areas,IL-City of Chicago,2018,Age,24 Months,77.9,68.3 to 86.3,159,2020
+DTaP,≥4 Doses,States/Local Areas,IL-City of Chicago,2019,Age,24 Months,82.8,72.7 to 90.8,174,2021
+DTaP,≥4 Doses,States/Local Areas,IL-City of Chicago,2020,Age,24 Months,78.5,69.3 to 86.5,173,2022
+DTaP,≥4 Doses,States/Local Areas,IL-City of Chicago,2021,Age,24 Months,85.3,76.0 to 92.4,107,2023
+DTaP,≥4 Doses,States/Local Areas,IL-Rest of state,2017,Age,24 Months,84.6,79.3 to 89.2,340,2019
+DTaP,≥4 Doses,States/Local Areas,IL-Rest of state,2018,Age,24 Months,78.6,72.6 to 84.0,383,2020
+DTaP,≥4 Doses,States/Local Areas,IL-Rest of state,2019,Age,24 Months,79.8,73.9 to 85.1,374,2021
+DTaP,≥4 Doses,States/Local Areas,IL-Rest of state,2020,Age,24 Months,84.5,79.1 to 89.1,376,2022
+DTaP,≥4 Doses,States/Local Areas,IL-Rest of state,2021,Age,24 Months,74.4,66.2 to 82.0,262,2023
+DTaP,≥4 Doses,States/Local Areas,Idaho,2017,Age,24 Months,82.5,77.7 to 86.8,499,2019
+DTaP,≥4 Doses,States/Local Areas,Idaho,2018,Age,24 Months,82.5,77.3 to 87.1,443,2020
+DTaP,≥4 Doses,States/Local Areas,Idaho,2019,Age,24 Months,80.4,73.7 to 86.2,306,2021
+DTaP,≥4 Doses,States/Local Areas,Idaho,2020,Age,24 Months,79.6,72.9 to 85.6,286,2022
+DTaP,≥4 Doses,States/Local Areas,Idaho,2021,Age,24 Months,74.7,64.6 to 83.9,171,2023
+DTaP,≥4 Doses,States/Local Areas,Illinois,2017,Age,24 Months,83.4,78.8 to 87.4,502,2019
+DTaP,≥4 Doses,States/Local Areas,Illinois,2018,Age,24 Months,78.4,73.4 to 83.1,542,2020
+DTaP,≥4 Doses,States/Local Areas,Illinois,2019,Age,24 Months,80.3,75.3 to 84.9,548,2021
+DTaP,≥4 Doses,States/Local Areas,Illinois,2020,Age,24 Months,83,78.5 to 87.1,549,2022
+DTaP,≥4 Doses,States/Local Areas,Illinois,2021,Age,24 Months,76.9,70.1 to 83.1,369,2023
+DTaP,≥4 Doses,States/Local Areas,Indiana,2017,Age,24 Months,79.9,73.9 to 85.2,304,2019
+DTaP,≥4 Doses,States/Local Areas,Indiana,2018,Age,24 Months,79.4,72.8 to 85.3,272,2020
+DTaP,≥4 Doses,States/Local Areas,Indiana,2019,Age,24 Months,79.3,71.1 to 86.4,209,2021
+DTaP,≥4 Doses,States/Local Areas,Indiana,2020,Age,24 Months,82.3,75.7 to 88.0,232,2022
+DTaP,≥4 Doses,States/Local Areas,Indiana,2021,Age,24 Months,80.6,70.4 to 89.0,137,2023
+DTaP,≥4 Doses,States/Local Areas,Iowa,2017,Age,24 Months,76.7,69.2 to 83.5,228,2019
+DTaP,≥4 Doses,States/Local Areas,Iowa,2018,Age,24 Months,88.3,82.1 to 93.2,255,2020
+DTaP,≥4 Doses,States/Local Areas,Iowa,2019,Age,24 Months,88.5,81.7 to 93.6,250,2021
+DTaP,≥4 Doses,States/Local Areas,Iowa,2020,Age,24 Months,80.2,72.6 to 86.8,271,2022
+DTaP,≥4 Doses,States/Local Areas,Iowa,2021,Age,24 Months,80.9,70.5 to 89.4,184,2023
+DTaP,≥4 Doses,States/Local Areas,Kansas,2017,Age,24 Months,78.1,71.5 to 84.0,354,2019
+DTaP,≥4 Doses,States/Local Areas,Kansas,2018,Age,24 Months,78.7,72.4 to 84.4,395,2020
+DTaP,≥4 Doses,States/Local Areas,Kansas,2019,Age,24 Months,79.5,72.7 to 85.5,358,2021
+DTaP,≥4 Doses,States/Local Areas,Kansas,2020,Age,24 Months,74.8,68.4 to 80.8,368,2022
+DTaP,≥4 Doses,States/Local Areas,Kansas,2021,Age,24 Months,80.7,72.4 to 87.8,266,2023
+DTaP,≥4 Doses,States/Local Areas,Kentucky,2017,Age,24 Months,84.2,77.6 to 89.7,238,2019
+DTaP,≥4 Doses,States/Local Areas,Kentucky,2018,Age,24 Months,80.2,73.5 to 86.2,278,2020
+DTaP,≥4 Doses,States/Local Areas,Kentucky,2019,Age,24 Months,87.1,80.2 to 92.5,271,2021
+DTaP,≥4 Doses,States/Local Areas,Kentucky,2020,Age,24 Months,77.3,70.0 to 83.8,324,2022
+DTaP,≥4 Doses,States/Local Areas,Kentucky,2021,Age,24 Months,81.7,73.5 to 88.6,216,2023
+DTaP,≥4 Doses,States/Local Areas,Louisiana,2017,Age,24 Months,77.5,70.6 to 83.7,399,2019
+DTaP,≥4 Doses,States/Local Areas,Louisiana,2018,Age,24 Months,72.5,65.6 to 79.0,401,2020
+DTaP,≥4 Doses,States/Local Areas,Louisiana,2019,Age,24 Months,74.6,67.6 to 81.1,411,2021
+DTaP,≥4 Doses,States/Local Areas,Louisiana,2020,Age,24 Months,77.7,71.1 to 83.7,433,2022
+DTaP,≥4 Doses,States/Local Areas,Louisiana,2021,Age,24 Months,85.1,77.3 to 91.3,264,2023
+DTaP,≥4 Doses,States/Local Areas,Maine,2017,Age,24 Months,84.3,78.5 to 89.2,259,2019
+DTaP,≥4 Doses,States/Local Areas,Maine,2018,Age,24 Months,91.3,86.8 to 94.8,251,2020
+DTaP,≥4 Doses,States/Local Areas,Maine,2019,Age,24 Months,83.2,76.8 to 88.6,244,2021
+DTaP,≥4 Doses,States/Local Areas,Maine,2020,Age,24 Months,92.4,87.7 to 95.7,223,2022
+DTaP,≥4 Doses,States/Local Areas,Maine,2021,Age,24 Months,80.1,71.3 to 87.6,143,2023
+DTaP,≥4 Doses,States/Local Areas,Maryland,2017,Age,24 Months,84,79.7 to 87.9,766,2019
+DTaP,≥4 Doses,States/Local Areas,Maryland,2018,Age,24 Months,84.2,80.2 to 87.8,837,2020
+DTaP,≥4 Doses,States/Local Areas,Maryland,2019,Age,24 Months,82.6,77.7 to 86.9,614,2021
+DTaP,≥4 Doses,States/Local Areas,Maryland,2020,Age,24 Months,87.6,83.2 to 91.3,494,2022
+DTaP,≥4 Doses,States/Local Areas,Maryland,2021,Age,24 Months,87.2,81.0 to 92.1,367,2023
+DTaP,≥4 Doses,States/Local Areas,Massachusetts,2017,Age,24 Months,87.2,80.9 to 92.3,330,2019
+DTaP,≥4 Doses,States/Local Areas,Massachusetts,2018,Age,24 Months,92.4,87.5 to 95.9,365,2020
+DTaP,≥4 Doses,States/Local Areas,Massachusetts,2019,Age,24 Months,86.9,79.9 to 92.3,295,2021
+DTaP,≥4 Doses,States/Local Areas,Massachusetts,2020,Age,24 Months,86.1,79.2 to 91.6,268,2022
+DTaP,≥4 Doses,States/Local Areas,Massachusetts,2021,Age,24 Months,90.6,83.2 to 95.7,175,2023
+DTaP,≥4 Doses,States/Local Areas,Michigan,2017,Age,24 Months,78.9,72.4 to 84.8,402,2019
+DTaP,≥4 Doses,States/Local Areas,Michigan,2018,Age,24 Months,86.1,80.8 to 90.5,415,2020
+DTaP,≥4 Doses,States/Local Areas,Michigan,2019,Age,24 Months,82.3,75.9 to 87.9,375,2021
+DTaP,≥4 Doses,States/Local Areas,Michigan,2020,Age,24 Months,78.6,72.1 to 84.4,448,2022
+DTaP,≥4 Doses,States/Local Areas,Michigan,2021,Age,24 Months,79,70.4 to 86.4,323,2023
+DTaP,≥4 Doses,States/Local Areas,Minnesota,2017,Age,24 Months,84.1,77.4 to 89.8,290,2019
+DTaP,≥4 Doses,States/Local Areas,Minnesota,2018,Age,24 Months,77.1,70.1 to 83.5,328,2020
+DTaP,≥4 Doses,States/Local Areas,Minnesota,2019,Age,24 Months,82.6,75.5 to 88.6,283,2021
+DTaP,≥4 Doses,States/Local Areas,Minnesota,2020,Age,24 Months,83.6,76.6 to 89.5,239,2022
+DTaP,≥4 Doses,States/Local Areas,Minnesota,2021,Age,24 Months,80.5,70.8 to 88.6,176,2023
+DTaP,≥4 Doses,States/Local Areas,Mississippi,2017,Age,24 Months,81.1,74.0 to 87.3,321,2019
+DTaP,≥4 Doses,States/Local Areas,Mississippi,2018,Age,24 Months,79.2,72.2 to 85.4,276,2020
+DTaP,≥4 Doses,States/Local Areas,Mississippi,2019,Age,24 Months,82.6,76.0 to 88.4,324,2021
+DTaP,≥4 Doses,States/Local Areas,Mississippi,2020,Age,24 Months,73.7,65.2 to 81.6,308,2022
+DTaP,≥4 Doses,States/Local Areas,Mississippi,2021,Age,24 Months,74.5,64.4 to 83.6,197,2023
+DTaP,≥4 Doses,States/Local Areas,Missouri,2017,Age,24 Months,78.1,72.1 to 83.7,384,2019
+DTaP,≥4 Doses,States/Local Areas,Missouri,2018,Age,24 Months,80.9,74.7 to 86.4,416,2020
+DTaP,≥4 Doses,States/Local Areas,Missouri,2019,Age,24 Months,77.5,71.0 to 83.4,402,2021
+DTaP,≥4 Doses,States/Local Areas,Missouri,2020,Age,24 Months,79.6,73.1 to 85.3,390,2022
+DTaP,≥4 Doses,States/Local Areas,Missouri,2021,Age,24 Months,80,72.5 to 86.6,267,2023
+DTaP,≥4 Doses,States/Local Areas,Montana,2017,Age,24 Months,74.6,67.5 to 81.2,265,2019
+DTaP,≥4 Doses,States/Local Areas,Montana,2018,Age,24 Months,80,73.3 to 86.0,233,2020
+DTaP,≥4 Doses,States/Local Areas,Montana,2019,Age,24 Months,77.2,68.3 to 85.2,187,2021
+DTaP,≥4 Doses,States/Local Areas,Montana,2020,Age,24 Months,70.7,63.2 to 77.9,220,2022
+DTaP,≥4 Doses,States/Local Areas,Montana,2021,Age,24 Months,67.9,57.8 to 77.5,127,2023
+DTaP,≥4 Doses,States/Local Areas,NY-City of New York,2017,Age,24 Months,83.6,77.9 to 88.5,403,2019
+DTaP,≥4 Doses,States/Local Areas,NY-City of New York,2018,Age,24 Months,81.7,76.3 to 86.6,451,2020
+DTaP,≥4 Doses,States/Local Areas,NY-City of New York,2019,Age,24 Months,82.4,76.6 to 87.4,412,2021
+DTaP,≥4 Doses,States/Local Areas,NY-City of New York,2020,Age,24 Months,83.3,77.1 to 88.7,342,2022
+DTaP,≥4 Doses,States/Local Areas,NY-City of New York,2021,Age,24 Months,78,69.0 to 85.9,218,2023
+DTaP,≥4 Doses,States/Local Areas,NY-Rest of state,2017,Age,24 Months,88.2,81.9 to 93.2,245,2019
+DTaP,≥4 Doses,States/Local Areas,NY-Rest of state,2018,Age,24 Months,82.2,75.8 to 87.8,282,2020
+DTaP,≥4 Doses,States/Local Areas,NY-Rest of state,2019,Age,24 Months,79.6,70.6 to 87.3,225,2021
+DTaP,≥4 Doses,States/Local Areas,NY-Rest of state,2020,Age,24 Months,82.2,75.2 to 88.3,282,2022
+DTaP,≥4 Doses,States/Local Areas,NY-Rest of state,2021,Age,24 Months,82,73.0 to 89.5,184,2023
+DTaP,≥4 Doses,States/Local Areas,Nebraska,2017,Age,24 Months,87.3,82.1 to 91.6,266,2019
+DTaP,≥4 Doses,States/Local Areas,Nebraska,2018,Age,24 Months,85,79.3 to 89.9,279,2020
+DTaP,≥4 Doses,States/Local Areas,Nebraska,2019,Age,24 Months,85.8,80.2 to 90.5,259,2021
+DTaP,≥4 Doses,States/Local Areas,Nebraska,2020,Age,24 Months,90.7,85.6 to 94.5,251,2022
+DTaP,≥4 Doses,States/Local Areas,Nebraska,2021,Age,24 Months,85.6,77.3 to 92.1,171,2023
+DTaP,≥4 Doses,States/Local Areas,Nevada,2017,Age,24 Months,75.9,69.1 to 82.2,344,2019
+DTaP,≥4 Doses,States/Local Areas,Nevada,2018,Age,24 Months,83.2,77.5 to 88.2,378,2020
+DTaP,≥4 Doses,States/Local Areas,Nevada,2019,Age,24 Months,77.7,71.3 to 83.6,340,2021
+DTaP,≥4 Doses,States/Local Areas,Nevada,2020,Age,24 Months,74.1,66.3 to 81.3,323,2022
+DTaP,≥4 Doses,States/Local Areas,Nevada,2021,Age,24 Months,69.3,60.4 to 77.7,237,2023
+DTaP,≥4 Doses,States/Local Areas,New Hampshire,2017,Age,24 Months,90,84.7 to 94.1,244,2019
+DTaP,≥4 Doses,States/Local Areas,New Hampshire,2018,Age,24 Months,89.5,84.5 to 93.4,269,2020
+DTaP,≥4 Doses,States/Local Areas,New Hampshire,2019,Age,24 Months,76.6,69.0 to 83.5,214,2021
+DTaP,≥4 Doses,States/Local Areas,New Hampshire,2020,Age,24 Months,90.5,84.8 to 94.7,189,2022
+DTaP,≥4 Doses,States/Local Areas,New Hampshire,2021,Age,24 Months,89.1,80.1 to 95.2,126,2023
+DTaP,≥4 Doses,States/Local Areas,New Jersey,2017,Age,24 Months,76.6,68.9 to 83.5,263,2019
+DTaP,≥4 Doses,States/Local Areas,New Jersey,2018,Age,24 Months,81,73.8 to 87.2,269,2020
+DTaP,≥4 Doses,States/Local Areas,New Jersey,2019,Age,24 Months,80.3,72.1 to 87.3,279,2021
+DTaP,≥4 Doses,States/Local Areas,New Jersey,2020,Age,24 Months,81.3,73.8 to 87.8,268,2022
+DTaP,≥4 Doses,States/Local Areas,New Jersey,2021,Age,24 Months,85.6,74.5 to 93.5,168,2023
+DTaP,≥4 Doses,States/Local Areas,New Mexico,2017,Age,24 Months,75.7,69.6 to 81.3,429,2019
+DTaP,≥4 Doses,States/Local Areas,New Mexico,2018,Age,24 Months,82.8,77.3 to 87.6,447,2020
+DTaP,≥4 Doses,States/Local Areas,New Mexico,2019,Age,24 Months,83.2,77.3 to 88.3,374,2021
+DTaP,≥4 Doses,States/Local Areas,New Mexico,2020,Age,24 Months,82.2,75.9 to 87.7,357,2022
+DTaP,≥4 Doses,States/Local Areas,New Mexico,2021,Age,24 Months,70.7,61.7 to 79.2,238,2023
+DTaP,≥4 Doses,States/Local Areas,New York,2017,Age,24 Months,86,81.8 to 89.6,648,2019
+DTaP,≥4 Doses,States/Local Areas,New York,2018,Age,24 Months,82.2,78.0 to 86.0,733,2020
+DTaP,≥4 Doses,States/Local Areas,New York,2019,Age,24 Months,80.9,75.6 to 85.8,637,2021
+DTaP,≥4 Doses,States/Local Areas,New York,2020,Age,24 Months,82.7,78.0 to 86.9,624,2022
+DTaP,≥4 Doses,States/Local Areas,New York,2021,Age,24 Months,80.3,74.0 to 86.0,402,2023
+DTaP,≥4 Doses,States/Local Areas,North Carolina,2017,Age,24 Months,83.8,76.5 to 89.8,292,2019
+DTaP,≥4 Doses,States/Local Areas,North Carolina,2018,Age,24 Months,83,75.3 to 89.4,271,2020
+DTaP,≥4 Doses,States/Local Areas,North Carolina,2019,Age,24 Months,91.7,86.4 to 95.6,314,2021
+DTaP,≥4 Doses,States/Local Areas,North Carolina,2020,Age,24 Months,79.6,73.6 to 85.0,459,2022
+DTaP,≥4 Doses,States/Local Areas,North Carolina,2021,Age,24 Months,83.2,76.8 to 88.7,305,2023
+DTaP,≥4 Doses,States/Local Areas,North Dakota,2017,Age,24 Months,77.2,70.5 to 83.4,298,2019
+DTaP,≥4 Doses,States/Local Areas,North Dakota,2018,Age,24 Months,87.5,81.9 to 92.1,293,2020
+DTaP,≥4 Doses,States/Local Areas,North Dakota,2019,Age,24 Months,82.4,75.9 to 88.0,263,2021
+DTaP,≥4 Doses,States/Local Areas,North Dakota,2020,Age,24 Months,77.8,69.6 to 85.0,248,2022
+DTaP,≥4 Doses,States/Local Areas,North Dakota,2021,Age,24 Months,77.2,67.0 to 86.1,143,2023
+DTaP,≥4 Doses,States/Local Areas,Ohio,2017,Age,24 Months,75.8,68.0 to 82.8,283,2019
+DTaP,≥4 Doses,States/Local Areas,Ohio,2018,Age,24 Months,77.2,70.2 to 83.5,406,2020
+DTaP,≥4 Doses,States/Local Areas,Ohio,2019,Age,24 Months,84.8,78.4 to 90.2,384,2021
+DTaP,≥4 Doses,States/Local Areas,Ohio,2020,Age,24 Months,83.1,78.1 to 87.6,484,2022
+DTaP,≥4 Doses,States/Local Areas,Ohio,2021,Age,24 Months,81,73.5 to 87.5,275,2023
+DTaP,≥4 Doses,States/Local Areas,Oklahoma,2017,Age,24 Months,77,69.3 to 84.0,243,2019
+DTaP,≥4 Doses,States/Local Areas,Oklahoma,2018,Age,24 Months,74.3,66.5 to 81.6,194,2020
+DTaP,≥4 Doses,States/Local Areas,Oklahoma,2019,Age,24 Months,77.2,68.5 to 84.8,205,2021
+DTaP,≥4 Doses,States/Local Areas,Oklahoma,2020,Age,24 Months,74,66.8 to 80.8,298,2022
+DTaP,≥4 Doses,States/Local Areas,Oklahoma,2021,Age,24 Months,82.5,73.5 to 89.9,148,2023
+DTaP,≥4 Doses,States/Local Areas,Oregon,2017,Age,24 Months,83.4,76.2 to 89.5,195,2019
+DTaP,≥4 Doses,States/Local Areas,Oregon,2018,Age,24 Months,83.5,77.7 to 88.5,290,2020
+DTaP,≥4 Doses,States/Local Areas,Oregon,2019,Age,24 Months,80.1,72.7 to 86.6,264,2021
+DTaP,≥4 Doses,States/Local Areas,Oregon,2020,Age,24 Months,77.9,70.1 to 84.9,220,2022
+DTaP,≥4 Doses,States/Local Areas,Oregon,2021,Age,24 Months,76.1,65.8 to 85.2,131,2023
+DTaP,≥4 Doses,States/Local Areas,PA-Philadelphia,2017,Age,24 Months,85.5,79.1 to 90.7,204,2019
+DTaP,≥4 Doses,States/Local Areas,PA-Philadelphia,2018,Age,24 Months,85.4,77.7 to 91.5,224,2020
+DTaP,≥4 Doses,States/Local Areas,PA-Philadelphia,2019,Age,24 Months,77.2,69.1 to 84.5,235,2021
+DTaP,≥4 Doses,States/Local Areas,PA-Philadelphia,2020,Age,24 Months,74.3,66.8 to 81.3,318,2022
+DTaP,≥4 Doses,States/Local Areas,PA-Philadelphia,2021,Age,24 Months,79.6,69.9 to 87.7,228,2023
+DTaP,≥4 Doses,States/Local Areas,PA-Rest of state,2017,Age,24 Months,86.2,79.7 to 91.5,356,2019
+DTaP,≥4 Doses,States/Local Areas,PA-Rest of state,2018,Age,24 Months,83,76.7 to 88.4,426,2020
+DTaP,≥4 Doses,States/Local Areas,PA-Rest of state,2019,Age,24 Months,83.9,77.6 to 89.2,406,2021
+DTaP,≥4 Doses,States/Local Areas,PA-Rest of state,2020,Age,24 Months,76.7,69.9 to 83.0,337,2022
+DTaP,≥4 Doses,States/Local Areas,PA-Rest of state,2021,Age,24 Months,79.4,71.5 to 86.2,238,2023
+DTaP,≥4 Doses,States/Local Areas,Pennsylvania,2017,Age,24 Months,86.1,80.6 to 90.8,560,2019
+DTaP,≥4 Doses,States/Local Areas,Pennsylvania,2018,Age,24 Months,83.4,78.0 to 88.1,650,2020
+DTaP,≥4 Doses,States/Local Areas,Pennsylvania,2019,Age,24 Months,82.9,77.5 to 87.6,641,2021
+DTaP,≥4 Doses,States/Local Areas,Pennsylvania,2020,Age,24 Months,76.4,70.5 to 81.8,655,2022
+DTaP,≥4 Doses,States/Local Areas,Pennsylvania,2021,Age,24 Months,79.3,72.5 to 85.3,466,2023
+DTaP,≥4 Doses,States/Local Areas,Puerto Rico,2018,Age,24 Months,55.5,48.0 to 63.4,296,2020
+DTaP,≥4 Doses,States/Local Areas,Puerto Rico,2019,Age,24 Months,46.7,39.2 to 54.8,319,2021
+DTaP,≥4 Doses,States/Local Areas,Puerto Rico,2020,Age,24 Months,65.1,58.0 to 72.0,337,2022
+DTaP,≥4 Doses,States/Local Areas,Puerto Rico,2021,Age,24 Months,64.7,54.9 to 74.4,250,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 1,2017,Age,24 Months,86.9,83.3 to 90.0,1584,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 1,2018,Age,24 Months,91.3,88.8 to 93.5,1758,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 1,2019,Age,24 Months,86.7,83.2 to 89.7,1675,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 1,2020,Age,24 Months,86.5,82.8 to 89.8,1536,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 1,2021,Age,24 Months,89,85.0 to 92.4,1042,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 10,2017,Age,24 Months,83.1,79.9 to 86.0,1419,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 10,2018,Age,24 Months,84.5,81.5 to 87.3,1500,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 10,2019,Age,24 Months,81,77.4 to 84.3,1312,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 10,2020,Age,24 Months,80.1,76.5 to 83.5,1253,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 10,2021,Age,24 Months,76.7,71.6 to 81.5,754,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 2,2017,Age,24 Months,83,79.2 to 86.4,911,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 2,2018,Age,24 Months,82,78.4 to 85.3,1002,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 2,2019,Age,24 Months,80.7,76.3 to 84.8,916,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 2,2020,Age,24 Months,82.3,78.3 to 85.9,892,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 2,2021,Age,24 Months,82,76.5 to 86.8,570,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 3,2017,Age,24 Months,83.5,80.4 to 86.4,2626,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 3,2018,Age,24 Months,82.7,79.8 to 85.5,2888,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 3,2019,Age,24 Months,83.3,80.4 to 86.1,2440,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 3,2020,Age,24 Months,80.5,77.5 to 83.3,2390,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 3,2021,Age,24 Months,80.3,76.7 to 83.7,1580,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 4,2017,Age,24 Months,80.1,77.2 to 82.8,2369,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 4,2018,Age,24 Months,80.6,77.5 to 83.5,2317,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 4,2019,Age,24 Months,83,80.1 to 85.7,2383,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 4,2020,Age,24 Months,79.1,76.4 to 81.7,2665,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 4,2021,Age,24 Months,80.2,76.9 to 83.2,1813,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 5,2017,Age,24 Months,80.6,78.0 to 83.2,2019,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 5,2018,Age,24 Months,79.8,77.2 to 82.2,2204,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 5,2019,Age,24 Months,81.7,79.1 to 84.2,2023,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 5,2020,Age,24 Months,81.9,79.5 to 84.1,2239,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 5,2021,Age,24 Months,79.5,76.2 to 82.7,1478,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 6,2017,Age,24 Months,77.8,75.1 to 80.3,2732,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 6,2018,Age,24 Months,77.3,74.3 to 80.2,2533,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 6,2019,Age,24 Months,78.4,74.8 to 81.7,2266,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 6,2020,Age,24 Months,76.5,71.9 to 80.8,2206,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 6,2021,Age,24 Months,82.4,77.2 to 87.1,1286,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 7,2017,Age,24 Months,79.2,75.8 to 82.4,1232,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 7,2018,Age,24 Months,82.7,79.4 to 85.7,1345,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 7,2019,Age,24 Months,81.6,78.1 to 84.8,1269,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 7,2020,Age,24 Months,80.3,76.8 to 83.6,1280,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 7,2021,Age,24 Months,81.1,76.8 to 85.1,888,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 8,2017,Age,24 Months,81,76.8 to 84.8,1643,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 8,2018,Age,24 Months,83.6,80.2 to 86.8,1790,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 8,2019,Age,24 Months,82.8,79.5 to 85.8,1623,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 8,2020,Age,24 Months,79.3,76.1 to 82.3,1697,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 8,2021,Age,24 Months,77.6,72.8 to 82.1,1062,2023
+DTaP,≥4 Doses,HHS Regions/National,Region 9,2017,Age,24 Months,80.9,75.4 to 85.8,1269,2019
+DTaP,≥4 Doses,HHS Regions/National,Region 9,2018,Age,24 Months,88.3,85.0 to 91.3,1489,2020
+DTaP,≥4 Doses,HHS Regions/National,Region 9,2019,Age,24 Months,78.4,73.6 to 82.8,1358,2021
+DTaP,≥4 Doses,HHS Regions/National,Region 9,2020,Age,24 Months,76.7,71.1 to 82.0,1229,2022
+DTaP,≥4 Doses,HHS Regions/National,Region 9,2021,Age,24 Months,69.3,61.5 to 76.8,808,2023
+DTaP,≥4 Doses,States/Local Areas,Rhode Island,2017,Age,24 Months,89.7,84.2 to 93.9,237,2019
+DTaP,≥4 Doses,States/Local Areas,Rhode Island,2018,Age,24 Months,87.6,81.7 to 92.3,225,2020
+DTaP,≥4 Doses,States/Local Areas,Rhode Island,2019,Age,24 Months,87.3,81.5 to 92.0,277,2021
+DTaP,≥4 Doses,States/Local Areas,Rhode Island,2020,Age,24 Months,88.6,83.3 to 92.8,301,2022
+DTaP,≥4 Doses,States/Local Areas,Rhode Island,2021,Age,24 Months,88.1,81.3 to 93.3,241,2023
+DTaP,≥4 Doses,States/Local Areas,South Carolina,2017,Age,24 Months,73.5,66.3 to 80.2,288,2019
+DTaP,≥4 Doses,States/Local Areas,South Carolina,2018,Age,24 Months,80.6,73.7 to 86.7,244,2020
+DTaP,≥4 Doses,States/Local Areas,South Carolina,2019,Age,24 Months,82.9,76.1 to 88.6,245,2021
+DTaP,≥4 Doses,States/Local Areas,South Carolina,2020,Age,24 Months,75.1,66.8 to 82.7,243,2022
+DTaP,≥4 Doses,States/Local Areas,South Carolina,2021,Age,24 Months,80.5,71.8 to 87.9,188,2023
+DTaP,≥4 Doses,States/Local Areas,South Dakota,2017,Age,24 Months,78.2,71.6 to 84.2,335,2019
+DTaP,≥4 Doses,States/Local Areas,South Dakota,2018,Age,24 Months,83.5,78.2 to 88.2,390,2020
+DTaP,≥4 Doses,States/Local Areas,South Dakota,2019,Age,24 Months,74.8,67.5 to 81.6,318,2021
+DTaP,≥4 Doses,States/Local Areas,South Dakota,2020,Age,24 Months,67.6,58.9 to 76.0,289,2022
+DTaP,≥4 Doses,States/Local Areas,South Dakota,2021,Age,24 Months,75.7,65.2 to 85.0,194,2023
+DTaP,≥4 Doses,States/Local Areas,TX-Bexar County,2017,Age,24 Months,73.5,65.2 to 81.1,220,2019
+DTaP,≥4 Doses,States/Local Areas,TX-Bexar County,2018,Age,24 Months,74.6,67.5 to 81.1,237,2020
+DTaP,≥4 Doses,States/Local Areas,TX-Bexar County,2019,Age,24 Months,73.5,65.3 to 81.2,227,2021
+DTaP,≥4 Doses,States/Local Areas,TX-Bexar County,2020,Age,24 Months,74.1,66.0 to 81.5,200,2022
+DTaP,≥4 Doses,States/Local Areas,TX-Bexar County,2021,Age,24 Months,79.8,68.6 to 89.0,113,2023
+DTaP,≥4 Doses,States/Local Areas,TX-City of Houston,2017,Age,24 Months,80.4,72.4 to 87.3,171,2019
+DTaP,≥4 Doses,States/Local Areas,TX-City of Houston,2018,Age,24 Months,79,70.5 to 86.4,223,2020
+DTaP,≥4 Doses,States/Local Areas,TX-City of Houston,2019,Age,24 Months,77.3,68.8 to 84.8,196,2021
+DTaP,≥4 Doses,States/Local Areas,TX-City of Houston,2020,Age,24 Months,76.1,67.2 to 84.0,213,2022
+DTaP,≥4 Doses,States/Local Areas,TX-City of Houston,2021,Age,24 Months,71.8,59.2 to 83.2,126,2023
+DTaP,≥4 Doses,States/Local Areas,TX-Dallas County,2017,Age,24 Months,70.5,60.3 to 80.1,137,2019
+DTaP,≥4 Doses,States/Local Areas,TX-Dallas County,2018,Age,24 Months,81,58.0 to 95.8,41,2020
+DTaP,≥4 Doses,States/Local Areas,TX-El Paso County,2017,Age,24 Months,88.2,80.5 to 93.9,117,2019
+DTaP,≥4 Doses,States/Local Areas,TX-El Paso County,2018,Age,24 Months,69.6,46.6 to 89.6,32,2020
+DTaP,≥4 Doses,States/Local Areas,TX-Rest of state,2017,Age,24 Months,80.4,75.4 to 85.0,538,2019
+DTaP,≥4 Doses,States/Local Areas,TX-Rest of state,2018,Age,24 Months,79.4,74.1 to 84.3,485,2020
+DTaP,≥4 Doses,States/Local Areas,TX-Rest of state,2019,Age,24 Months,79.8,74.0 to 85.0,496,2021
+DTaP,≥4 Doses,States/Local Areas,TX-Rest of state,2020,Age,24 Months,76.6,68.8 to 83.7,382,2022
+DTaP,≥4 Doses,States/Local Areas,TX-Rest of state,2021,Age,24 Months,85.6,76.6 to 92.4,207,2023
+DTaP,≥4 Doses,States/Local Areas,TX-Tarrant County,2017,Age,24 Months,82.1,67.7 to 92.8,60,2019
+DTaP,≥4 Doses,States/Local Areas,TX-Tarrant County,2018,Age,24 Months,81.8,59.8 to 95.9,41,2020
+DTaP,≥4 Doses,States/Local Areas,Tennessee,2017,Age,24 Months,78,70.4 to 84.7,305,2019
+DTaP,≥4 Doses,States/Local Areas,Tennessee,2018,Age,24 Months,81.6,75.6 to 86.9,410,2020
+DTaP,≥4 Doses,States/Local Areas,Tennessee,2019,Age,24 Months,77.8,71.4 to 83.5,396,2021
+DTaP,≥4 Doses,States/Local Areas,Tennessee,2020,Age,24 Months,83.8,77.6 to 89.1,363,2022
+DTaP,≥4 Doses,States/Local Areas,Tennessee,2021,Age,24 Months,82.7,74.5 to 89.5,216,2023
+DTaP,≥4 Doses,States/Local Areas,Texas,2017,Age,24 Months,78.5,75.0 to 81.8,1271,2019
+DTaP,≥4 Doses,States/Local Areas,Texas,2018,Age,24 Months,78.7,74.7 to 82.6,1065,2020
+DTaP,≥4 Doses,States/Local Areas,Texas,2019,Age,24 Months,79.1,74.3 to 83.5,919,2021
+DTaP,≥4 Doses,States/Local Areas,Texas,2020,Age,24 Months,76.3,69.9 to 82.2,795,2022
+DTaP,≥4 Doses,States/Local Areas,Texas,2021,Age,24 Months,83.5,76.2 to 89.6,446,2023
+DTaP,≥4 Doses,States/Local Areas,U.S. Virgin Islands,2021,Age,24 Months,37.8,21.0 to 61.6,35,2023
+DTaP,≥4 Doses,HHS Regions/National,United States,2017,Age,24 Months,80.9,79.7 to 82.1,17804,2019
+DTaP,≥4 Doses,HHS Regions/National,United States,2018,Age,24 Months,82.3,81.2 to 83.4,18826,2020
+DTaP,≥4 Doses,HHS Regions/National,United States,2019,Age,24 Months,81.2,80.0 to 82.4,17265,2021
+DTaP,≥4 Doses,HHS Regions/National,United States,2020,Age,24 Months,79.6,78.2 to 80.9,17387,2022
+DTaP,≥4 Doses,HHS Regions/National,United States,2021,Age,24 Months,79.1,77.3 to 80.8,11281,2023
+DTaP,≥4 Doses,States/Local Areas,Utah,2017,Age,24 Months,85.5,78.5 to 91.2,227,2019
+DTaP,≥4 Doses,States/Local Areas,Utah,2018,Age,24 Months,88.2,82.6 to 92.7,298,2020
+DTaP,≥4 Doses,States/Local Areas,Utah,2019,Age,24 Months,85.8,80.6 to 90.3,330,2021
+DTaP,≥4 Doses,States/Local Areas,Utah,2020,Age,24 Months,85.1,80.2 to 89.3,333,2022
+DTaP,≥4 Doses,States/Local Areas,Utah,2021,Age,24 Months,85,77.4 to 91.1,226,2023
+DTaP,≥4 Doses,States/Local Areas,Vermont,2017,Age,24 Months,88.5,83.7 to 92.4,330,2019
+DTaP,≥4 Doses,States/Local Areas,Vermont,2018,Age,24 Months,87.2,82.3 to 91.3,340,2020
+DTaP,≥4 Doses,States/Local Areas,Vermont,2019,Age,24 Months,88,83.1 to 92.0,334,2021
+DTaP,≥4 Doses,States/Local Areas,Vermont,2020,Age,24 Months,85.8,79.8 to 90.9,307,2022
+DTaP,≥4 Doses,States/Local Areas,Vermont,2021,Age,24 Months,87.5,79.4 to 93.5,193,2023
+DTaP,≥4 Doses,States/Local Areas,Virginia,2017,Age,24 Months,79.5,72.1 to 86.0,419,2019
+DTaP,≥4 Doses,States/Local Areas,Virginia,2018,Age,24 Months,81.5,74.8 to 87.4,551,2020
+DTaP,≥4 Doses,States/Local Areas,Virginia,2019,Age,24 Months,85.4,79.1 to 90.5,452,2021
+DTaP,≥4 Doses,States/Local Areas,Virginia,2020,Age,24 Months,81.2,75.3 to 86.3,494,2022
+DTaP,≥4 Doses,States/Local Areas,Virginia,2021,Age,24 Months,78.2,70.9 to 84.8,310,2023
+DTaP,≥4 Doses,States/Local Areas,Washington,2017,Age,24 Months,84.4,79.8 to 88.5,467,2019
+DTaP,≥4 Doses,States/Local Areas,Washington,2018,Age,24 Months,86.2,81.5 to 90.2,492,2020
+DTaP,≥4 Doses,States/Local Areas,Washington,2019,Age,24 Months,81.9,76.6 to 86.7,455,2021
+DTaP,≥4 Doses,States/Local Areas,Washington,2020,Age,24 Months,81.8,76.5 to 86.5,445,2022
+DTaP,≥4 Doses,States/Local Areas,Washington,2021,Age,24 Months,78.2,70.4 to 85.1,262,2023
+DTaP,≥4 Doses,States/Local Areas,West Virginia,2017,Age,24 Months,81.7,75.6 to 87.0,259,2019
+DTaP,≥4 Doses,States/Local Areas,West Virginia,2018,Age,24 Months,78.5,72.2 to 84.2,252,2020
+DTaP,≥4 Doses,States/Local Areas,West Virginia,2019,Age,24 Months,76.9,69.3 to 83.8,201,2021
+DTaP,≥4 Doses,States/Local Areas,West Virginia,2020,Age,24 Months,75.2,68.0 to 81.8,271,2022
+DTaP,≥4 Doses,States/Local Areas,West Virginia,2021,Age,24 Months,73.2,63.2 to 82.3,157,2023
+DTaP,≥4 Doses,States/Local Areas,Wisconsin,2017,Age,24 Months,84.4,77.2 to 90.3,238,2019
+DTaP,≥4 Doses,States/Local Areas,Wisconsin,2018,Age,24 Months,81,74.0 to 87.0,241,2020
+DTaP,≥4 Doses,States/Local Areas,Wisconsin,2019,Age,24 Months,80.7,73.4 to 87.1,224,2021
+DTaP,≥4 Doses,States/Local Areas,Wisconsin,2020,Age,24 Months,79.5,72.9 to 85.4,287,2022
+DTaP,≥4 Doses,States/Local Areas,Wisconsin,2021,Age,24 Months,79.9,71.7 to 87.1,198,2023
+DTaP,≥4 Doses,States/Local Areas,Wyoming,2017,Age,24 Months,77.8,71.4 to 83.5,287,2019
+DTaP,≥4 Doses,States/Local Areas,Wyoming,2018,Age,24 Months,76.3,69.5 to 82.6,280,2020
+DTaP,≥4 Doses,States/Local Areas,Wyoming,2019,Age,24 Months,80.2,73.1 to 86.4,260,2021
+DTaP,≥4 Doses,States/Local Areas,Wyoming,2020,Age,24 Months,75.4,68.0 to 82.2,296,2022
+DTaP,≥4 Doses,States/Local Areas,Wyoming,2021,Age,24 Months,76.8,67.0 to 85.5,201,2023

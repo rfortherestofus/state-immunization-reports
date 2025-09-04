@@ -27,39 +27,29 @@ library(janitor)
 library(tidycensus)
 library(showtext)
 
-source("charts.R")
+source("R/charts.R")
 
 state <- params$state
 state_title <- gsub(" Of ", " of ", str_to_title(state))
 
 census_api_key(Sys.getenv("TIDYCENSUS_API_KEY"), install = FALSE)
 
-total_measles_cases <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/total_measles_cases.csv"
-)
+total_measles_cases <- read_csv("data-clean/total_measles_cases.csv")
 
-mmr_coverage_final <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/mmr_coverage_final.csv"
-)
+mmr_coverage_final <- read_csv("data-clean/mmr_coverage_final.csv")
 
-state_policies <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/state_policies_final.csv"
-) |>
+state_policies <- read_csv("data-clean/state_policies_final.csv") |>
     filter(state == state_title) |>
     filter(`1_include_in_brief` == 1) |>
     filter(!(is.na(bill_number)))
 
-dtap_coverage_final <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/dtap_coverage_final.csv"
-)
+dtap_coverage_final <- read_csv("data-clean/dtap_coverage_final.csv")
 
 exemption_policies <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption_policies_final.csv"
+    "data-clean/non_medical_exemption_policies_final.csv"
 )
 
-exemption <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/non_medical_exemption.csv"
-)
+exemption <- read_csv("data-clean/non_medical_exemption.csv")
 
 exemption_policies_state <- exemption_policies |> filter(State == state_title)
 exemption_state <- exemption |>
@@ -84,16 +74,12 @@ fourth_box <- exemption_us |> pull("estimate_percent") |> round(1)
 fourth_box_label <- paste0(fourth_box, "%")
 third_box_before <- exemption_state_year_before |> pull("estimate_percent")
 
-is_universal_purchaser <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/universal_purchase_final.csv"
-) |>
+is_universal_purchaser <- read_csv("data-clean/universal_purchase_final.csv") |>
     filter(State == state_title) |>
     pull("Universal Purchase") |>
     toupper()
 
-health_spending <- read_csv(
-    "https://raw.githubusercontent.com/rfortherestofus/state-immunization-data/refs/heads/main/data-clean/health_spending_final.csv"
-)
+health_spending <- read_csv("data-clean/health_spending_final.csv")
 health_spending_state <- health_spending |>
     filter(State == state_title)
 if (nrow(health_spending_state) == 0) {
@@ -138,36 +124,55 @@ population_by_state <-
 
 df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
-priority_years <- c("2024-25","2023-24","2022-23","2021-22","2020-21","2019-20")
+priority_years <- c(
+    "2024-25",
+    "2023-24",
+    "2022-23",
+    "2021-22",
+    "2020-21",
+    "2019-20"
+)
 
 df_mmr_coverage_final <- mmr_coverage_final |>
-  select(geography, school_year, estimate_percent) |>
-  filter(school_year %in% priority_years) |>
-  mutate(estimate_percent = readr::parse_number(as.character(estimate_percent))) |>
-  group_by(geography, school_year) |>
-  summarise(
-    estimate_percent = first(estimate_percent[!is.na(estimate_percent)], default = NA_real_),
-    .groups = "drop"
-  ) |>
-  pivot_wider(
-    names_from  = school_year,
-    values_from = estimate_percent,
-    values_fill = NA_real_
-  ) |>
-  mutate(
-    estimate_percent = coalesce(`2024-25`, `2023-24`, `2022-23`, `2021-22`, `2020-21`, `2019-20`),
-    school_year = case_when(
-      !is.na(`2024-25`) ~ "2024-25",
-      !is.na(`2023-24`) ~ "2023-24",
-      !is.na(`2022-23`) ~ "2022-23",
-      !is.na(`2021-22`) ~ "2021-22",
-      !is.na(`2020-21`) ~ "2020-21",
-      !is.na(`2019-20`) ~ "2019-20",
-      TRUE ~ NA_character_
-    )
-  ) |>
-  filter(!is.na(estimate_percent)) |>
-  select(geography, school_year, estimate_percent)
+    select(geography, school_year, estimate_percent) |>
+    filter(school_year %in% priority_years) |>
+    mutate(
+        estimate_percent = readr::parse_number(as.character(estimate_percent))
+    ) |>
+    group_by(geography, school_year) |>
+    summarise(
+        estimate_percent = first(
+            estimate_percent[!is.na(estimate_percent)],
+            default = NA_real_
+        ),
+        .groups = "drop"
+    ) |>
+    pivot_wider(
+        names_from = school_year,
+        values_from = estimate_percent,
+        values_fill = NA_real_
+    ) |>
+    mutate(
+        estimate_percent = coalesce(
+            `2024-25`,
+            `2023-24`,
+            `2022-23`,
+            `2021-22`,
+            `2020-21`,
+            `2019-20`
+        ),
+        school_year = case_when(
+            !is.na(`2024-25`) ~ "2024-25",
+            !is.na(`2023-24`) ~ "2023-24",
+            !is.na(`2022-23`) ~ "2022-23",
+            !is.na(`2021-22`) ~ "2021-22",
+            !is.na(`2020-21`) ~ "2020-21",
+            !is.na(`2019-20`) ~ "2019-20",
+            TRUE ~ NA_character_
+        )
+    ) |>
+    filter(!is.na(estimate_percent)) |>
+    select(geography, school_year, estimate_percent)
 
 df_mmr <- left_join(
     df_mmr_coverage_final,
@@ -603,6 +608,9 @@ if (state_title == "District of Columbia") {
 Strong policy commitment to immunization is critical for effective vaccination programs. The state legislature has recently introduced several bills that would affect state-wide childhood vaccination, a selection of which are described below. The arrows below indicate whether these bills would strengthen (↑) or weaken (↓) vaccine safety nets.
 
 ```{r}
+# here we dynamically write Typst code,
+# because the number of element depends
+# on the data
 typst_list <- state_policies |>
     mutate(
         arrow = ifelse(
@@ -624,6 +632,7 @@ typst_code <- glue(
     .trim = FALSE
 )
 
+# then we save that dynamic Typst code, and read it in Typst right after
 writeLines(typst_code, "state_policies.typ")
 ```
 
@@ -631,7 +640,7 @@ writeLines(typst_code, "state_policies.typ")
 
 ```{=typst}
 #let policies = read("state_policies.typ")
-#eval(policies)
+#eval(policies) // convert a string into actual typst code
 #box(inset: 10pt)[#source("Source: AIM, LegiScan")]
 ```
 
