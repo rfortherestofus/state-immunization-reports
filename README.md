@@ -1,5 +1,7 @@
 # State Immunization Reports
 
+<br>
+
 ### Data
 
 This repo has data on state-level immunization. The `data-raw` folder holds all raw data:
@@ -13,8 +15,8 @@ This repo has data on state-level immunization. The `data-raw` folder holds all 
 - `universal_purchase.csv` presents data on the 'Universal Vaccine Purchase Program', which is a state-led program in which the state government acquires all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP) for every resident, regardless of their insurance coverage or ability to pay. Available from the [Association of Immunization Managers (AIM), Policy Maps – Universal Vaccine Purchase Program](https://www.immunizationmanagers.org/resources/aim-policy-maps/).Data last updated on April 2025.
 - `state_policies.csv` presents data on state policies that could affect childhood immunization. This dataset is derived from multiple sources, including the [Association of Immunization Managers, Legislative Round-ups](https://www.immunizationmanagers.org/resources-toolkits/immunization-program-policy-toolkit/legislative-round-ups/); keyword search on [LegiScan and NCSL's 'State Public Health Legislation Database'](https://www.ncsl.org/health/state-public-health-legislation-database). Data last updated on May 31, 2025 (AIM Legislative Round-up)
 
-We use the `data-raw/import-data.R` file to import and clean all of the above
-files. The `data-raw/import-data.R` file then saves a set of clean CSV files into the `data-clean` folder.
+We use the `R/import-data.R` file to import and clean all of the above
+files. The `R/import-data.R` file then saves a set of clean CSV files into the `data-clean` folder.
 
 The `data-clean` folder holds all clean data:
 
@@ -28,6 +30,8 @@ The `data-clean` folder holds all clean data:
 - `state_policies_final.csv` has data on state level immunization related policies that could strengthen or weaken vaccine safety nets.
 
 The CSV files in the `data-clean` folder are used to generate state-level immunization reports for all 50 states, the District of Columbia, and Puerto Rico.
+
+<br><br>
 
 ### How the report works
 
@@ -52,4 +56,4 @@ Other functions used (such as `#v()`) are built-in with Typst.
 
 A very small amount of HTML is used for grey background sections. Note that the vast majority of html/css is **not** supported here. Background colors are [one of the few things](https://quarto.org/docs/advanced/typst/typst-css.html#supported-elements-and-properties) Quarto natively translate to typst.
 
-`render.R` generates all PDF (one per state) and store them in `reports/`, as well as create a zip with all the PDFs at the root of the directory.
+`R/render.R` generates all PDF (one per state) and store them in `reports/`, as well as create a zip with all the PDFs at the root of the directory.
