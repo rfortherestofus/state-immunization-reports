@@ -1,0 +1,32 @@
+1. No Puerto Rico in both total_measles_cases and mmr_coverage_final. So, add special cases only for Alaska and Hawaii for the map and the comparison chart
+
+2. Alaska, Hawaii, Puerto Rico are present in the Dtap data. so add special case for the comparison chart
+
+3. Unusual States in Dtap Data:  IL-City of Chicago, IL-Rest of state, NY-City of New York, NY-Rest of state, PA-Philadelphia, PA-Rest of state, TX-Bexar County, TX-City of Houston, TX-Dallas County, TX-Rest of state
+
+4. Unusual States in mmr data: TX-City of San Antonio, TX-City of Houston, NY-City of New York
+
+
+### mmr_comparison_chart (comaring with 2024-25)
+
+1. For mmr_comparison chart Only one states shows for Maine, instead of top 2 nearest.(why??)
+2. Montana has only value for 2020-21
+3. West Virginia does not have value for 2024-25
+
+### mmr_over_time
+
+1. Illinois has value NR for 2020-21
+2. West Virginia has value NR for 2020-21
+
+### Dtap comparison
+
+1. Only one states shows for Maine and Montana, instead of top 2 nearest.(Figure out why) (Solved)
+
+### Problem with Maine
+
+Maine only has **one geographic neighbor** according to your spatial analysis - just New Hampshire. 
+
+1. Maine only borders New Hampshire - it doesn't share land borders with other states
+2. The Atlantic Ocean is on the other sides of Maine
+3. `get_neighboring_states()` function uses `st_touches()` which only finds states that physically touch Maine's borders.
+Updated the get_neighboring_states function to handle above.

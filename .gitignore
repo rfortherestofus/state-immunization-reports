@@ -47,3 +47,13 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+report.typ
+report.pdf
+documents/
+reports/
+*.zip
+
+/.quarto/
+temp.R
+state_policies.typ
