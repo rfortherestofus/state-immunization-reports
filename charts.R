@@ -370,22 +370,24 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
   neighboring_data <- get_neighboring_states(df, state_name) |>
     st_drop_geometry() |>
     filter(name != state_name) |>
+    distinct(name) |> # ensure unique names pre-join
     left_join(df_mmr, by = c("name" = "geography")) |>
     filter(!is.na(total_population)) |>
+    distinct(name, .keep_all = TRUE) |> # ensure unique names post-join
     slice_max(total_population, n = 2) |>
-    pull(name)
+    pull(name) |>
+    unique() # neighbors vector must be unique
 
   chart_data <- df_mmr |>
-    # Normalize label so "U.S. Median" becomes "United States"
     mutate(
       geography = ifelse(geography == "U.S. Median", "United States", geography)
     ) |>
     filter(geography %in% c(state_name, neighboring_data, "United States")) |>
     mutate(
-      estimate_percent = as.numeric(estimate_percent),
+      estimate_percent = suppressWarnings(as.numeric(estimate_percent)),
       geography = factor(
         geography,
-        levels = c("United States", neighboring_data, state_name)
+        levels = unique(c("United States", neighboring_data, state_name)) # <-- no dups
       ),
       bar_fill = ifelse(geography == state_name, "#68ACE5", NA_character_),
       txt_col = ifelse(geography == state_name, "white", "black")
@@ -451,90 +453,14 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     )
 }
 
-
 #------------------------------------------------------------------------------
 
-# Lollipop
-
-mmr_vaccination_over_time_chart_lollipop <- function(mmr_line_df, state_name) {
-  state_data <- mmr_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      school_year = factor(
-        school_year,
-        levels = unique(school_year[order(school_year)])
-      )
-    )
-
-  n_x <- nlevels(state_data$school_year)
-  if (nrow(state_data) == 0) {
-    stop(paste("No data found for state:", state_name))
-  }
-
-  ggplot(state_data, aes(x = school_year, y = estimate_percent)) +
-    geom_hline(
-      yintercept = 95,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_segment(
-      aes(xend = school_year, y = 0, yend = estimate_percent),
-      linewidth = 1,
-      lineend = "round",
-      color = "#68ACE5"
-    ) +
-    geom_point(
-      shape = 21,
-      size = 8,
-      stroke = 1,
-      fill = "#68ACE5",
-      color = "#68ACE5"
-    ) +
-    geom_text(
-      aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "white",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-    annotate(
-      "text",
-      x = n_x + 0.2,
-      y = 94,
-      label = "HP2030 Target: 95%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      hjust = 0,
-      vjust = -1.2
-    ) +
-    scale_y_continuous(
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      expand = expansion(mult = c(0, 0.08))
-    ) +
-    coord_cartesian(ylim = c(0, 100), clip = "off") +
-    labs(title = glue::glue("Vaccination in {state_name} over time")) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
-    )
-}
-
-
 mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
   state_data <- mmr_line_df |>
     filter(geography == state_name) |>
+    mutate(estimate_percent = suppressWarnings(as.numeric(estimate_percent))) |>
+    filter(is.finite(estimate_percent)) |>
     mutate(
-      estimate_percent = as.numeric(estimate_percent),
       school_year = factor(
         school_year,
         levels = unique(school_year[order(school_year)])
@@ -543,20 +469,17 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
 
   n_x <- nlevels(state_data$school_year)
   if (nrow(state_data) == 0) {
-    stop(paste("No data found for state:", state_name))
+    stop(paste("No data with present values for state:", state_name))
   }
 
   ggplot(state_data, aes(x = school_year, y = estimate_percent)) +
-
     geom_hline(
       yintercept = 95,
       linetype = "dashed",
       color = "gray30",
       alpha = 0.8
     ) +
-
     geom_col(fill = "#68ACE5", width = 0.5) +
-
     geom_text(
       aes(
         y = pmin(estimate_percent + 3, 100),
@@ -568,7 +491,6 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       family = "Gentona",
       size = 3
     ) +
-
     annotate(
       "text",
       x = n_x + 0.2,
@@ -599,79 +521,8 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
     )
 }
-
 
 #---------------------------------------------------------------------------------------
-
-mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
-  state_data <- mmr_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      school_year = factor(
-        school_year,
-        levels = unique(school_year[order(school_year)])
-      )
-    )
-
-  n_x <- nlevels(state_data$school_year)
-  if (nrow(state_data) == 0) {
-    stop(paste("No data found for state:", state_name))
-  }
-
-  ggplot(state_data, aes(x = school_year, y = estimate_percent)) +
-
-    geom_hline(
-      yintercept = 95,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-
-    geom_col(fill = "#68ACE5", width = 0.5) +
-
-    geom_text(
-      aes(
-        y = pmin(estimate_percent + 3, 100),
-        label = paste0(round(estimate_percent, 0), "%")
-      ),
-      vjust = 2.4,
-      color = "white",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-
-    annotate(
-      "text",
-      x = n_x + 0.2,
-      y = 94,
-      label = "HP2030 Target: 95%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      hjust = 0,
-      vjust = -1.5
-    ) +
-    scale_y_continuous(
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      limits = c(0, 100),
-      expand = expansion(mult = c(0, 0.12))
-    ) +
-    coord_cartesian(clip = "off") +
-    labs(title = glue::glue("Vaccination in {state_name} over time")) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
-    )
-}
 
 ## DTap
 
@@ -766,85 +617,6 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name) {
 
 
 #------------------------------------------------------------------------------------------
-
-# Lollipop Chart
-
-dtap_vaccination_over_time_chart_lollipop <- function(
-  dtap_line_df,
-  state_name
-) {
-  state_data <- dtap_line_df |>
-    filter(geography == state_name) |>
-    mutate(
-      estimate_percent = as.numeric(estimate_percent),
-      year = factor(
-        year,
-        levels = unique(year[order(year)])
-      )
-    )
-
-  n_x <- nlevels(state_data$year)
-
-  ggplot(
-    state_data,
-    ggplot2::aes(x = year, y = estimate_percent)
-  ) +
-    geom_hline(
-      yintercept = 90,
-      linetype = "dashed",
-      color = "gray30",
-      alpha = 0.8
-    ) +
-    geom_segment(
-      aes(xend = year, y = 0, yend = estimate_percent),
-      linewidth = 1,
-      lineend = "round",
-      color = "#002D72"
-    ) +
-    geom_point(
-      shape = 21,
-      size = 8,
-      stroke = 1,
-      fill = "#002D72",
-      color = "#002D72"
-    ) +
-    geom_text(
-      aes(label = paste0(round(estimate_percent, 0), "%")),
-      color = "white",
-      fontface = "bold",
-      family = "Gentona",
-      size = 3
-    ) +
-    annotate(
-      "text",
-      x = n_x + 0.2,
-      y = 91,
-      label = "HP2030 Target: 90%",
-      family = "Gentona",
-      size = 3,
-      color = "gray30",
-      fontface = "bold",
-      hjust = 0,
-      vjust = -1.3
-    ) +
-    scale_y_continuous(
-      breaks = seq(0, 100, 25),
-      labels = function(x) paste0(x, "%"),
-      expand = expansion(mult = c(0, 0.08))
-    ) +
-    coord_cartesian(ylim = c(0, 100), clip = "off") +
-    labs(title = glue::glue("Vaccination in {state_name} Over Time")) +
-    theme_minimal() +
-    theme(
-      panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
-      axis.title = element_blank(),
-      plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
-    )
-}
-
 
 dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
   state_data <- dtap_line_df |>

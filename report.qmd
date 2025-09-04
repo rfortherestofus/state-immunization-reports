@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: new york
+   state: North Dakota
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -139,13 +139,16 @@ population_by_state <-
 df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
 df_mmr_coverage_final <- mmr_coverage_final |>
-    select(geography, school_year, estimate_percent) |>
-    filter(school_year == "2024-25")
+  select(geography, school_year, estimate_percent) |>
+  filter(
+    (geography == "Montana" & school_year == "2020-21") |
+    (geography != "Montana" & school_year == "2024-25")
+  )
 
 df_mmr <- left_join(
-    df_mmr_coverage_final,
-    population_by_state,
-    by = c("geography" = "state")
+  df_mmr_coverage_final,
+  population_by_state,
+  by = c("geography" = "state")
 )
 
 mmr_line_df <- mmr_coverage_final |>
