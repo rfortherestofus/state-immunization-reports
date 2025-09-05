@@ -469,7 +469,7 @@ if (!(state_title %in% c("West Virginia", "Montana"))) {
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-if (!(state_title %in% c("West Virginia"))) {
+if (!(state_title %in% c("West Virginia", "Puerto Rico"))) {
     variation <- (third_box - third_box_before) / third_box_before
     if (abs(variation) <= 0.1) {
         variation_text <- "is similar to"
