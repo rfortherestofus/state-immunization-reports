@@ -268,28 +268,18 @@ measles_map <- function(df, state) {
       size = 0.1
     )
 
-  if (state %in% c("Alaska", "Hawaii")) {
-    p <- p +
+  p <- p +
+    with_shadow(
       geom_sf(
         data = df_centroids |> dplyr::filter(name == state),
         aes(fill = measles_category),
-        linewidth = 0.3,
+        linewidth = 0.5,
         color = "white"
-      )
-  } else {
-    p <- p +
-      with_shadow(
-        geom_sf(
-          data = df_centroids |> dplyr::filter(name == state),
-          aes(fill = measles_category),
-          linewidth = 0.5,
-          color = "white"
-        ),
-        sigma = 0,
-        x_offset = 2,
-        y_offset = 2
-      )
-  }
+      ),
+      sigma = 0,
+      x_offset = 2,
+      y_offset = 2
+    )
 
   p <- p +
     geom_sf(
@@ -302,28 +292,6 @@ measles_map <- function(df, state) {
     )
 
   sel_xy <- st_coordinates(st_point_on_surface(sel_row$geometry))[1, ]
-
-  p <- p +
-    annotate(
-      "point",
-      x = sel_xy[1],
-      y = sel_xy[2],
-      shape = 21,
-      size = 10,
-      fill = "white",
-      color = "black",
-      stroke = 0.8
-    ) +
-    annotate(
-      "text",
-      x = sel_xy[1],
-      y = sel_xy[2],
-      label = sel_val,
-      family = "Gentona",
-      fontface = "bold",
-      size = 3.8,
-      vjust = 0.35
-    )
 
   p <- p +
     scale_fill_manual(

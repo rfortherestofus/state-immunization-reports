@@ -88,7 +88,11 @@ change_path_data <- function(state) {
         replacement = "../data-clean/"
     )
 }
+
 walk(states, change_path_data)
+
+quarto_render("documents/hawaii.qmd")
+quarto_render("documents/alaska.qmd")
 
 walk(str_glue("documents/{states}.qmd"), quarto_render)
 
