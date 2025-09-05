@@ -191,22 +191,21 @@ state_policies_filtered <- state_policies %>%
 # Export dataset
 write_csv(state_policies, "data-clean/state_policies_final.csv")
 
-
 # Census Data ------------------------------------------------------------
 
-population_by_state <-
-  get_decennial(
-    geography = "state",
-    variables = "P1_001N", # Total population variable
-    year = 2020,
-    survey = "pl" # PL 94-171 Redistricting Data
-  ) |>
-  select(NAME, value) |>
-  rename(
-    state = NAME,
-    total_population = value
-  ) |>
-  arrange(desc(total_population))
+# population_by_state <-
+#   get_decennial(
+#     geography = "state",
+#     variables = "P1_001N", # Total population variable
+#     year = 2020,
+#     survey = "pl" # PL 94-171 Redistricting Data
+#   ) |>
+#   select(NAME, value) |>
+#   rename(
+#     state = NAME,
+#     total_population = value
+#   ) |>
+#   arrange(desc(total_population))
 
-population_by_state |>
-  write_rds("data-clean/population_by_state.rds")
+# population_by_state |>
+#   write_rds("data-clean/population_by_state.rds")
