@@ -91,9 +91,6 @@ change_path_data <- function(state) {
 
 walk(states, change_path_data)
 
-quarto_render("documents/hawaii.qmd")
-quarto_render("documents/alaska.qmd")
-
 walk(str_glue("documents/{states}.qmd"), quarto_render)
 
 all_reports <- dir_ls(path = "documents", regexp = ".pdf")
