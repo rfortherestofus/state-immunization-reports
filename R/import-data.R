@@ -183,7 +183,7 @@ universal_purchase <- read_csv("data-raw/universal_purchase.csv")
 write_csv(universal_purchase, "data-clean/universal_purchase_final.csv")
 
 # State policies------------------------------------------------------
-state_policies <- read_csv("data-raw/state_policies.csv")
+state_policies <- read_csv("data-raw/state_policies_sep05.csv")
 names(state_policies) <- tolower(gsub(" ", "_", names(state_policies)))
 state_policies_filtered <- state_policies |>
   filter(`1_include_in_brief` %in% c(1, "1"))
