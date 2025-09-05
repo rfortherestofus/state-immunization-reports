@@ -107,9 +107,7 @@ pdf_files <- list.files("reports", pattern = "\\.pdf$", full.names = TRUE)
 upload_report <- function(report_file) {
     drive_upload(
         media = report_file,
-        path = as_dribble(
-            "https://drive.google.com/drive/u/1/folders/13VY2ICdG4H6ismEtSZnllTPJtBx8uUpg"
-        ),
+        path = folder <- as_id("1fxoUQYyKK0ef4BRzb3Ab4w1x39s722su"),
         overwrite = TRUE
     )
 }
