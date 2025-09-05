@@ -14,7 +14,7 @@ library(tidycensus)
 # Import- measles cases dataset
 measles_cases <- read_csv("data-raw/measles_cases_09_01.csv")
 measles_cases <- janitor::clean_names(measles_cases)
-total_measles_case <- measles_cases %>%
+total_measles_case <- measles_cases |>
   select(state, total)
 
 
@@ -37,7 +37,7 @@ target_years <- c(
   "2024-25"
 )
 # Filter the data
-mmr_filtered <- mmr_coverage %>%
+mmr_filtered <- mmr_coverage |>
   filter(
     vaccine_exemption == "MMR",
     school_year %in% target_years,
@@ -48,7 +48,7 @@ head(mmr_filtered)
 # Additional target years for Montana
 montana_years <- c("2016-17", "2017-18", "2018-19", "2019-20", "2020-21")
 
-montana_filtered <- mmr_coverage %>%
+montana_filtered <- mmr_coverage |>
   filter(
     `vaccine_exemption` == "MMR",
     school_year %in% montana_years,
@@ -56,7 +56,7 @@ montana_filtered <- mmr_coverage %>%
   )
 
 # Add West Virginia for 2019-20
-wv_filtered <- mmr_coverage %>%
+wv_filtered <- mmr_coverage |>
   filter(
     `vaccine_exemption` == "MMR",
     school_year == "2019-20",
@@ -66,7 +66,7 @@ wv_filtered <- mmr_coverage %>%
 mmr_combined <- bind_rows(mmr_filtered, wv_filtered, montana_filtered)
 
 # Sort the dataset by descending years
-mmr_filtered_sorted <- mmr_combined %>%
+mmr_filtered_sorted <- mmr_combined |>
   arrange(geography, school_year)
 
 # Export the dataset
@@ -77,14 +77,14 @@ write_csv(mmr_filtered_sorted, "data-clean/mmr_coverage_final.csv")
 # Data comes from CDC's SchoolVaxView (same dataset as above)
 # Filter for non-medical exemptions for 2023-2024 and 2024-2025
 
-non_medical_exemptions <- mmr_coverage %>%
+non_medical_exemptions <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2023-24", "2024-25"),
     (geography_type == "States" | geography == "U.S. Median")
   )
 # New York: 2017-18 and 2018-19
-ny_filtered <- mmr_coverage %>%
+ny_filtered <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2017-18", "2018-19"),
@@ -92,7 +92,7 @@ ny_filtered <- mmr_coverage %>%
   )
 
 # Montana: 2019-20 and 2020-21
-mt_filtered <- mmr_coverage %>%
+mt_filtered <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2019-20", "2020-21"),
@@ -100,7 +100,7 @@ mt_filtered <- mmr_coverage %>%
   )
 
 # California: 2015-16 and 2016-17
-ca_filtered <- mmr_coverage %>%
+ca_filtered <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2015-16", "2016-17"),
@@ -108,15 +108,15 @@ ca_filtered <- mmr_coverage %>%
   )
 
 # Maine: 2022-23 and 2023-24
-me_filtered <- mmr_coverage %>%
+me_filtered <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
-    school_year %in% c("2022-23", "2023-24"),
+    school_year %in% c("2022-23"),
     geography == "Maine"
   )
 
 # West Virginia: NA
-wv_filtered <- mmr_coverage %>%
+wv_filtered <- mmr_coverage |>
   filter(
     dose == "Non-Medical Exemption",
     school_year %in% c("2018-19", "2019-20"),
@@ -142,13 +142,13 @@ dtap_coverage <- read_csv("data-raw/dtap_coverage.csv") |>
   clean_names()
 
 # Filter
-dtap_filtered_states <- dtap_coverage %>%
+dtap_filtered_states <- dtap_coverage |>
   filter(
     vaccine == "DTaP",
     dose == "≥4 Doses",
     dimension == "24 Months",
     birth_year_birth_cohort %in% c("2017", "2018", "2019", "2020", "2021")
-  ) %>%
+  ) |>
   arrange(geography, birth_year_birth_cohort)
 
 # Export dataset
@@ -185,7 +185,7 @@ write_csv(universal_purchase, "data-clean/universal_purchase_final.csv")
 # State policies------------------------------------------------------
 state_policies <- read_csv("data-raw/state_policies.csv")
 names(state_policies) <- tolower(gsub(" ", "_", names(state_policies)))
-state_policies_filtered <- state_policies %>%
+state_policies_filtered <- state_policies |>
   filter(`1_include_in_brief` %in% c(1, "1"))
 
 # Export dataset
