@@ -258,7 +258,11 @@ measles_map <- function(df, state) {
   }
 
   # Create the title text
-  title_text <- paste0(sel_val, " measles cases in ", state)
+  if (sel_val == 1) {
+    title_text <- paste0(sel_val, " measles case in ", state)
+  } else {
+    title_text <- paste0(sel_val, " measles cases in ", state)
+  }
 
   p <- df_centroids |>
     ggplot(aes(fill = measles_category)) +
