@@ -8,7 +8,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
-   state: maine
+   state: california
    end_date: "September 1, 2025"
 execute:
   echo: false
@@ -54,6 +54,15 @@ exemption <- read_csv("data-clean/non_medical_exemption.csv")
 if (state_title == "Maine") {
     year_filter <- "2023-24"
     year_filter_before <- "2022-23"
+} else if (state_title == "Montana") {
+    year_filter <- "2020-21"
+    year_filter_before <- "2019-20"
+} else if (state_title == "New York") {
+    year_filter <- "2018-19"
+    year_filter_before <- "2017-18"
+} else if (state_title == "California") {
+    year_filter <- "2016-17"
+    year_filter_before <- "2015-16"
 } else {
     year_filter <- "2024-25"
     year_filter_before <- "2023-24"
@@ -460,10 +469,7 @@ if (!(state_title %in% c("West Virginia", "Montana"))) {
 <div style="background-color: #F8F8F8;">
 
 ```{r}
-if (
-    !(state_title %in%
-        c("Montana", "West Virginia", "California", "New York"))
-) {
+if (!(state_title %in% c("West Virginia"))) {
     variation <- (third_box - third_box_before) / third_box_before
     if (abs(variation) <= 0.1) {
         variation_text <- "is similar to"
