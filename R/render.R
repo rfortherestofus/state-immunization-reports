@@ -99,15 +99,17 @@ file_move(
     path = all_reports,
     new_path = "reports"
 )
+
 pdf_files <- list.files("reports", pattern = "\\.pdf$", full.names = TRUE)
 
-folder <- as_id("1fxoUQYyKK0ef4BRzb3Ab4w1x39s722su")
-
-# upload with overwrite
-lapply(pdf_files, function(f) {
+upload_report <- function(report_file) {
     drive_upload(
-        media = f,
-        path = folder,
+        media = report_file,
+        path = as_dribble(
+            "https://drive.google.com/drive/u/1/folders/13VY2ICdG4H6ismEtSZnllTPJtBx8uUpg"
+        ),
         overwrite = TRUE
     )
-})
+}
+
+walk(pdf_files, upload_report)
