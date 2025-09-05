@@ -5,7 +5,7 @@ library(janitor)
 library(readr)
 library(stringr)
 library(dplyr)
-
+library(tidycensus)
 
 # Measles -----------------------------------------------------------------
 
@@ -194,15 +194,19 @@ write_csv(state_policies, "data-clean/state_policies_final.csv")
 
 # Census Data ------------------------------------------------------------
 
-get_decennial(
-  geography = "state",
-  variables = "P1_001N", # Total population variable
-  year = 2020,
-  survey = "pl" # PL 94-171 Redistricting Data
-) |>
+population_by_state <-
+  get_decennial(
+    geography = "state",
+    variables = "P1_001N", # Total population variable
+    year = 2020,
+    survey = "pl" # PL 94-171 Redistricting Data
+  ) |>
   select(NAME, value) |>
   rename(
     state = NAME,
     total_population = value
   ) |>
   arrange(desc(total_population))
+
+population_by_state |>
+  write_rds("data-clean/population_by_state.rds")
