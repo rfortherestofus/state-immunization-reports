@@ -490,7 +490,7 @@ if (!(state_title %in% c("West Virginia"))) {
         heading_ad <- "Additional details on exemption requirements:"
     }
     text_content <- glue(
-        "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year {variation_text} the state's 2023-24 rate."
+        "{state_title}'s rate of non-medical exemptions among kindergartners during the {year_filter} school year {variation_text} the state's {year_filter_before} rate."
     )
 } else {
     heading_ad <- ""
