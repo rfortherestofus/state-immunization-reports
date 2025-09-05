@@ -39,35 +39,35 @@ total_measles_cases <- read_csv("data-clean/total_measles_cases.csv")
 mmr_coverage_final <- read_csv("data-clean/mmr_coverage_final.csv")
 
 state_policies <- read_csv("data-clean/state_policies_final.csv") |>
-    filter(state == state_title) |>
-    filter(`1_include_in_brief` == 1) |>
-    filter(!(is.na(bill_number)))
+  filter(state == state_title) |>
+  filter(`1_include_in_brief` == 1) |>
+  filter(!(is.na(bill_number)))
 
 dtap_coverage_final <- read_csv("data-clean/dtap_coverage_final.csv")
 
 exemption_policies <- read_csv(
-    "data-clean/non_medical_exemption_policies_final.csv"
+  "data-clean/non_medical_exemption_policies_final.csv"
 )
 
 exemption <- read_csv("data-clean/non_medical_exemption.csv")
 
 exemption_policies_state <- exemption_policies |> filter(State == state_title)
 exemption_state <- exemption |>
-    filter(geography == state_title) |>
-    filter(school_year == "2024-25")
+  filter(geography == state_title) |>
+  filter(school_year == "2024-25")
 exemption_state_year_before <- exemption |>
-    filter(geography == state_title) |>
-    filter(school_year == "2023-24")
+  filter(geography == state_title) |>
+  filter(school_year == "2023-24")
 exemption_us <- exemption |>
-    filter(geography == "U.S. Median") |>
-    filter(school_year == "2024-25")
+  filter(geography == "U.S. Median") |>
+  filter(school_year == "2024-25")
 if (nrow(exemption_us) == 0) {
-    stop(glue("Missing US in exemption dataset."))
+  stop(glue("Missing US in exemption dataset."))
 }
 first_box <- exemption_policies_state |> pull("Personal Exemption") |> toupper()
 second_box <- exemption_policies_state |>
-    pull("Religious Exemption") |>
-    toupper()
+  pull("Religious Exemption") |>
+  toupper()
 third_box <- exemption_state |> pull("estimate_percent") |> round(1)
 third_box_label <- paste0(third_box, "%")
 fourth_box <- exemption_us |> pull("estimate_percent") |> round(1)
@@ -75,194 +75,183 @@ fourth_box_label <- paste0(fourth_box, "%")
 third_box_before <- exemption_state_year_before |> pull("estimate_percent")
 
 is_universal_purchaser <- read_csv("data-clean/universal_purchase_final.csv") |>
-    filter(State == state_title) |>
-    pull("Universal Purchase") |>
-    toupper()
+  filter(State == state_title) |>
+  pull("Universal Purchase") |>
+  toupper()
 
 health_spending <- read_csv("data-clean/health_spending_final.csv")
 health_spending_state <- health_spending |>
-    filter(State == state_title)
+  filter(State == state_title)
 if (nrow(health_spending_state) == 0) {
-    stop(glue("Missing state {state} in health spending dataset."))
+  stop(glue("Missing state {state} in health spending dataset."))
 }
 rank_spending <- health_spending_state |> pull("Rank") |> ordinal()
 spending_state <- health_spending_state |>
-    pull("Public Health Funding Per Capita ($)") |>
-    round()
+  pull("Public Health Funding Per Capita ($)") |>
+  round()
 spending_us <- health_spending |>
-    filter(State == "United States") |>
-    pull("Public Health Funding Per Capita ($)") |>
-    round()
+  filter(State == "United States") |>
+  pull("Public Health Funding Per Capita ($)") |>
+  round()
 spending_state_label <- paste0("$", spending_state)
 spending_us_label <- paste0("$", spending_us)
 
 us_states <- states() |>
-    clean_names() |>
-    select(name) |>
-    filter(
-        !name %in%
-            c(
-                "Commonwealth of the Northern Mariana Islands",
-                "American Samoa",
-                "United States Virgin Islands"
-            )
-    )
+  clean_names() |>
+  select(name) |>
+  filter(
+    !name %in%
+      c(
+        "Commonwealth of the Northern Mariana Islands",
+        "American Samoa",
+        "United States Virgin Islands"
+      )
+  )
 
 population_by_state <-
-    get_decennial(
-        geography = "state",
-        variables = "P1_001N", # Total population variable
-        year = 2020,
-        survey = "pl" # PL 94-171 Redistricting Data
-    ) |>
-    select(NAME, value) |>
-    rename(
-        state = NAME,
-        total_population = value
-    ) |>
-    arrange(desc(total_population))
+  read_rds("data-clean/population_by_state.rds")
 
 df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
 priority_years <- c(
-    "2024-25",
-    "2023-24",
-    "2022-23",
-    "2021-22",
-    "2020-21",
-    "2019-20"
+  "2024-25",
+  "2023-24",
+  "2022-23",
+  "2021-22",
+  "2020-21",
+  "2019-20"
 )
 
 df_mmr_coverage_final <- mmr_coverage_final |>
-    select(geography, school_year, estimate_percent) |>
-    filter(school_year %in% priority_years) |>
-    mutate(
-        estimate_percent = readr::parse_number(as.character(estimate_percent))
-    ) |>
-    group_by(geography, school_year) |>
-    summarise(
-        estimate_percent = first(
-            estimate_percent[!is.na(estimate_percent)],
-            default = NA_real_
-        ),
-        .groups = "drop"
-    ) |>
-    pivot_wider(
-        names_from = school_year,
-        values_from = estimate_percent,
-        values_fill = NA_real_
-    ) |>
-    mutate(
-        estimate_percent = coalesce(
-            `2024-25`,
-            `2023-24`,
-            `2022-23`,
-            `2021-22`,
-            `2020-21`,
-            `2019-20`
-        ),
-        school_year = case_when(
-            !is.na(`2024-25`) ~ "2024-25",
-            !is.na(`2023-24`) ~ "2023-24",
-            !is.na(`2022-23`) ~ "2022-23",
-            !is.na(`2021-22`) ~ "2021-22",
-            !is.na(`2020-21`) ~ "2020-21",
-            !is.na(`2019-20`) ~ "2019-20",
-            TRUE ~ NA_character_
-        )
-    ) |>
-    filter(!is.na(estimate_percent)) |>
-    select(geography, school_year, estimate_percent)
+  select(geography, school_year, estimate_percent) |>
+  filter(school_year %in% priority_years) |>
+  mutate(
+    estimate_percent = readr::parse_number(as.character(estimate_percent))
+  ) |>
+  group_by(geography, school_year) |>
+  summarise(
+    estimate_percent = first(
+      estimate_percent[!is.na(estimate_percent)],
+      default = NA_real_
+    ),
+    .groups = "drop"
+  ) |>
+  pivot_wider(
+    names_from = school_year,
+    values_from = estimate_percent,
+    values_fill = NA_real_
+  ) |>
+  mutate(
+    estimate_percent = coalesce(
+      `2024-25`,
+      `2023-24`,
+      `2022-23`,
+      `2021-22`,
+      `2020-21`,
+      `2019-20`
+    ),
+    school_year = case_when(
+      !is.na(`2024-25`) ~ "2024-25",
+      !is.na(`2023-24`) ~ "2023-24",
+      !is.na(`2022-23`) ~ "2022-23",
+      !is.na(`2021-22`) ~ "2021-22",
+      !is.na(`2020-21`) ~ "2020-21",
+      !is.na(`2019-20`) ~ "2019-20",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(estimate_percent)) |>
+  select(geography, school_year, estimate_percent)
 
 df_mmr <- left_join(
-    df_mmr_coverage_final,
-    population_by_state,
-    by = c("geography" = "state")
+  df_mmr_coverage_final,
+  population_by_state,
+  by = c("geography" = "state")
 )
 
 mmr_line_df <- mmr_coverage_final |>
-    select(geography, school_year, estimate_percent)
+  select(geography, school_year, estimate_percent)
 
 df_dtap_coverage_final <- dtap_coverage_final |>
-    select(geography, year, estimate_percent) |>
-    filter(year == "2023")
+  select(geography, year, estimate_percent) |>
+  filter(year == "2023")
 
 df_dtap <- left_join(
-    df_dtap_coverage_final,
-    population_by_state,
-    by = c("geography" = "state")
+  df_dtap_coverage_final,
+  population_by_state,
+  by = c("geography" = "state")
 )
 
 dtap_line_df <- dtap_coverage_final |>
-    select(geography, year, estimate_percent)
+  select(geography, year, estimate_percent)
 ```
 
 ```{r}
 #| output: asis
 is_above_national_comparison <- df_dtap |>
-    filter(geography %in% c(state_title, "United States")) |>
-    summarise(
-        higher_than_us = estimate_percent[geography == state_title] >
-            estimate_percent[geography == "United States"]
-    ) |>
-    pull(higher_than_us)
+  filter(geography %in% c(state_title, "United States")) |>
+  summarise(
+    higher_than_us = estimate_percent[geography == state_title] >
+      estimate_percent[geography == "United States"]
+  ) |>
+  pull(higher_than_us)
 if (is_above_national_comparison) {
-    label_national_comparison <- "above"
+  label_national_comparison <- "above"
 } else {
-    label_national_comparison <- "below"
+  label_national_comparison <- "below"
 }
 
 # some states have some missing data here
 if (
-    !(state_title %in%
-        c(
-            "Montana",
-            "West Virginia",
-            "Maine",
-            "California",
-            "New York",
-            "Connecticut"
-        ))
+  !(state_title %in%
+    c(
+      "Montana",
+      "West Virginia",
+      "Maine",
+      "California",
+      "New York",
+      "Connecticut"
+    ))
 ) {
-    if (third_box >= fourth_box) {
-        label_median_comparison <- "higher"
-    } else {
-        label_median_comparison <- "lower"
-    }
-    sentence_median_comparison <- glue(
-        "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
-    )
+  if (third_box >= fourth_box) {
+    label_median_comparison <- "higher"
+  } else {
+    label_median_comparison <- "lower"
+  }
+  sentence_median_comparison <- glue(
+    "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
+  )
 } else {
-    sentence_median_comparison <- glue(
-        "- {state_title} does not allow personal or religious exemptions.\n\n"
-    )
+  sentence_median_comparison <- glue(
+    "- {state_title} does not allow personal or religious exemptions.\n\n"
+  )
 }
 
 if (spending_state >= spending_us) {
-    label_spending_comparison <- "higher"
+  label_spending_comparison <- "higher"
 } else {
-    label_spending_comparison <- "lower"
+  label_spending_comparison <- "lower"
 }
 
 n_cases_measles <- df |>
-    filter(name == state_title) |>
-    pull(total)
+  filter(name == state_title) |>
+  pull(total)
 
 print(glue(
-    "This brief illustrates the current status of childhood immunization in {state_title} and is intended to inform state-level policy decisions and priorities. Takeaways include:"
+  "This brief illustrates the current status of childhood immunization in {state_title} and is intended to inform state-level policy decisions and priorities. Takeaways include:"
 ))
 cat("\n\n")
 cat(
-    glue(
-        "- State-level immunization coverage in {state_title} for key childhood vaccines, such as DTaP and MMR, is {label_national_comparison} than national averages.\n\n"
-    ),
-    sentence_median_comparison,
-    glue(
-        "- State-level per capita public health spending is {label_spending_comparison} than the national average.\n\n"
-    ),
-    glue(
-        "- {state_title} has reported {n_cases_measles} cases of measles since January 1, 2025."
-    )
+  glue(
+    "- State-level immunization coverage in {state_title} for key childhood vaccines, such as DTaP and MMR, is {label_national_comparison} than national averages.\n\n"
+  ),
+  sentence_median_comparison,
+  glue(
+    "- State-level per capita public health spending is {label_spending_comparison} than the national average.\n\n"
+  ),
+  glue(
+    "- {state_title} has reported {n_cases_measles} cases of measles since January 1, 2025."
+  )
 )
 ```
 
@@ -279,7 +268,7 @@ cat(
 ```{r}
 #| output: asis
 print(glue(
-    "Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in {state_title} and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets."
+  "Maintaining sufficient vaccination coverage is critical for establishing community protection. The charts below demonstrate how coverage for two critical vaccines has changed over time in {state_title} and how it compares to neighboring states, national averages, and Healthy People 2030 (HP2030) targets."
 ))
 ```
 
@@ -304,46 +293,45 @@ df_dtap |> dtap_vaccination_comparison_chart(df, state_title)
 
 ```{r}
 is_above_yoy_comparison <- dtap_line_df |>
-    filter(geography == state_title, year %in% c(2022, 2023)) |>
-    summarise(
-        increase = estimate_percent[year == 2023] >
-            estimate_percent[year == 2022]
-    ) |>
-    pull(increase) |>
-    round()
+  filter(geography == state_title, year %in% c(2022, 2023)) |>
+  summarise(
+    increase = estimate_percent[year == 2023] > estimate_percent[year == 2022]
+  ) |>
+  pull(increase) |>
+  round()
 
 if (is_above_yoy_comparison) {
-    label_yoy_comparison <- "more"
+  label_yoy_comparison <- "more"
 } else {
-    label_yoy_comparison <- "fewer"
+  label_yoy_comparison <- "fewer"
 }
 
 coverage_state <- dtap_line_df |>
-    filter(geography == state_title) |>
-    filter(year == 2023) |>
-    pull(estimate_percent) |>
-    round()
+  filter(geography == state_title) |>
+  filter(year == 2023) |>
+  pull(estimate_percent) |>
+  round()
 if (coverage_state < 90) {
-    label_target <- "below"
+  label_target <- "below"
 } else {
-    label_target <- "above"
+  label_target <- "above"
 }
 
 is_above_us <- df_dtap |>
-    filter(geography %in% c(state_title, "United States")) |>
-    summarise(
-        higher = estimate_percent[geography == state_title] >
-            estimate_percent[geography == "United States"]
-    ) |>
-    pull(higher)
+  filter(geography %in% c(state_title, "United States")) |>
+  summarise(
+    higher = estimate_percent[geography == state_title] >
+      estimate_percent[geography == "United States"]
+  ) |>
+  pull(higher)
 if (is_above_us) {
-    label_coverage_us <- "higher"
+  label_coverage_us <- "higher"
 } else {
-    label_coverage_us <- "lower"
+  label_coverage_us <- "lower"
 }
 
 text_content <- glue(
-    "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage_us} coverage than the US median. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
+  "In 2023, {label_yoy_comparison} two-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. {state_title} has {label_coverage_us} coverage than the US median. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
 )
 ```
 
@@ -381,62 +369,62 @@ df_mmr |> mmr_vaccination_comparison_chart(df, state_title)
 
 ```{r}
 is_decreasing_yoy <- mmr_coverage_final |>
-    filter(
-        geography == state_title,
-        school_year %in% c("2023-24", "2024-25")
-    ) |>
-    summarise(
-        decrease = estimate_percent[school_year == "2024-25"] <
-            estimate_percent[school_year == "2023-24"]
-    ) |>
-    pull(decrease)
+  filter(
+    geography == state_title,
+    school_year %in% c("2023-24", "2024-25")
+  ) |>
+  summarise(
+    decrease = estimate_percent[school_year == "2024-25"] <
+      estimate_percent[school_year == "2023-24"]
+  ) |>
+  pull(decrease)
 
 is_lower_us <- mmr_coverage_final |>
-    filter(
-        geography %in% c(state_title, "U.S. Median"),
-        school_year == "2024-25"
-    ) |>
-    summarise(
-        lower_than_us = estimate_percent[geography == state_title] <
-            estimate_percent[geography == "U.S. Median"]
-    ) |>
-    pull(lower_than_us)
+  filter(
+    geography %in% c(state_title, "U.S. Median"),
+    school_year == "2024-25"
+  ) |>
+  summarise(
+    lower_than_us = estimate_percent[geography == state_title] <
+      estimate_percent[geography == "U.S. Median"]
+  ) |>
+  pull(lower_than_us)
 
 value <- mmr_coverage_final |>
-    filter(
-        geography == state_title,
-        school_year == "2024-25"
-    ) |>
-    pull(estimate_percent)
+  filter(
+    geography == state_title,
+    school_year == "2024-25"
+  ) |>
+  pull(estimate_percent)
 is_below_target <- value < 95
 
 # some states have some missing data which prevent us to display default text
 if (!(state_title %in% c("West Virginia", "Montana"))) {
-    if (is_decreasing_yoy) {
-        label_comparison_yoy <- "lower"
-    } else {
-        label_comparison_yoy <- "higher"
-    }
+  if (is_decreasing_yoy) {
+    label_comparison_yoy <- "lower"
+  } else {
+    label_comparison_yoy <- "higher"
+  }
 
-    if (is_lower_us) {
-        label_coverage <- "lower"
-    } else {
-        label_coverage <- "higher"
-    }
+  if (is_lower_us) {
+    label_coverage <- "lower"
+  } else {
+    label_coverage <- "higher"
+  }
 
-    if (is_below_target) {
-        label_target <- "falls short of"
-    } else {
-        label_target <- "exceeds"
-    }
+  if (is_below_target) {
+    label_target <- "falls short of"
+  } else {
+    label_target <- "exceeds"
+  }
 
-    text_content <- glue(
-        "In 2024, a {label_comparison_yoy} proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage} coverage than the US median. Coverage in {state_title} {label_target} the HP2030 target of 95%."
-    )
+  text_content <- glue(
+    "In 2024, a {label_comparison_yoy} proportion of kindergarteners received at least 1 dose of measles, mumps, and rubella (MMR) vaccine in {state_title} compared to the previous year. {state_title} has {label_coverage} coverage than the US median. Coverage in {state_title} {label_target} the HP2030 target of 95%."
+  )
 } else {
-    text_content <- glue(
-        "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
-    )
+  text_content <- glue(
+    "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
+  )
 }
 ```
 
@@ -465,38 +453,38 @@ if (!(state_title %in% c("West Virginia", "Montana"))) {
 
 ```{r}
 if (
-    !(state_title %in%
-        c("Montana", "West Virginia", "Maine", "California", "New York"))
+  !(state_title %in%
+    c("Montana", "West Virginia", "Maine", "California", "New York"))
 ) {
-    variation <- (third_box - third_box_before) / third_box_before
-    if (abs(variation) <= 0.1) {
-        variation_text <- "is similar to"
-    } else if (variation > 0.0) {
-        variation_text <- "is a slight increase from"
-    } else {
-        variation_text <- "is a slight decrease from"
-    }
-    additional_details <- exemption_policies_state |>
-        pull(
-            "Additional Details on Exemption Exceptions & Educational Requirements"
-        ) |>
-        as.character()
-    if (is.na(additional_details)) {
-        additional_details <- ""
-        heading_ad <- ""
-    } else {
-        heading_ad <- "Additional details on exemption requirements:"
-    }
-    text_content <- glue(
-        "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year {variation_text} the state's 2023-24 rate."
-    )
-} else {
-    heading_ad <- ""
+  variation <- (third_box - third_box_before) / third_box_before
+  if (abs(variation) <= 0.1) {
+    variation_text <- "is similar to"
+  } else if (variation > 0.0) {
+    variation_text <- "is a slight increase from"
+  } else {
+    variation_text <- "is a slight decrease from"
+  }
+  additional_details <- exemption_policies_state |>
+    pull(
+      "Additional Details on Exemption Exceptions & Educational Requirements"
+    ) |>
+    as.character()
+  if (is.na(additional_details)) {
     additional_details <- ""
-    third_box_label <- "NA"
-    text_content <- glue(
-        "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
-    )
+    heading_ad <- ""
+  } else {
+    heading_ad <- "Additional details on exemption requirements:"
+  }
+  text_content <- glue(
+    "{state_title}'s rate of non-medical exemptions among kindergartners during the 2024-25 school year {variation_text} the state's 2023-24 rate."
+  )
+} else {
+  heading_ad <- ""
+  additional_details <- ""
+  third_box_label <- "NA"
+  text_content <- glue(
+    "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
+  )
 }
 ```
 
@@ -535,13 +523,13 @@ if (
 
 ```{r}
 if (state_title == "District of Columbia") {
-    text_content <- glue(
-        "Low levels of public health spending are thought to contribute to suboptimal immunization rates."
-    )
+  text_content <- glue(
+    "Low levels of public health spending are thought to contribute to suboptimal immunization rates."
+  )
 } else {
-    text_content <- glue(
-        "Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, {state_title} ranks {rank_spending} in public health spending."
-    )
+  text_content <- glue(
+    "Low levels of public health spending are thought to contribute to suboptimal immunization rates. Nationally, {state_title} ranks {rank_spending} in public health spending."
+  )
 }
 ```
 
@@ -612,24 +600,24 @@ Strong policy commitment to immunization is critical for effective vaccination p
 # because the number of element depends
 # on the data
 typst_list <- state_policies |>
-    mutate(
-        arrow = ifelse(
-            bill_valency == "Good",
-            "up-arrow.png",
-            "down-arrow.png"
-        ),
-        list_item = glue(
-            '#list(marker: image("assets/{arrow}", width: 23pt))[',
-            '{bill_number} ({bill_status}) – {text_description}]'
-        )
-    ) |>
-    pull(list_item)
+  mutate(
+    arrow = ifelse(
+      bill_valency == "Good",
+      "up-arrow.png",
+      "down-arrow.png"
+    ),
+    list_item = glue(
+      '#list(marker: image("assets/{arrow}", width: 23pt))[',
+      '{bill_number} ({bill_status}) – {text_description}]'
+    )
+  ) |>
+  pull(list_item)
 typst_list <- gsub("\\$", "\\\\\\$", typst_list)
 
 typst_code <- glue(
-    'box(inset: 10pt)[\n',
-    '{paste(typst_list, collapse = "\n")}\n]',
-    .trim = FALSE
+  'box(inset: 10pt)[\n',
+  '{paste(typst_list, collapse = "\n")}\n]',
+  .trim = FALSE
 )
 
 # then we save that dynamic Typst code, and read it in Typst right after
@@ -655,7 +643,7 @@ writeLines(typst_code, "state_policies.typ")
 
 ```{r}
 text_content <- glue(
-    "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and {params$end_date}."
+  "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025, and {params$end_date}."
 )
 ```
 
