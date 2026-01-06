@@ -221,6 +221,8 @@ dtap_line_df <- dtap_coverage_final |>
 
 measles_cases_updated_date <-
   read_rds(here("data-clean/measles_cases_updated_date.rds"))
+# hardcode date until we fix https://github.com/claritydatastudio/state-immunization-reports/issues/38
+measles_cases_updated_date <- "December 31, 2025"
 ```
 
 ```{r}

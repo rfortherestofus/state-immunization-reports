@@ -12,19 +12,15 @@ library(chromote)
 # Get last updated date
 
 b <- ChromoteSession$new()
-b$Page$navigate(
-  "https://publichealth.jhu.edu/ivac/resources/us-measles-tracker"
+b$go_to(
+  "https://publichealth.jhu.edu/ivac/resources/us-measles-tracker",
+  delay = 5 # Wait for JavaScript to load content
 )
-Sys.sleep(5) # Wait for JavaScript to load content
-
 date_text <- b$Runtime$evaluate(
   "document.querySelector('#updateDate').textContent"
 )$result$value
 
-measles_cases_updated_date <-
-  date_text |>
-  str_remove("Updated ")
-
+measles_cases_updated_date <- date_text |> str_remove("Updated ")
 measles_cases_updated_date |>
   write_rds("data-clean/measles_cases_updated_date.rds")
 
