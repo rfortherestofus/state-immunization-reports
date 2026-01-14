@@ -15,7 +15,7 @@ measles_cases_updated_date <- readr::read_delim(
   delim = ","
 ) |>
   as_tibble() |>
-  arrange(desc(date)) |>
+  arrange(date) |>
   tail(1) |>
   pull(date)
 
