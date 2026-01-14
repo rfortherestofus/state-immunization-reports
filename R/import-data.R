@@ -10,17 +10,20 @@ library(chromote)
 # CSV comes from https://publichealth.jhu.edu/ivac/resources/us-measles-tracker
 
 # Get last updated date
+measles_cases_updated_date <- readr::read_delim(
+  "https://github.com/CSSEGISandData/measles_data/blob/main/measles_county_all_updates.csv?raw=true",
+  delim = ","
+) |>
+  as_tibble() |>
+  arrange(desc(date)) |>
+  tail(1) |>
+  pull(date)
 
-b <- ChromoteSession$new()
-b$go_to(
-  "https://publichealth.jhu.edu/ivac/resources/us-measles-tracker",
-  delay = 5 # Wait for JavaScript to load content
+measles_cases_updated_date <- format(
+  as.Date(measles_cases_updated_date, "%Y-%m-%d"),
+  "%B %d, %Y"
 )
-date_text <- b$Runtime$evaluate(
-  "document.querySelector('#updateDate').textContent"
-)$result$value
 
-measles_cases_updated_date <- date_text |> str_remove("Updated ")
 measles_cases_updated_date |>
   write_rds("data-clean/measles_cases_updated_date.rds")
 
