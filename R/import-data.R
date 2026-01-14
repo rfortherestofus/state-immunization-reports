@@ -19,12 +19,16 @@ measles_cases_updated_date <- readr::read_delim(
   tail(1) |>
   pull(date)
 
-measles_cases_updated_date <- format(
-  as.Date(measles_cases_updated_date, "%Y-%m-%d"),
-  "%B %d, %Y"
+measles_cases_updated_date_format <- gsub(
+  " +",
+  " ",
+  format(
+    as.Date(measles_cases_updated_date, "%B %d, %Y"),
+    "%B %e, %Y"
+  )
 )
 
-measles_cases_updated_date |>
+measles_cases_updated_date_format |>
   write_rds("data-clean/measles_cases_updated_date.rds")
 
 # Import- measles cases dataset
