@@ -4,6 +4,7 @@ date: today
 date-format: "MMMM YYYY"
 format:
    typst:
+      pdf-standard: ua-1
       keep-typ: true
       template-partials:
          - typst-template.typ
