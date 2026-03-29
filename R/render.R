@@ -1,6 +1,5 @@
 # Load Packages -----------------------------------------------------------
 library(quarto)
-library(xmpdf)
 library(stringr)
 library(glue)
 library(tidyverse)
@@ -8,10 +7,8 @@ library(here)
 library(fs)
 library(xfun)
 library(googledrive)
-library(xmpdf)
 
 # Run Typst 0.14
-Sys.setenv(QUARTO_TYPST = "/opt/homebrew/bin/typst")
 system("quarto typst --version") # should be typst 0.14.x
 
 # Import Data ------------------------------------------------------------
@@ -110,10 +107,6 @@ walk(states, change_parameters_yaml)
 # Custom Typst compilation -------------------------------------------------
 render_and_compile <- function(state) {
   quarto_render(str_glue("documents/{state}.qmd"))
-  system2(
-    "typst",
-    c("compile", glue("documents/{state}.typ", " --pdf-standard", " ua-1"))
-  )
   print(str_glue("{state} rendered"))
 }
 walk(states, render_and_compile)
@@ -136,26 +129,6 @@ rename_file <- function(state) {
   file.rename(old_name, new_name)
 }
 walk(states, rename_file)
-
-
-# Update Titles ----------------------------------------------------------
-
-update_pdf_titles <- function(state) {
-  state_title <- str_to_title(gsub("_", " ", state))
-  pdf_path <- glue(
-    "reports/Status of Childhood Immunization in {state_title}.pdf"
-  )
-
-  set_docinfo(
-    docinfo = docinfo(
-      title = glue("Status of Childhood Immunization in {state_title}")
-    ),
-    input = pdf_path,
-    output = pdf_path
-  )
-}
-
-walk(states, update_pdf_titles)
 
 # Upload Reports -----------------------------------------------------------
 if (str_detect(Sys.getenv("GOOGLE_DRIVE_EMAIL"), "rfortherestofus.com")) {

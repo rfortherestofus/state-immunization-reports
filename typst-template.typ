@@ -1,13 +1,11 @@
-#import "@preview/titleize:0.1.1": titlecase
+#import "@preview/titleize:0.1.1": string-to-titlecase
 
 #let blueline() = {
   line(length: 100%, stroke: 2pt + rgb("#68ACE5"))
 }
 
 #let source(color: black, body) = {
-  align(
-    right,
-  )[#text(body, style: "italic", font: "Bitter", size: 9pt, fill: color)]
+  align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt, fill: color)]
 }
 
 #let status-boxes(top-text: "", bottom-text: "") = {
@@ -21,15 +19,9 @@
     ],
   )
 
-  let redrect = box(
-    width: 100%,
-    height: 0.7in,
-    fill: white,
-    inset: 6pt,
-    align(center + horizon)[
-      #text(fill: black, size: 14pt)[#bottom-text]
-    ],
-  )
+  let redrect = box(width: 100%, height: 0.7in, fill: white, inset: 6pt, align(center + horizon)[
+    #text(fill: black, size: 14pt)[#bottom-text]
+  ])
 
   stack(dir: ttb, bluerect, redrect, spacing: 0pt)
 }
@@ -55,9 +47,7 @@
 
 #let chart-title(body) = {
   v(7pt)
-  align(
-    center,
-  )[#text(body, fill: rgb("#002D72"), font: "Gentona", weight: "medium")]
+  align(center)[#text(body, fill: rgb("#002D72"), font: "Gentona", weight: "medium")]
 }
 
 #let to-string(it) = {
@@ -78,7 +68,7 @@
 
 #let article(title: none, date: none, state: none, doc) = {
   let state = if state == none { "texas" } else { to-string(state) }
-  let state_title_case = titlecase(state)
+  let state_title_case = string-to-titlecase(state)
   let state_flag = "assets/flags/" + str.replace(lower(state), " ", "_") + ".svg"
   let alt_text_flag = "Flag of " + state_title_case
   let formatted_title = title + " in " + state
@@ -98,9 +88,7 @@
   set document(
     title: "Status of Childhood Immunization in " + state_title_case,
     author: "Johns Hopkins University, International Vaccine Access Center",
-    description: "Report on the status of childhood immunization in  "
-      + state_title_case
-      + ". Report compares vaccinations of MMR and DTaP vaccines, cost and comparison with the United States.",
+    description: "Report on the status of childhood immunization in  " + state_title_case + ". Report compares vaccinations of MMR and DTaP vaccines, cost and comparison with the United States.",
     keywords: ("vaccine", "measles", "childhood", state),
   )
 
@@ -113,21 +101,14 @@
         height: 0.75in,
         outset: (x: 15%),
         fill: rgb("#4E97E0"),
-        pad(
-          top: 16pt,
-          block(
-            width: 100%,
-            fill: rgb("#4E97E0"),
-            [
-              #grid(
-                columns: (3fr, auto, 1fr),
-                align(left)[#text(formatted_title, fill: white, weight: 600, font: "Bitter")],
-                align(center)[],
-                align(right)[#text(upper(date), fill: white, weight: 600, font: "Bitter")],
-              )
-            ],
-          ),
-        ),
+        pad(top: 16pt, block(width: 100%, fill: rgb("#4E97E0"), [
+          #grid(
+            columns: (3fr, auto, 1fr),
+            align(left)[#text(formatted_title, fill: white, weight: 600, font: "Bitter")],
+            align(center)[],
+            align(right)[#text(upper(date), fill: white, weight: 600, font: "Bitter")],
+          )
+        ])),
       )
     },
   )
