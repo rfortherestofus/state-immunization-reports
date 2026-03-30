@@ -39,8 +39,8 @@ Rico.
 
 ## How to run the reports
 
-Please ensure you have the latest version of Quarto. Download and install it
-from the [Quarto website](https://quarto.org/docs/get-started/).
+Please ensure you have Quarto version 1.10.0 or higher. Download and install it
+from the [Quarto website](https://quarto.org/docs/download/).
 
 To generate all of the reports, run the `R/render.R` file. You will need to
 first install several packages to make everything work. You can do that by
@@ -56,8 +56,6 @@ computer for everything to work properly.
 
 If you are on a Mac, you may need to install [XQuartz](https://www.xquartz.org/) so that the plots will
 render correctly.
-
-You can see the recording of the call where we rendered all reports [here](https://muse.ai/vt/7mDGYES).
 
 ## How the report works
 
