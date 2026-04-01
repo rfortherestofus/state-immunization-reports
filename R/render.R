@@ -8,9 +8,6 @@ library(fs)
 library(xfun)
 library(googledrive)
 
-# Run Typst 0.14
-system("quarto typst --version") # should be typst 0.14.x
-
 # Import Data ------------------------------------------------------------
 source("R/import-data.R")
 
@@ -22,7 +19,6 @@ states_flags <- list.files(
 )
 states <- tools::file_path_sans_ext(basename(states_flags))
 states <- states[states != "puerto_rico"] # remove for now
-states <- states[49:51]
 
 # Create State QMDs --------------------------------------------------------
 if (dir_exists("documents")) {
@@ -140,7 +136,7 @@ if (str_detect(Sys.getenv("GOOGLE_DRIVE_EMAIL"), "rfortherestofus.com")) {
   upload_report <- function(report_file) {
     drive_upload(
       media = report_file,
-      path = folder <- as_id("1fxoUQYyKK0ef4BRzb3Ab4w1x39s722su"),
+      path = folder <- as_id("13VY2ICdG4H6ismEtSZnllTPJtBx8uUpg"),
       overwrite = TRUE
     )
   }
