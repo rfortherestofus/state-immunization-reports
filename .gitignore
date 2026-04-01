@@ -66,3 +66,4 @@ report_files/figure-typst/unnamed-chunk-8-1.svg
 .DS_Store
 sandbox/
 typst-template.pdf
+*.rmarkdown
