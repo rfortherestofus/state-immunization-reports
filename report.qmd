@@ -504,26 +504,26 @@ if (state_title != "New Hampshire") {
 is_decreasing_yoy <- mmr_coverage_final |>
   filter(
     geography == state_title,
-    school_year %in% c("2023-24", "2024-25")
+    school_year %in% c(year_filter_before, year_filter)
   ) |>
   summarise(
-    decrease = estimate_percent[school_year == "2024-25"] <
-      estimate_percent[school_year == "2023-24"]
+    decrease = estimate_percent[school_year == year_filter] <
+      estimate_percent[school_year == year_filter_before]
   ) |>
   pull(decrease)
 
 vals <- mmr_coverage_final |>
   filter(
     geography == state_title,
-    school_year %in% c("2023-24", "2024-25")
+    school_year %in% c(year_filter_before, year_filter)
   )
 
 vals_2024_25 <- vals |>
-  filter(school_year == "2024-25") |>
+  filter(school_year == year_filter) |>
   pull(estimate_percent)
 
 vals_2023_24 <- vals |>
-  filter(school_year == "2023-24") |>
+  filter(school_year == year_filter_before) |>
   pull(estimate_percent)
 
 diff <- round(vals_2024_25 - vals_2023_24)
@@ -531,7 +531,7 @@ diff <- round(vals_2024_25 - vals_2023_24)
 is_lower_us <- mmr_coverage_final |>
   filter(
     geography %in% c(state_title, "United States"),
-    school_year == "2024-25"
+    school_year == year_filter
   ) |>
   summarise(
     lower_than_us = estimate_percent[geography == state_title] <
@@ -542,7 +542,7 @@ is_lower_us <- mmr_coverage_final |>
 value <- mmr_coverage_final |>
   filter(
     geography == state_title,
-    school_year == "2024-25"
+    school_year == year_filter
   ) |>
   pull(estimate_percent)
 
