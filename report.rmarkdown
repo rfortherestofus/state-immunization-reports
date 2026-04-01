@@ -51,9 +51,6 @@ exemption <- read_csv(here("data-clean/non_medical_exemption.csv"))
 if (state_title == "Maine") {
   year_filter <- "2023-24"
   year_filter_before <- "2022-23"
-} else if (state_title == "West Virginia") {
-  year_filter <- "2023-24"
-  year_filter_before <- "2022-23"
 } else if (state_title == "Montana") {
   year_filter <- "2020-21"
   year_filter_before <- "2019-20"
@@ -933,3 +930,4 @@ Measles outbreak cost:
 -   Patenaude B. 2025. Quantifying the Cost of Measles Outbreak in the U.S. and How Costs Scale with Outbreak Size. medRxiv: 2025.10.24.2533872
 
 *Note: The high-level data included in this report do not reflect statewide variation in vaccination coverage or disease status. Further, state reporting policies may limit data completeness. For any data-related questions, please contact ivac\@jh.edu.*
+

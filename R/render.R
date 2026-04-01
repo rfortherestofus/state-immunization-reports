@@ -22,6 +22,7 @@ states_flags <- list.files(
 )
 states <- tools::file_path_sans_ext(basename(states_flags))
 states <- states[states != "puerto_rico"] # remove for now
+states <- states[49:51]
 
 # Create State QMDs --------------------------------------------------------
 if (dir_exists("documents")) {
