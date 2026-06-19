@@ -768,18 +768,9 @@ if (nrow(state_policies) == 1) {
 # on the data
 typst_list <- state_policies |>
   mutate(
-    arrow = ifelse(
-      bill_valency == "Good",
-      "up-arrow.png",
-      "down-arrow.png"
-    ),
-    arrow_alt = ifelse(
-      bill_valency == "Good",
-      "Policy enacted",
-      "Policy not enacted"
-    ),
     list_item = glue(
-      '#list(marker: image("assets/{arrow}", width: 18pt, alt: "{arrow_alt}"))[',
+    # '#list(marker: "◦")[',
+      '#list(marker: "•", indent: 1em)[',
       "{bill_number} ({bill_status}) – {text_description}]"
     )
   ) |>
