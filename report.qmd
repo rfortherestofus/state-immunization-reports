@@ -753,11 +753,11 @@ if (state_title == "District of Columbia") {
 #| output: asis
 if (nrow(state_policies) == 1) {
   cat(
-    "The state legislature recently introduced a bill that would affect statewide childhood vaccination. The arrow below indicates whether the bill would strengthen (↑) or weaken (↓) vaccine safety nets.\n"
+    "The state legislature recently introduced a bill that would affect statewide childhood vaccination.\n"
   )
 } else {
   cat(
-    "Strong policy commitment to immunization is critical for effective vaccination programs. The state legislature has recently introduced several bills that would affect state-wide childhood vaccination, a selection of which are described below. The arrows below indicate whether these bills would strengthen (↑) or weaken (↓) vaccine safety nets.\n"
+    "Strong policy commitment to immunization is critical for effective vaccination programs. The state legislature has recently introduced several bills that would affect state-wide childhood vaccination, a selection of which are described below.\n"
   )
 }
 ```
