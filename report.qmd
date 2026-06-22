@@ -27,7 +27,7 @@ library(sf)
 library(janitor)
 library(here)
 
-source(here("R/charts.R"))
+source(here("R/charts_upd.R"))
 
 state <- params$state
 state_title <- gsub(" Of ", " of ", str_to_title(state))
@@ -844,7 +844,7 @@ ggsave(filename, plot = p)
 
 ```{=typst}
 #box(
-  inset:(top: 1em, right: 1em, bottom: 2.2em, left: 1em),
+  inset:(top: 1em, right: 1em, bottom: 2em, left: 1em),
   fill: rgb("#002D72"),
 )[
   #grid(
