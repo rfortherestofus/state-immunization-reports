@@ -867,10 +867,11 @@ ggsave(filename, plot = p)
     ]
   ]
 
-  #place(bottom + right, dy: 3pt)[
-    #source(color: white, "Source: Sriudomporn & Patenaude, 2025")
+  #align(right)[
+    #source(color: white, "Source: Shioda, Thompson & Patel, et al., 2021")
   ]
 ]
+
 ```
 ```{=typst}
 #blueline()
