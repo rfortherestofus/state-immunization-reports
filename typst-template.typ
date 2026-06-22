@@ -5,7 +5,7 @@
 }
 
 #let source(color: black, body) = {
-  align(right)[#text(body, style: "italic", font: "Bitter", size: 9pt, fill: color)]
+  align(right)[#text(body, style: "italic", font: "Roboto Slab", size: 9pt, fill: color)]
 }
 
 #let status-boxes(top-text: "", bottom-text: "") = {
@@ -30,11 +30,11 @@
   let box-style = (width: auto, fill: rgb("#002D72"), inset: (y: 10pt, x: 20pt))
 
   let left = box(..box-style, align(center + horizon)[
-    #text(fill: white, weight: "bold", font: "Bitter", text1)
+    #text(fill: white, weight: "bold", font: "Roboto Slab", text1)
   ])
 
   let right = box(..box-style, align(center + horizon)[
-    #text(fill: white, weight: "bold", font: "Bitter", text2)
+    #text(fill: white, weight: "bold", font: "Roboto Slab", text2)
   ])
 
   let connector = align(center + horizon)[
@@ -82,7 +82,7 @@
     weight: "light",
   )
 
-  show heading.where(level: 1): set text(fill: rgb("#002D72"), weight: "bold", font: "Bitter")
+  show heading.where(level: 1): set text(fill: rgb("#002D72"), weight: "bold", font: "Roboto Slab")
 
   // metadata
   set document(
@@ -104,9 +104,9 @@
         pad(top: 16pt, block(width: 100%, fill: rgb("#4E97E0"), [
           #grid(
             columns: (3fr, auto, 1fr),
-            align(left)[#text(formatted_title, fill: white, weight: 600, font: "Bitter")],
+            align(left)[#text(formatted_title, fill: white, weight: 600, font: "Roboto Slab")],
             align(center)[],
-            align(right)[#text(upper(date), fill: white, weight: 600, font: "Bitter")],
+            align(right)[#text(upper(date), fill: white, weight: 600, font: "Roboto Slab")],
           )
         ])),
       )
@@ -124,7 +124,7 @@
     let size = if level in sizes { sizes.at(level) } else { 10pt }
     let heading_color = if level == "1" { rgb("#002D72") } else { black }
 
-    set text(size: size, fill: heading_color, font: "Bitter")
+    set text(size: size, fill: heading_color, font: "Roboto Slab")
 
     if level == "1" { upper(it) } else { it }
   }
