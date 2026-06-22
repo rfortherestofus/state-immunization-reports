@@ -844,7 +844,7 @@ ggsave(filename, plot = p)
 
 ```{=typst}
 #box(
-  inset: 1em,
+  inset:(top: 1em, right: 1em, bottom: 2.2em, left: 1em),
   fill: rgb("#002D72"),
 )[
   #grid(
@@ -858,7 +858,7 @@ ggsave(filename, plot = p)
     )
   ][
     #text(
-      font: "Work Sans",
+      font: "Work",
       size: 11pt,
       fill: white,
     )[
