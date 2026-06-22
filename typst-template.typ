@@ -47,7 +47,7 @@
 
 #let chart-title(body) = {
   v(7pt)
-  align(center)[#text(body, fill: rgb("#002D72"), font: "Gentona", weight: "medium")]
+  align(center)[#text(body, fill: rgb("#002D72"), font: "Work Sans", weight: "medium")]
 }
 
 #let to-string(it) = {
@@ -77,7 +77,7 @@
   set text(
     lang: "en",
     region: "US",
-    font: ("Gentona", "Roboto", "Arial"),
+    font: ("Work Sans", "Source Sans 3", "Arial"),
     size: 11pt,
     weight: "light",
   )

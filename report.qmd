@@ -858,7 +858,7 @@ ggsave(filename, plot = p)
     )
   ][
     #text(
-      font: "Gentona",
+      font: "Work Sans",
       size: 11pt,
       fill: white,
     )[
