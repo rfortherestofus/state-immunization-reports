@@ -50,7 +50,7 @@ running this code in the console:
 install.packages(c("quarto", "glue", "tidyverse", "here", "fs", "xfun", "googledrive", "janitor", "sf", "ggfx", "rvest", "chromote"))
 ```
 
-You also need to have the Gentona (a paid font made available to JHU staff) and
+You also need to have the [Work Sans](https://fonts.google.com/specimen/Work+Sans) and
 [Bitter](https://fonts.google.com/specimen/Bitter) fonts installed on your
 computer for everything to work properly.
 

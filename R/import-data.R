@@ -11,21 +11,6 @@ library(chromote)
 
 # Get last updated date
 
-b <- ChromoteSession$new()
-b$go_to(
-  "https://publichealth.jhu.edu/ivac/resources/us-measles-tracker",
-  delay = 5 # Wait for JavaScript to load content
-)
-date_text <- b$Runtime$evaluate(
-  "document.querySelector('#updateDate').textContent"
-)$result$value
-
-measles_cases_updated_date <- date_text |> str_remove("Updated ")
-measles_cases_updated_date |>
-  write_rds("data-clean/measles_cases_updated_date.rds")
-
-# Import- measles cases dataset
-
 us_states_and_territories <-
   state.name |>
   as_tibble() |>
@@ -33,18 +18,20 @@ us_states_and_territories <-
   add_row(state = "District of Columbia") |>
   add_row(state = "Puerto Rico")
 
-total_measles_cases <-
-  read_csv("https://static.dwcdn.net/data/4zhkG.csv?v=1757352000000") |>
+us_states_and_territories <- tibble(
+  state = c(state.name, "District of Columbia", "Puerto Rico")
+)
+
+raw_measles <- read_csv("data-raw/total_measles_cases_raw.csv") |>
   clean_names() |>
-  full_join(us_states_and_territories) |>
-  select(state, total) |>
-  arrange(state) |>
-  mutate(total = replace_na(total, 0))
+  select(state, total = x2026)
 
-# Export data
-total_measles_cases |>
-  write_csv("data-clean/total_measles_cases.csv")
+total_measles_cases <- us_states_and_territories |>
+  left_join(raw_measles, by = "state") |>
+  mutate(total = replace_na(total, 0)) |>
+  arrange(state)
 
+write_csv(total_measles_cases, "data-clean/total_measles_cases.csv")
 # MMR Coverage ------------------------------------------------------------
 # CSV comes from CDC's SchoolVaxView (https://data.cdc.gov/Vaccinations/Vaccination-Coverage-and-Exemptions-among-Kinderga/ijqb-a7ye/about_data)
 
@@ -194,20 +181,26 @@ nm |>
 # CSV comes from CDC's ChildVaxView (https://www.cdc.gov/childvaxview/about/interactive-reports.html)
 # Import data set
 
-dtap_filtered_states <-
+# vector of 50 states + DC
+valid_states <- c(state.name, "District of Columbia")
+
+dtap_raw <-
   read_csv("data-raw/dtap_coverage.csv") |>
   clean_names() |>
   filter(
+    geography_type == "States/Local Areas" | geography == "United States",
+    geography %in% c(valid_states, "United States"),
     vaccine == "DTaP",
     dose == "≥4 Doses",
     dimension == "24 Months",
-    birth_year_birth_cohort %in% c("2017", "2018", "2019", "2020", "2021")
+    birth_year_birth_cohort %in% c("2018", "2019", "2020", "2021", "2022")
   ) |>
   mutate(year = as.numeric(birth_year_birth_cohort) + 2) |>
   arrange(geography, birth_year_birth_cohort)
+dtap_coverage_final <- dtap_raw
 
 # Export dataset
-dtap_filtered_states |>
+dtap_coverage_final|>
   write_csv("data-clean/dtap_coverage_final.csv")
 
 # Vaccine Exemptions ------------------------------------------------------
@@ -225,7 +218,7 @@ vaccine_exemptions <-
 vaccine_exemptions |>
   write_csv("data-clean/non_medical_exemption_policies_final.csv")
 
-# Health Spending ---------------------------------------------------------
+0# Health Spending ---------------------------------------------------------
 # CSV from from 'America's health rankings'
 
 # Import dataset-Public Health Spending
@@ -246,7 +239,6 @@ universal_purchase |>
   write_csv("data-clean/universal_purchase_final.csv")
 
 # State policies------------------------------------------------------
-
 state_policies <-
   read_csv("data-raw/state_policies.csv") |>
   clean_names() |>
@@ -257,17 +249,17 @@ state_policies <-
       x1_good_0_bad == 0 ~ "Bad"
     )
   ) |>
-  mutate(
+  mutate (
     bill_status = case_when(
       x1_enacted_0_not_enacted == 1 ~ "Enacted",
       x1_enacted_0_not_enacted == 0 ~ "Not enacted"
     )
-  ) |>
+    ) |>
   select(-c(x1_enacted_0_not_enacted, x1_good_0_bad))
-
 # Export dataset
 state_policies |>
   write_csv("data-clean/state_policies_final.csv")
+
 
 # Census Data ------------------------------------------------------------
 
@@ -311,3 +303,4 @@ state_policies |>
 #
 # us_states |>
 #   write_rds("data-clean/us_states.rds")
+

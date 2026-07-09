@@ -1,170 +1,216 @@
 state,bill_number,x1_include_in_brief,text_description,comments,bill_valency,bill_status
+Alabama,AL HB 24,1,Would make it more convenient for parents to obtain religious exemptions,Would also expand religious exemptions to public institutions of higher education,Bad,Not enacted
+Alabama,AL HB 12,1,Would prohibit discrimination on the basis of vaccine refusal,NA,Bad,Not enacted
 Alabama,AL HB 444,1,"Allows religious exemptions from immunization requirements for students attending religiously affiliated private schools, with documentation provided by a caregiver",NA,Bad,Not enacted
 Alabama,AL HB 367,1,Prohibits governmental entities and county health departments from using public funds to produce or distribute materials that promote vaccination,NA,Bad,Not enacted
 Alabama,AL SB 85,1,Specifies that religious exemptions to immunization requirements are permitted with a written declaration from a parent or guardian,NA,Bad,Not enacted
-Alaska,AK HB 238,1,"Allows parents or guardians to exempt their minor children from school immunization requirements by submitting a signed statement citing religious, medical, or philosophical objections",NA,Bad,Not enacted
-Arizona,AZ HB 2514,1,"Outlines a Parental Bill of Rights, including a provision that emphasizes parents' right to exempt their children from immunizations",NA,Bad,Enacted
-Arizona,AZ HB 2063,1,Would require that communications regarding school vaccine mandates include information on the process for obtaining exemptions,NA,Bad,Not enacted
-Arizona,AZ SB 1668,1,Codifies the requirement that insurers fully cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP),NA,Good,Not enacted
-Arizona,AZ SB 1663,1,"Proposed expanding the state's immunization reporting system, currently focused on child immunization data, to routinely collect information on adult immunizations",NA,Good,Not enacted
+Alaska,AK HB 279,1,Would restrict vaccination requirements to those with full FDA approval and require providers to provide documentation of vaccine risks and benefits before administration,NA,Bad,Not enacted
+Alaska,AK HB 238,1,Would add AAP-recommended vaccines to list of vaccines covered by statewide immunization program and medical assistance,NA,Good,Not enacted
+Arizona,AZ HB 2086,1,Would restrict government entity from requiring any vaccine (notwithstanding school vaccination requirements),NA,Bad,Not enacted
+Arizona,AZ HB 2248,1,"Would prohibit schools from requiring medical intervention for attendance, subject to Parents' Bill of Rights",NA,Bad,Not enacted
+Arizona,AZ HB 2005,1,"Would prohibit healthcare professionals from denying care/providing ""less than the standard of care"" based on vaccination statutus, and would prohibit healthcare institutions from adopting policies that would do so",NA,Bad,Not enacted
+Arizona,AZ SB 1011,1,Would require medical examiners to review immunization history for all sudden and unexplained infant deaths and report these deaths to national case registry,NA,Bad,Not enacted
+Arizona,AZ HB 2336,1,Would prohibit health insurers from including vaccine mandates as condition of coverage,NA,Bad,Not enacted
 Arkansas,AR HB 1619,1,"Requires the state Medicaid program to reimburse providers for administering RSV immunizations at the same rate as the Vaccines for Children (VFC) program, and prohibits civil liability against providers who administer these immunizations",NA,Good,Enacted
 Arkansas,AR SB 6,1,"Allow pharmaceutical company officers to be held criminally liable for ""vaccine harm""",NA,Bad,Not enacted
+California,CA AB 2651,1,Would require DPH to establish immunization coverage needed to prevent spread of disease and require department to notify parents when school rate has fallen below that level,NA,Good,Not enacted
 California,CA SB 290,1,Repeals the requirement that children must be immunized in order to receive CalWORKs benefits,NA,Bad,Not enacted
 California,CA AB 2101,1,Establishes a state stockpile of vaccines,NA,Good,Not enacted
 California,CA SB 957,1,Establishes the inclusion of sexual orientation and gender identity data within the State Immunization Information System (IIS),NA,Good,Not enacted
 California,CA SB 144,1,"Would authorize state to modify or supplement baseline vaccine recommendations, taking into account guidance from leading medical organizations",NA,Good,Not enacted
+Colorado,CO SB 26-032,1,Distances state immunization policy from ACIP recommendations and allows state to consider recommendations from AAP and other medical bodies,NA,Good,Enacted
 Colorado,CO SB 196,1,"Specifies that if the Advisory Committee on Immunization Practices (ACIP) is repealed, modified, or otherwise ceases to operate, the commissioner of insurance retains the authority to require vaccine coverage by insurers",NA,Good,Enacted
 Colorado,CO HB 1027,1,"Directs the State Board of Health to consider vaccination recommendations from the American Academy of Pediatrics (AAP) and other professional organizations, in addition to those from the Advisory Committee on Immunization Practices (ACIP), when establishing immunization requirements; Includes additional changes to school immunization provisions",NA,Good,Enacted
+Connecticut,CT HB 5044,1,"Expands authority of commissioner of public health to determine state vaccine requirements, with less reliance on federal vaccine recommendations",NA,Good,Enacted
 Connecticut,CT SB 526,1,"Would expand exemptions to state-mandated vaccination laws for school-aged children to allow philosophical exemptions based on personal, moral, or other beliefs",NA,Bad,Not enacted
 Connecticut,CT HB 6174,1,Would allow students to recover actual and punitive damages for injuries or illnesses caused by a vaccination program if the state required the student to receive the vaccine as a condition of school admission,NA,Bad,Not enacted
 Connecticut,CT HB 6581,1,"Would authorize pharmacists to administer vaccines to children, regardless of age",NA,Good,Not enacted
 Connecticut,CT HB 6614,1,Would reestablish religious exemptions for school vaccination requirements,NA,Bad,Not enacted
-Connecticut,CT HB 6550,1,Would establish an annual public education campaign to inform residents about free and low-cost vaccines,NA,Good,Not enacted
 Delaware,DE SB 180,1,"Pharmacists, pharmacy interns, and nationally certified pharmacy technicians who have completed an accredited training program, are currently trained in CPR, and have notified the Delaware Board of Pharmacy may administer immunizations via a prescriber's order or protocol for patients aged 3 years and older.",NA,Good,Enacted
 Delaware,DE HB 225,1,"Provides for the reimbursement of vaccine administration fees to eligible providers for vaccines administered to eligible children under the Vaccines for Children (VFC) program, in accordance with rates set by the Division of Medicaid and Medical Assistance in conjunction with the CDC. If funding levels permit, these funds may also be used to upgrade and maintain the state immunization registry (DelVAX).",NA,Good,Enacted
-Florida,FL SB 110,1,"Would establish a Primary and Preventive Care Grant Program to provide funding to providers in rural areas of the state, which may be used to purchase vaccines",NA,Good,Not enacted
+Delaware,DE HB 338,1,"Would require insurers to cover without cost-sharing immunizations recommended by ACIP or other national clinical guidelines as of January 1, 2025",NA,Good,Not enacted
+District of Columbia,DC B26-0606,1,Would protect physicians from being held liable for claims resulting from vaccine administration,NA,Good,Not enacted
+District of Columbia,DC B26-0414,1,"Allows providers to administer immunizations recommended by non-federal organizations (e.g., AAP)",NA,Good,Not enacted
+District of Columbia,DC B 278,1,"Requires schools to annually distribute immunization information, including information on how to obtain immunizations, in languages other than English",Enacted- 1/23/2024,Good,Enacted
+Florida,FL HB 917 & SB 1756,1,"Would add steps to vaccination consent process, allow for exemptions of conscience, require exemption form to be made publicly available on DoH website, and prohibit discrimination based on vaccination status",Died in committee,Bad,Not enacted
+Florida,FL HB 819,1,Would require medical examiners to review and document immunization history for all sudden and unexplained infant and child deaths and report these deaths to national case registry,Died in committee,Bad,Not enacted
+Florida,FL SB 408 & HB 339,1,"Would hold manufacturers liable for vaccine harm if they advertise a vaccine in the state and that vaccine ""causes harm or injury""",Died in committee,Bad,Not enacted
 Florida,FL SB 1752,1,Would establish a universal state health plan ('Florida Health Plan') that includes coverage for vaccines,NA,Good,Not enacted
 Florida,FL SB 1299,1,Prohibits discrimination based on vaccination status in educational institutions,NA,Bad,Enacted
-Montana,MT SB 474,1,Would require acceptance of religious and personal medical exemptions to mandated immunizations,NA,Bad,Not enacted
-Montana,MT LC 1384,1,Would direct the health department to pursue a Medicaid waiver to provide full immunization coverage for individuals experiencing homelessness,NA,Good,Not enacted
-Montana,MT HB 364,1,Would require schools to report deidentified vaccination and exemption data to the state,NA,Good,Not enacted
-New Mexico,NM SB 508,1,Would codify the requirement for insurers to fully cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP),NA,Good,Not enacted
-North Dakota,ND HB 1519,1,Would require the state to compile individual death and vaccination records and publish aggregated data on a quarterly basis,NA,Bad,Not enacted
-North Dakota,ND HB 1454,1,"Would establish an opt-out procedure for required vaccines based on health, religious, or philosophical grounds",NA,Bad,Enacted
-North Dakota,ND HB 1457,1,Would allow individuals to claim exemption from vaccine requirements if the vaccine does not meet several strict criteria,NA,Bad,Not enacted
-South Dakota,SD SB 100,1,Would prohibit the addition of any new childhood vaccine requirements beyond those currently mandated,NA,Bad,Not enacted
-South Dakota,SD HB 1223,1,"Would allow for ""conscience exemptions"" from vaccination requirements",NA,Bad,Not enacted
-Minnesota,MN HF 91,1,Would require a parent or legal guardian to be present for vaccine administration to a minor,NA,Bad,Not enacted
-Minnesota,MN HF 3239 & MN SF 3439,1,"Would prohibit the use of an exemption to immunization due to conscientiously held beliefs for immunization against measles, mumps, and rubella",Died in committee,Good,Not enacted
-Minnesota,MN SF 929 & HF 1812,1,Would establish a state health plan covering child immunizations,Died in committee,Good,Not enacted
-Minnesota,MN SF 839,1,Would require a parent or legal guardian to be present for vaccination of a minor,Died in committee,Bad,Not enacted
-Minnesota,MN SF 694 & HF 92,1,"Would establish a ""Bill of Rights"" for vaccine recipients, requiring ""independent information from sources other than vaccine manufacturers, governmental entities, or quasi-governmental entities""",Died in committee,Bad,Not enacted
-Mississippi,MS HB 1571,1,Would expand and facilitate non-medical vaccination exemptions,Died in committee,Bad,Not enacted
-Mississippi,MS HB 1422,1,Would prohibit provider incentives for vaccination,Died in committee,Bad,Not enacted
-Mississippi,MS HB 1506,1,Would expand non-medical exemptions to include philosophical and conscientious exemptions,"Introduced 2023-24, not enacted",Bad,Not enacted
-Missouri,MO SB 374,1,Would allow dentists to administer vaccines to their patients,Died in committee,Good,Not enacted
-Missouri,MO SJR 37,1,"This constitutional amendment would prohibit laws or policies from infringing upon individuals' right to refuse medical procedures, potentially overriding existing laws limiting exemptions to medical or religious reasons.",Died in committee,Bad,Not enacted
-Nebraska,NE LB 202,1,Would allow pharmacy technicians to administer vaccines,2023-24 session,Good,Not enacted
-Nebraska,NE LB 374,1,"Would establish a ""parental bill of rights,"" including reinforcing parents' ability to opt out of school immunization (e.g., via religious exemptions)",2023-24 session,Bad,Not enacted
-Nebraska,NE LB 1028,1,Would require that local and county health departments receive state-level approval for vaccination efforts,2023-24 session,Bad,Not enacted
-Nevada,NV SB 192,1,Would require health insurance plans to cover recommended childhood vaccines,Failed,Good,Not enacted
-New Hampshire,NH SB 60 & HB 357,1,"Would remove school requirement for varicella (chicken pox), Hepatitis B, and Hib vaccines; would remove authority of Commissioner of Health and Human Services to make vaccine rules",Died in chamber,Bad,Not enacted
-New Hampshire,NH HB 358,1,"Would eliminate the form needed to obtain a religious exemption, allowing such exemptions with a signed statement from a parent",Vetoed by governor,Bad,Not enacted
-New Hampshire,NH HB 679,1,Would prohibit requiring childhood immunization with vaccines that have not been shown to prevent transmission of disease in clinical trials,Died in chamber,Bad,Not enacted
-New Hampshire,NH HB 524,1,"Would repeal the state's Vaccine Association, which is responsible for the universal purchase of vaccines",Retained - will come back next session for a vote,Bad,Not enacted
-New Hampshire,NH S 75,1,Would authorize access for insurers to the state's immunization registry,NA,Good,Not enacted
-New Jersey,NJ A 1307 / NJ S 377,1,"Would add additional requirements to obtain consent for vaccination, such as vaccine insert and VAERS reporting to guardian 48 hours prior to vaccine administration",Was introduced in 2024 but is still part of current session and can still be voted on,Bad,Not enacted
-New Jersey,NJ A 1523,1,Would require parents to opt in to NJ Immunization Information System,Referred to committee,Bad,Not enacted
-New Jersey,NJ S 379,1,"Would create a ""Children's Vaccination Bill of Rights,"" emphasizing vaccine opt-out",2023-24 session,Bad,Not enacted
-New York,NY S 7729,1,Would require rotavirus immunization for school attendance,Referred to committee,Good,Not enacted
-New York,NY S 7823 & NY A 8383,1,Would remove reference to the Advisory Committee on Immunization Practices (ACIP) in the state's meningococcal vaccine recommendation,Referred to committee,Good,Not enacted
-New York,NY S 3020,1,Would exempt private and parochial schools from immunization requirements,Referred to committee,Bad,Not enacted
-New York,NY S 266 & NY A 1358,1,Would allow for religious vaccination exemptions,Referred to committee,Bad,Not enacted
-New York,NY A 1908,1,Would require providers to provide additional information about vaccines 48 hours ahead of administering,Referred to committee,Bad,Not enacted
-North Carolina,NC HB 803,1,Would require vaccines added to state immunization schedule to have been approved by FDA for at least 3 years,Recessed,Bad,Not enacted
-North Carolina,NC SB 373,1,Would prohibit health care providers from refusing patients who are not up-to-date on vaccinations,Recessed,Bad,Not enacted
-North Carolina,NC HB 380,1,"Would expand non-medical vaccination exemptions to include ""conscientious objections""",Recessed,Bad,Not enacted
-Ohio,OH HB 289,1,"Would establish a universal health care plan for state residents, including coverage for immunizations",Referred to committee,Good,Not enacted
-Ohio,OH SB 144,1,Allows pharmacists and pharmacy technicians to administer vaccines to children 5 and over,2023-24,Good,Enacted
-Oklahoma,OK SB 807,1,Would require providers to give caregivers additional information and obtain written consent before administering vaccines,Died in committee,Bad,Not enacted
-Oregon,OR SB 383,1,"Would prohibit discrimination based on vaccination status, including for schoolchildren",Failed,Bad,Not enacted
-Oregon,OR SJR 31,1,Proposes an amendment to the Oregon Constitution to prohibit requiring any specific vaccine unless encoded by state law,NA,Bad,Not enacted
-Oregon,OR S 42,1,"Would give money to Oregon Health Authority for the Vaccine Access Program, for vaccine purchases",NA,Good,Not enacted
-Pennsylvania,PA HB 695,1,"Would require providers to continue caring for children who do not follow the recommended vaccine schedule, as long as they receive one vaccine each year",Referred to committee,Bad,Not enacted
-Pennsylvania,PA HB 447,1,Would require schools to prominently disseminate information on how to obtain vaccination exemptions,Referred to committee,Bad,Not enacted
-Pennsylvania,PA HB 1828,1,"Would allow the PA Department of Health to make the vaccine schedule, referring to the Advisory Committee on Immunization Practices (ACIP), AAP, and other sources",NA,Good,Not enacted
+Georgia,GA HB 1350,1,"Would establish ""Georgia Medical Freedom Act"", repealing the authority of the Department of Public Health to require vaccinations and prohibiting schools from requiring medical interventions",NA,Bad,Not enacted
+Georgia,GA SR 813,1,Urges the Department of Public Health to conduct a study on the relationship between sudden infant/child deaths and vaccinations,NA,Bad,Not enacted
+Georgia,GA SB 546,1,Would require medical examiners to review immunization records of a child who dies unexpectedly and would give medical examiners access to immunization records without consent,NA,Bad,Not enacted
 Georgia,GA SB 262,1,"Would require insurers to fully cover preventive services, including immunization, without cost-sharing requirements",NA,Good,Not enacted
-Georgia,GA HB 897,1,"Would prohibit state or local governments from requiring vaccinations as a condition for accessing public services, including education",NA,Bad,Not enacted
 Georgia,GA SR 304,1,Includes RSV vaccination and monoclonal antibodies within the Vaccines for Children program,NA,Good,Enacted
-Hawaii,HI HR 169,1,"Requires the Department of Health to undertake preliminary education, outreach, and vaccination drive efforts at schools with vaccination rates under 30%",NA,Good,Enacted
-Hawaii,HI SB 1434,1,"Establishes a universal funding program for immunizations, which will allow for the administration of vaccines at no cost",NA,Good,Enacted
-Hawaii,HI SB 1437,1,Would remove the option of non-medical exemptions to immunization requirements,Died in committee,Good,Not enacted
-Hawaii,HI HB 1715,1,"Would establish a ""Parental Bill of Rights"" to include expanding non-medical exemptions for vaccine mandates",NA,Bad,Not enacted
-Hawaii,HI HB 2553,1,Allows pharmacists and pharmacy technicians to administer vaccines to children 3 years and older,NA,Good,Enacted
+Hawaii,HI SB 2472,1,"Would expand religious vaccination exemptions, such as by removing requirement that parent is an established member of a recognized church, and require (rather than authorizes) schools to provide exemptions",NA,Bad,Not enacted
+Hawaii,HI HB 2512,1,Would establish Hawaii Medical Freedom Act and prohibit schools and other establishments from imposing vaccination requirements,NA,Bad,Not enacted
+Hawaii,HI HB 2313,1,Would establish Hawaii preventive services advisory committee to provide scientific-backed guidance on vaccine requirements and insurance coverage,NA,Good,Not enacted
+Hawaii,HI HB 2199,1,"Would restrict schools and other organizations from imposing restrictions on an individual's ""right to bodily autonomy"", including vaccination requirements",NA,Bad,Not enacted
+Idaho,ID HF 574,1,"Would prohibit medical mandates for school attendance, weaken the state immunization registry, and would frame vaccines as ""voluntary"" rather than ""not mandatory""",NA,Bad,Not enacted
 Idaho,ID H 290,1,"Codifies immunization and documentation requirements for schools and daycares, including a simple opt-out process for exemptions",NA,Bad,Enacted
-Idaho,ID H 397,1,Would change inclusion in the state's immunization registry from opt-out to opt-in,NA,Bad,Not enacted
-Idaho,ID H 438,1,"Would require that all school communications to parents about vaccine requirements include information about non-medical exemptions and state that ""immunizations are not mandatory""",Died in committee,Bad,Not enacted
+Idaho,ID H 438,1,"Would require that all school communications to parents about vaccine requirements include information about non-medical exemptions and state that ""immunizations are not mandatory""",NA,Bad,Not enacted
 Idaho,ID SB 1210,1,"Prohibits the mandate of any medical interventions, including vaccines, in the state (excluding facilities who receive Medicaid/Medicare and [pending legal interpretation] schools).",NA,Bad,Enacted
+Illinois,IL SB 3487,1,Would require hospitals to expand influenza and pneumococcal immunization policies to reach wider age groups,NA,Good,Not enacted
+Illinois,IL HB 767,1,Empowers the IL DPH to make vaccine guidelines through its own Immunization Advisory Committee and requires insurance coverage for vaccines recommended by the state,NA,Good,Enacted
 Illinois,IL SR 213,1,Urges government stakeholders to work with clinicians and families to ensure children are fully vaccinated before starting school,NA,Good,Not enacted
 Illinois,IL HR 129,1,Declares a specified date as Vaccine Awareness Day to educate the public about the importance of vaccines and urges the Department of Health to continue prioritizing and investing in immunization,NA,Good,Enacted
-Illinois,IL HB 1569,1,"Would require health providers to administer a vaccine to a patient who is requesting it, as long as the provider has deemed it medically necessary and there is at least one dose available",NA,Good,Not enacted
-Indiana,IN HB 1168,1,Would prohibit vaccine mandates across settings,Died in committee,Bad,Not enacted
+Indiana,IN SB 174,1,"Would change immunization reporting requirements, prohibit health care providers from being required to perform services that ""violate their conscience"", and require documentation of vaccination history for children whose deaths are being reviewed",NA,Bad,Not enacted
+Indiana,IN HB 1224,1,Would establish a state VAERS,NA,Bad,Not enacted
+Indiana,IN HB 1168,1,Would prohibit vaccine mandates across settings,NA,Bad,Not enacted
 Indiana,IN HB 1071,1,Would expand non-medical exemptions,NA,Bad,Not enacted
-Indiana,IN HB 1344,1,Would establish state-level vaccination adverse event reporting system,Died in committee,Bad,Not enacted
-Iowa,IA HF 299,1,Requires any public communications about vaccines requirements to include information about vaccine exemptions,NA,Bad,Enacted
-Iowa,IA HF 2041,1,Would require parents to opt-in to statewide immunization registry,NA,Bad,Not enacted
-Iowa,IA HF 88,1,Would remove requirement that children receiving independent private instruction provide proof of immunization to the state,NA,Bad,Not enacted
-Iowa,IA HF 2055,1,Would eliminate vaccination requirements for child care centers and elementary/secondary schools,NA,Bad,Not enacted
+Indiana,IN HB 1344,1,Would establish state-level vaccination adverse event reporting system,NA,Bad,Not enacted
+Iowa,IA SF 2345,1,Would require communications about vaccination recommendations to include information about exemptions,NA,Bad,Not enacted
+Iowa,IA HF 2710,1,Would loosen requirements for obtaining a religious exemption to school vaccine requirements,NA,Bad,Not enacted
+Iowa,IA SF 304,1,Would remove minor's ability to consent to vaccination for a sexually transmitted disease or infection,Sent to Governor 5/5/26,Bad,Not enacted
+Iowa,IA HF 2171,1,Would eliminate vaccination requirements in elementary and secondary education,NA,Bad,Not enacted
+Iowa,IA HF 2097,1,Would require medical examiners to report immunization history for child deaths age 0-3 years,NA,Bad,Not enacted
 Kansas,KS SB 315,1,Would require child care facilities and educational institutions to grant exemptions from vaccine requirements without inquiring into the sincerity of the request,Failed to pass in the 2023-2024 legislative session.,Bad,Not enacted
 Kansas,KS SB 19,1,Would provide right to refuse vaccines for reasons of conscience,NA,Bad,Not enacted
 Kansas,KS HB 2369,1,Would allow pharmacists to order and administer FDA-approved vaccines for individuals 7 years and older,NA,Good,Not enacted
 Kansas,KS HB 2045,1,Changes religious vaccine exemptions for childcare facilities to loosen exemption procedures for parents with “sincerely held” religious beliefs,NA,Bad,Enacted
+Kansas,KS SB 522,1,"Would establish the Kansas medical freedom act, which would prevent government entities and schools from denying access based on vaccination status",NA,Bad,Not enacted
+Kentucky,KY HB 466,1,Would remove hepatitis B vaccination requirement and require state legislature approval for any additional immunization requirements,NA,Bad,Not enacted
 Kentucky,KY HB 629,1,Would prohibit health care providers from refusing to treat people who have not received a particular vaccine,NA,Bad,Not enacted
 Kentucky,KY HB 110,1,Would expand non-medical vaccination exemptions to allow for conscientious objection,NA,Bad,Not enacted
 Kentucky,KY HB 695,1,"Would prohibit insurers from imposing cost-sharing requirements on preventive services, including routine immunizations",NA,Good,Not enacted
-Louisiana,LA HB 629,1,Would add steps to process to obtain informed consent before vaccine administration,NA,Bad,Not enacted
-Louisiana,LA HB 47,1,Requires that communication issued about immunization requirements include information about exemptions,NA,Bad,Enacted
+Kentucky,KY SR 282,1,Encourages all Kentuckians to be vaccinated against preventable illnesses,NA,Good,Enacted
+Louisiana,LA SB 36,1,Would expand informed consent process for vaccine administration and would prohibit individuals from consenting to vaccination within 12 hours of childbirth,NA,Bad,Not enacted
+Louisiana,LA HB 1041,1,"Would establish the ""Louisiana Medical Freedom Act"", which would prohibit schools and other government entities from requiring vaccination as a condition of access",NA,Bad,Not enacted
 Louisiana,LA HB 655,1,Increases the patient's fee for vaccines at public health units from $10 to $50,NA,Bad,Enacted
-Louisiana,LA HR 314,1,Urges Department of Health to improve access to immunization services in rural and low-income communities,NA,Good,Enacted
-Louisiana,LA HR 292,1,Urges Department of Health to study relationship between sudden unexpected deaths of infants and children and the administration of vaccinations,NA,Bad,Enacted
+Louisiana,LA SB 29,1,Would require coroners to include immunization history within autopsy reports for children who die unexpectedly,NA,Bad,Not enacted
+Louisiana,LA HB 737,1,Would remove requirement for vaccines to prevent meningococcal diseases as a condition for school entry,NA,Bad,Not enacted
+Maine,ME SB 2146,1,Expands state's Universal Purchase program to allow for purchase of vaccines recommended by AAP and other medical organizations and protects pharmacists who administer state-recommended vaccines from civil liability,NA,Good,Enacted
 Maine,ME HB 107,1,Would restore religious exemptions to immunization requirements,Failed to passed,Bad,Not enacted
 Maine,ME LD 1883,1,"Would establish Maine Health Plan for all residents, covering all childhood and adult vaccinations",Failed to passed,Good,Not enacted
 Maine,ME SB 478,1,Allows pharmacists to administer vaccines to children 3 years and older with a prescription,NA,Good,Enacted
-Maine,ME HB 727,1,Repeals certain immunization requirements for a child to attend a public or private elementary or secondary school in the state,NA,Bad,Not enacted
+Maine,ME HB 2071,1,"Requires insurance carriers to provide coverage for vaccines without cost-sharing and allows pharmacists to prescribe, dispense, and administer FDA-licensed vaccines regardless of ACIP recommendation",NA,Good,Enacted
+Maryland,MD HB 1135,1,Allows pharmacists to order certain vaccinations for individuals 3 years or older without having to also administer the vaccine,NA,Good,Enacted
+Maryland,MD SB 385,1,Establishes authority for the DOH secretary to issue official immunization recommendations outside of ACIP recommendations that pharmacists can administer and that insurers must cover without cost-sharing,NA,Good,Enacted
 Maryland,MD HB 608,1,Would require county board of education to grant students temporary admission to schools if parent is unable to provide proof of immunization,Died in committee,Bad,Not enacted
 Maryland,MD HB 974,1,Allows the health commissioner to adopt regulations as needed to ensure that health insurers cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP) as of December 2024.,NA,Good,Enacted
 Maryland,MD HB 184,1,"Would establish Healthy Maryland Program, which would provide comprehensive, universal health care services for state residents, including immunizations",NA,Good,Not enacted
+Massachusetts,MA HB 4761,1,Gives health commissioner the authority to independently make decisions regarding childhood vaccine requirements with the help of a newly established committee on immunization recommendations,NA,Good,Enacted
 Massachusetts,MA SB 1557,1,Would require all schools to annually report aggregate immunization data and to make school-level data public,NA,Good,Not enacted
 Massachusetts,MA SB 1618,1,Specifies requirements for obtaining exemptions to vaccine requirements and immunization data reporting,NA,Good,Not enacted
 Massachusetts,MA HB 3072,1,Would provide a $100 tax credit for residents who provide proof of vaccination,NA,Good,Not enacted
 Massachusetts,MA HB 1081,1,Would require insurers to cover recommended vaccines without cost-sharing,NA,Good,Not enacted
-Michigan,MI HB 4079,1,Would prohibit a requirement for Hepatitis B vaccinations for children under certain circumstances,Died in committee in the 2023-2024 legislative session.,Bad,Not enacted
+Michigan,MI HR 250,1,Declared School-Based Health Care Awareness Week,NA,Good,Enacted
+Michigan,MI SB 797,1,Would prohibit more stringent requirements for obtaining immunization exemptions,NA,Bad,Not enacted
 Michigan,MI SB 107,1,Would require insurers to cover recommended vaccines administered by pharmacists within insurer network,"Engrossed on 4/22/25, 50% progression",Good,Not enacted
 Michigan,MI SB 219,1,Permits pharmacists to order and administer vaccines to children 3 years and older,Passed in the 2023-2024 legislative session,Good,Enacted
-Michigan,MI SR 50,1,Urges CDC to include new RSV immunization technologies (including vaccines and monoclonal antibodies) within the federal Vaccines for Children Program,Passed in the 2023-2024 legislative session,Good,Enacted
 Michigan,MI HB 6205,1,Would add requirements for obtaining a nonmedical exemption to vaccine requirements,NA,Good,Not enacted
+Minnesota,MN SF 3859,1,Would expand insurance coverage for preventive services to include vaccines recommended by AAP and the West Coast Health Alliance in addition to ACIP recommendations and establish Science-Based Vaccine Advisory Council,NA,Good,Not enacted
+Minnesota,MN SF 4017,1,Would require caregivers seeking an immunization exemption to complete an educational consultation with provider,NA,Good,Not enacted
+Minnesota,MN SF 4458,1,Would eliminate conscientious exemptions to vaccine requirements and remove references to ACIP recommendations,NA,Good,Not enacted
+Minnesota,MN HF 4373,1,Would expand required insurance coverage to vaccines recommended by professional organizations in addition to those recommended by ACIP,NA,Good,Not enacted
+Mississippi,MS HB 1283,1,Would require medical examiner to review immunization records of infants or children who die suddenly and to report case to national case registry,NA,Bad,Not enacted
+Mississippi,MS HB 1184,1,Would prohibit insurers from denying coverage because a person is unvaccinated,NA,Bad,Not enacted
+Mississippi,MS SB 2533,1,Would allow parents to opt-out of IIS for their children,NA,Bad,Not enacted
+Mississippi,MS HB 1244,1,Would allow parents to claim non-medical exemptions with just a signed letter,NA,Bad,Not enacted
+Mississippi,MS HB 1506,1,Would expand non-medical exemptions to include philosophical and conscientious exemptions,"Introduced 2023-24, not enacted",Bad,Not enacted
+Missouri,MO SB 1705,1,Would require health plans to cover ACIP-recommended vaccines without cost-sharing,NA,Good,Not enacted
+Missouri,MO HB 2374,1,Would prohibit health care providers from refusing health care services to children based on vaccination status and would prohibit physician/physician group from dismissing a child from the practice based on refusal to consent to vaccination,NA,Bad,Not enacted
+Missouri,MO HB 2372,1,"Would allow pharmacists to administer to those 7 years or older vaccines recommended by CDC after Jan 1, 2026 (previously those approved as of 2023)",NA,Good,Not enacted
+Missouri,MO SB 374,1,Would allow dentists to administer vaccines to their patients,Died in committee,Good,Not enacted
+Missouri,MO SJR 37,1,"This constitutional amendment would prohibit laws or policies from infringing upon individuals' right to refuse medical procedures, potentially overriding existing laws limiting exemptions to medical or religious reasons.",Died in committee,Bad,Not enacted
+Montana,MT SB 474,1,Would require acceptance of religious and personal medical exemptions to mandated immunizations,NA,Bad,Not enacted
+Montana,MT LC 1384,1,Would direct the health department to pursue a Medicaid waiver to provide full immunization coverage for individuals experiencing homelessness,NA,Good,Not enacted
+Montana,MT HB 364,1,Would require schools to report deidentified vaccination and exemption data to the state,NA,Good,Not enacted
+Nebraska,NE LB 203,1,"Requires health director to receive written approval by county board/city council prior to issuing directed health measures to address communicable diseases, including vaccination",NA,Bad,Enacted
+Nebraska,NE LB 202,1,Would allow pharmacy technicians to administer vaccines,2023-24 session,Good,Not enacted
+Nebraska,NE LB 374,1,"Would establish a ""parental bill of rights,"" including reinforcing parents' ability to opt out of school immunization (e.g., via religious exemptions)",2023-24 session,Bad,Not enacted
+Nebraska,NE LB 1028,1,Would require that local and county health departments receive state-level approval for vaccination efforts,2023-24 session,Bad,Not enacted
+Nevada,NV SB 192,1,Would require health insurance plans to cover recommended childhood vaccines,Failed,Good,Not enacted
+New Hampshire,NH HB 1811,1,Would reframe school vaccination requirements as recommendations,NA,Bad,Not enacted
+New Hampshire,NH 1584,1,Would require communications promoting vaccination to prominently display information on obtaining exemptions and would simplify the process to obtain a religious exemption,NA,Bad,Not enacted
+New Hampshire,NH HB 1719,1,Would remove hepatitis B from list of required childhood immunizations,NA,Bad,Not enacted
+New Hampshire,NH HB 358,1,"Would eliminate the form needed to obtain a religious exemption, allowing such exemptions with a signed statement from a parent",Vetoed by governor,Bad,Not enacted
+New Hampshire,NH HB 524,1,"Would repeal the state's Vaccine Association, which is responsible for the universal purchase of vaccines",Retained - will come back next session for a vote,Bad,Not enacted
+New Jersey,NJ A 4433,1,Would repeal required insurance coverage for vaccines without an ACIP recommendation,NA,Bad,Not enacted
+New Jersey,NJ S 2543,1,Would prohibit requirements for HPV vaccination for school attendance,NA,Bad,Not enacted
+New Jersey,NJ S 3020,1,Would replace references to ACIP recommendations with references to recommendations made by DOH within state insurance requirements,Failed,Good,Not enacted
+New Jersey,NJ S 2987,1,"Would automatically enroll those not currently enrolled in the state IIS at the time of immunization administration, unless they provide a written request to opt-out",NA,Good,Not enacted
+New Jersey,NJ S 2434,1,Would change IIS to opt-in system,NA,Bad,Not enacted
+New Mexico,NM HB 156,1,Shifts source of childhood vaccination requirements from federal entities to state DOH,NA,Good,Enacted
+New Mexico,NM HB 306,1,"Prohibits health providers from charging, billing, or collecting fees directly from patients for vaccination services provided in an outpatient setting",NA,Good,Enacted
+New Mexico,NM SB 508,1,Would codify the requirement for insurers to fully cover all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP),NA,Good,Not enacted
+New York,NY S 8853,1,"Would expand vaccination requirements to consider recommendations of AAP, AAFP, ACOG, ACP, or ACIP",NA,Good,Not enacted
+New York,NY S 8723,1,"Would enact ""New York anti-mandate act"", which would prohibit schools from mandating medical interventions",NA,Bad,Not enacted
+New York,NY S 9849,1,Would add flexibility to include recommendations from commissioner of health in scope of practice for non-physician providers and insurance coverage requirements,NA,Good,Not enacted
+New York,NY S 9604,1,Would ensure that those administering vaccines in accordance with health commissioner recommendations cannot be held liable for injury,NA,Good,Not enacted
+New York,NY A 10711,1,"Would add references to recommendations made by professional organizations (such as AAP, ACOG, etc.) alongside references to ACIP in various immunization-related laws",NA,Good,Not enacted
+North Carolina,NC HB 803,1,Would require vaccines added to state immunization schedule to have been approved by FDA for at least 3 years,Recessed,Bad,Not enacted
+North Carolina,NC SB 373,1,Would prohibit health care providers from refusing patients who are not up-to-date on vaccinations,Recessed,Bad,Not enacted
+North Carolina,NC HB 380,1,"Would expand non-medical vaccination exemptions to include ""conscientious objections""",Recessed,Bad,Not enacted
+North Dakota,ND HB 1519,1,Would require the state to compile individual death and vaccination records and publish aggregated data on a quarterly basis,NA,Bad,Not enacted
+North Dakota,ND HB 1454,1,"Would establish an opt-out procedure for required vaccines based on health, religious, or philosophical grounds",NA,Bad,Enacted
+North Dakota,ND HB 1457,1,Would allow individuals to claim exemption from vaccine requirements if the vaccine does not meet several strict criteria,NA,Bad,Not enacted
+Ohio,OH HB 289,1,"Would establish a universal health care plan for state residents, including coverage for immunizations",Referred to committee,Good,Not enacted
+Ohio,OH SB 144,1,Allows pharmacists and pharmacy technicians to administer vaccines to children 5 and over,2023-24,Good,Enacted
+Oklahoma,OK SB 1560,1,"Would establish Oklahoma Medical Freedom Act, which prohibits schools from requiring medical interventions for persons attending or employed",NA,Bad,Not enacted
+Oklahoma,OK SB 1485,1,Would require medical examiner to review immunization records of infants or children who die suddenly and to report case to national case registry,NA,Bad,Not enacted
+Oklahoma,OK SB 1656,1,"Would codify the right to refuse vaccination, including in education institutions",NA,Bad,Not enacted
+Oklahoma,OK SB 1548,1,Would hold vaccine manufacturers liable if they advertise a vaccine that causes harm or injury to an individual,NA,Bad,Not enacted
+Oklahoma,OK SB 1568,1,Would align hepatitis B vaccination requirements with new ACIP guidelines and prohibit health care facilities from requiring hepatitis B vaccination as a condition of discharge,NA,Bad,Not enacted
+Oregon,OR SB 1598,1,Requires health plans to provide coverage of immunizations recommended by the Public Health Officer without cost-sharing and allows Public Health Officer to issue standing order for vaccinations,NA,Good,Enacted
+Oregon,OR HB 4135,1,Declares March 4th HPV Awareness Day,NA,Good,Enacted
+Oregon,OR SB 383,1,"Would prohibit discrimination based on vaccination status, including for schoolchildren",Failed,Bad,Not enacted
+Oregon,OR SJR 31,1,Proposes an amendment to the Oregon Constitution to prohibit requiring any specific vaccine unless encoded by state law,NA,Bad,Not enacted
+Oregon,OR S 42,1,"Would give money to Oregon Health Authority for the Vaccine Access Program, for vaccine purchases",NA,Good,Not enacted
+Pennsylvania,PA SB 1195,1,Would require insurers to cover vaccination without cost-sharing,NA,Good,Not enacted
+Pennsylvania,PA HB 695,1,"Would require providers to continue caring for children who do not follow the recommended vaccine schedule, as long as they receive one vaccine each year",Referred to committee,Bad,Not enacted
+Pennsylvania,PA HB 447,1,Would require schools to prominently disseminate information on how to obtain vaccination exemptions,Referred to committee,Bad,Not enacted
+Pennsylvania,PA HB 1828,1,"Would allow the PA Department of Health to make the vaccine schedule, referring to the Advisory Committee on Immunization Practices (ACIP), AAP, and other sources",NA,Good,Not enacted
 Puerto Rico,"Puerto Rico Fundamental Right to Religious Freedom Act (Law No. 14 of April 13, 2025)",1,Prohibits government from voiding a religious vaccine exemption even during an epidemic unless parental consent is provided; adds requirements to informed consent process,NA,Bad,Enacted
 Puerto Rico,PR HB 59,1,"Would include influenza in the list of diseases for which all children in preschool or school must be vaccinated, in accordance with recognized medical practices",NA,Good,Not enacted
 Puerto Rico,PR HB 2105,1,Would change insurance coverage requirements to guarantee access to vaccination services,NA,Good,Not enacted
-District of Columbia,DC B 278,1,"Requires schools to annually distribute immunization information, including information on how to obtain immunizations, in languages other than English",Enacted- 1/23/2024,Good,Enacted
-Washington,WA HB 1520; WA SB 5513,1,Would expand authority of pharmacists to administer vaccines,Died in committee,Good,Not enacted
-Washington,WA HB 1531,1,Preserves the ability of public officials to address communicable diseases,NA,Good,Enacted
-Washington,WA H 1957,1,Requires preserving coverage of immunization services for children without cost sharing,03/28/2024 - Enacted,Good,Enacted
-West Virginia,WV HB 2729,1,"Would prohibit vaccine mandates for private, parochial, charter, virtual charter, and remote public schools",Died in committee,Bad,Not enacted
-West Virginia,WV SB 289,1,Would allow for religious and philosophical exemptions to mandatory vaccination requirements and would revise the existing process to obtain a medical exemption,Died in committee; combined multiple bills related to religious and philosophical exemptions,Bad,Not enacted
-West Virginia,WV SB 108,1,Would make immunization completely voluntary for students attending private schools,Died in committee,Bad,Not enacted
-West Virginia,WV HB 2517,1,Would eliminate all vaccine mandates for school enrollment,Died in committee,Bad,Not enacted
-West Virginia,WV HB 2372,1,"Would establish a ""Parents' Bill of Rights"" that reaffirms the rights of parents to make vaccination decisions",Died in committee,Bad,Not enacted
-Virginia,VA HB 2189,1,"Would expand vaccine exemptions, particularly in school settings, during an epidemic",Died in committee,Bad,Not enacted
-Virginia,VA H 1279,1,"Requires the Department of Health to make the school health entrance forms, including immunization forms, more user-friendly",04/04/2024 - Enacted,Good,Enacted
-Virginia,VA H 2306; VA H 783,1,Would allow for religious exemptions to immunization during epidemics,Died,Bad,Not enacted
-Vermont,VT H 69,1,Proposes to publicize reporting by health providers of adverse events following immunization on the health department's website,Died in committee,Bad,Not enacted
-Vermont,VT S 64,1,Would allow optometrists to vaccinate during health emergencies,Died in committee,Good,Not enacted
-Utah,UT SB 13,1,"This education law, among various provisions, exempts students attending a home-based ""microschool"" or micro-education program from school immunization requirements.","This bill was passed in to law on March 20, 2024",Bad,Enacted
-Utah,UT SB 89,1,Would ensure appropriate compensation/reimbursement for vaccine administration,NA,Good,Not enacted
-Tennessee,TN HJR 28,1,"Would forbid the state from compelling any individual to undergo medical treatment, including vaccination, even during a declared emergency",Died in committee,Bad,Not enacted
-Tennessee,TN SB 263; TN SB 318,1,Prohibits the enforcement or recognition of requirements or mandates issued by the World Health Organization as the basis for any official action,Combined these two- both enacted,Bad,Enacted
-Tennessee,TN SB 1272,1,States that a child in state custody cannot be denied school admission due to lack of immunization or inability to provide immunization records,NA,Bad,Enacted
-Tennessee,TN SB 827; TN HB 1003,1,Remove vaccine requirements for students attending fully online private schools,NA,Bad,Enacted
-Tennessee,TN HB 1157,1,"Prohibits the state or local health department from promoting, distributing, or endorsing FDA-regulated products for uses not specified in their official labeling",NA,Bad,Enacted
-Tennessee,"TN HB 1156, TN SB 1030",1,Would remove the responsibility of parents or guardians to ensure that their child receives vaccines recommended by CDC/AAP guidelines,Died in chamber,Bad,Not enacted
-South Carolina,SC S 2,1,Specifies requirements of informed consent for vaccination,NA,Bad,Enacted
-South Carolina,SC H 4562,1,Would prohibit insurers from requiring prior authorization for vaccines recommended by the Advisory Committee on Immunization Practices (ACIP),"Died in committee; changing this to pro as by prohibiting prior authorization, removes adminsitrative and insurance related barriers",Good,Not enacted
-South Carolina,SC H 4009,1,"Would emphasize the rights of individuals to refuse medical treatments, including vaccines",Died in committee,Bad,Not enacted
-South Carolina,SC S 54,1,Seeks to broadly prohibit vaccine mandates across settings,"Died in chamber; Make it illegal for anyoneâ€”including businesses, colleges, or the governmentâ€”to require vaccines, with penalties for doing so.Prohibit employers from punishing employees who refuse vaccination. Reduce state powers to enforce quarantines (removes National Guard support for quarantine, limits isolation to only symptomatic or exposed individuals, and sets a 21-day time limit for asymptomatic quarantine).Requires the state to monitor vaccine safety and efficacy.Removes the requirement that health care workers must help give vaccines to keep their license.Adds new definitions for â€œgene therapyâ€ and â€œvaccineâ€â€”potentially to restrict what can be mandated or promoted in the future.",Bad,Not enacted
-South Carolina,SC H 3118,1,"Would establish a ""Parental Bill of Rights,"" emphasizing parents' rights to make vaccine decisions for their children",Died in committee,Bad,Not enacted
-Rhode Island,RI HB 6373,1,Would require Medicaid reimbursement for immunization administration to be no less than 100% of the Medicare reimbursement rate,Died in committee,Good,Not enacted
-Rhode Island,RI SB 897,1,Would specify vaccine coverage and reimbursement rates,Died in committee,Good,Not enacted
-Rhode Island,RI HB 6037,1,Would give pharmacists the authority to administer vaccines to individuals aged 3 years and older,Died in committee,Good,Not enacted
-Rhode Island,RI SB 284,1,"Would establish a ""Parental Bill of Rights,"" emphasizing parents’ authority to make vaccination decisions for their children",Died in committee,Bad,Not enacted
-Rhode Island,RI S 469,1,"Would require healthcare professionals to obtain written informed consent, signed by a parent or guardian prior to administering a vaccine",Pending in Senate Health and Human Services committee,Bad,Not enacted
+Rhode Island,RI HB 7934,1,Would expand data reporting requirements for pharmacists administering immunizations to those between 3-18 years old,NA,Good,Not enacted
+Rhode Island,RI SB 2379,1,"Would distance immunization requirements from federal recommendations, allowing for DOH director discretion, and would require insurers to cover vaccines recommended by DOH",NA,Good,Not enacted
+Rhode Island,RI HB 7625,1,Would require various insurers to cover vaccines recommended by DOH,NA,Good,Not enacted
+Rhode Island,RI SB 2565,1,"Would prohibit health providers from discriminating against patients based on vaccination status and from requiring patients choosing to delay/decline vaccination to sign liability waiver, and adds requirements to informed consent process",NA,Bad,Not enacted
+Rhode Island,RI SB 2386,1,Would require insurers to cover vaccines administered by pharmacists within their scope of practice,NA,Good,Not enacted
+South Carolina,SC S 897,1,Would remove religious exemption for MMR vaccines for those attending public schools,NA,Good,Not enacted
+South Carolina,SC S 741,1,Would establish that no vaccine can be mandated for infants under 24 months (but would allow infants to receive vaccines at the voluntary request of the parents),NA,Bad,Not enacted
+South Carolina,SC H 4630,1,"Would require medical examiners to review immunization history for all sudden and unexplained infant and child deaths, document immunization history in autopsy report, and report these deaths to national case registry",NA,Bad,Not enacted
+South Carolina,SC S 1029,1,"Would allow private childcare facilities, registered church or religious day care facilities, and private schools to adopt their own immunization requirements",NA,Bad,Not enacted
+South Carolina,SC H 4803,1,Would require any communication to parents about childhood immunization requirements to also include information about obtaining exemptions,NA,Bad,Not enacted
+South Dakota,SD SB 100,1,Would prohibit the addition of any new childhood vaccine requirements beyond those currently mandated,NA,Bad,Not enacted
+South Dakota,SD HB 1223,1,"Would allow for ""conscience exemptions"" from vaccination requirements",NA,Bad,Not enacted
+Tennessee,TN HJR 908,1,"Establishes March 4, 2026, as HPV Awareness Day",NA,Good,Enacted
+Tennessee,TN SB 2607,1,Would require medical examiners to review immunization records for children or infants who die suddenly/unexpectedly and to report cases to national registry,NA,Bad,Not enacted
+Tennessee,TN HB 853,1,Would require providers to receive informed consent from guardians before providing vaccination to a minor,NA,Bad,Not enacted
+Tennessee,TN SJR 620,1,"Would prohibit the state from imposing vaccination requirements, even during declared state of emergency",NA,Bad,Not enacted
+Tennessee,TN HB 638 & HB 1389,1,Would prohibit TennCare or CoverKids providers from refusing to provide services to those who refuse vaccination,NA,Bad,Not enacted
 Texas,TX HB 1586,1,Requires the health department to provide a blank affidavit form for claiming a vaccination exemption and to post it on their website,NA,Bad,Enacted
 Texas,TX HJR 91,1,Proposes a constitutional amendment recognizing the right of an individual to refuse vaccination without impacting their ability to attend school,Died in committee,Bad,Not enacted
 Texas,TX HB 3441,1,Establishes civil liability for vaccine manufacturers that advertise their products in the state if the vaccine causes harm or injury,Not sure if we should be including this,Bad,Enacted
 Texas,TX HB 1356,1,Would prohibit discrimination by health care providers based on vaccination status,Died in committee,Bad,Not enacted
-Texas,TX S 46,1,Would change state immunization registry from opt-in to opt-out and create clear procedures for those who want their information excluded,Died in committee,Good,Not enacted
+Texas,TX S 46,1,Would change state immunization registry from opt-in to opt-out and create clear procedures for those who want their information excluded,Died in committee,Good,NA
+Utah,UT HB 152,1,Would repeal requirements for parents to complete online education or provider consultation to receive vaccination exemption form,NA,Bad,Not enacted
+Utah,UT SB 13,1,"This education law, among various provisions, exempts students attending a home-based ""microschool"" or micro-education program from school immunization requirements.","This bill was passed in to law on March 20, 2024",Bad,Enacted
+Utah,UT SB 89,1,Would ensure appropriate compensation/reimbursement for vaccine administration,NA,Good,Not enacted
+Vermont,VT H 545,1,"Authorizes health commissioner to determine recommended vaccines, distancing the state from ACIP recommendations, and requires coverage without cost-sharing for vaccines recommended by commissioner",NA,Good,Enacted
+Vermont,VT H 69,1,Proposes to publicize reporting by health providers of adverse events following immunization on the health department's website,Died in committee,Bad,Not enacted
+Vermont,VT S 64,1,Would allow optometrists to vaccinate during health emergencies,Died in committee,Good,Not enacted
+Virginia,VA HB 983,1,Would remove hepatitis B vaccine from required immunizations and remove conditional enrollment period for students who have not received hepatitis B vaccine,NA,Bad,Not enacted
+Virginia,VA HJ 24,1,Recognizes August as Immunization Awareness Month,NA,Good,Enacted
+Virginia,VA HB 2189,1,"Would expand vaccine exemptions, particularly in school settings, during an epidemic",Died in committee,Bad,Not enacted
+Virginia,VA H 1279,1,"Requires the Department of Health to make the school health entrance forms, including immunization forms, more user-friendly",04/04/2024 - Enacted,Good,Enacted
+Virginia,VA H 2306; VA H 783,1,Would allow for religious exemptions to immunization during epidemics,Died,Bad,Not enacted
+Washington,WA SB 5781,1,Would require vaccine communications to follow messaging provided in FDA authorization,NA,Bad,Not enacted
+Washington,WA HB 2242,1,Allows state DOH to issue immunization recommendations and related guidance and requires health plans to cover DOH-recommended preventive services,NA,Good,Enacted
+Washington,WA HB 1520; WA SB 5513,1,Would expand authority of pharmacists to administer vaccines,Died in committee,Good,Not enacted
+Washington,WA HB 1531,1,Preserves the ability of public officials to address communicable diseases,NA,Good,Enacted
+Washington,WA H 1957,1,Requires preserving coverage of immunization services for children without cost sharing,03/28/2024 - Enacted,Good,Enacted
+West Virginia,WV HB 5338,1,Would prohibit vaccination requirements for students and teachers,NA,Bad,Not enacted
+West Virginia,WV HB 5031,1,Would allow DOH to request access to vaccination records in death investigations,NA,Bad,Not enacted
+West Virginia,WV SB 731,1,Would remove hepatitis b and meningitis vaccine requirements,NA,Bad,Not enacted
+West Virginia,WV SB 608,1,Would allow parents/guardians to request religious exemption with signed letter,NA,Bad,Not enacted
+West Virginia,WV HJR 24,1,Would add the right to refuse medical procedures to state bill of rights,NA,Bad,Not enacted
+Wisconsin,WI SB 1044,1,Would require insurers to cover vaccines no longer recommended by the federal government as long as they are recommended by AAP or AAFP and requires DHS to consider alternative recommendations when creating state vaccine schedule,Failed,Good,Not enacted
+Wisconsin,WI SJR 89,1,Would recognize October as Vaccine Injury Awareness Month,Failed,Bad,Not enacted
+Wisconsin,WI AB 891,1,"Would eliminate exemptions for ""personal conviction""",Failed,Good,Not enacted
 Wisconsin,WI SB 489,1,"Would prohibit the state from infringing on the fundamental rights of parents, including making immunization-related decisions",NA,Bad,Not enacted
-Wisconsin,WI SB 228,1,Would prohibit the Department of Health Services from requiring additional vaccines for school attendance,NA,Bad,Not enacted
 Wisconsin,WI SB 418,1,Would establish a program to provide vaccines to individuals who are not eligible to receive the vaccines at no cost from a federal program,NA,Good,Not enacted
 Wyoming,WY SB 162,1,Would remove certain requirements to obtain non-medical exemptions to vaccine requirements,NA,Bad,Not enacted
 Wyoming,WY SB 24,1,Allows pharmacy technicians to abstain from administering immunizations to children under 13 years,NA,Bad,Enacted
