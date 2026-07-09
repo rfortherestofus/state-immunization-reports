@@ -268,7 +268,7 @@ measles_map <- function(df, state) {
       labels = names(measles_pal),
       drop = FALSE
     ) +
-    theme_minimal(base_family = "Gentona") +
+    theme_minimal(base_family = "Work Sans") +
     theme(
       legend.position = "bottom",
       axis.text = element_blank(),
@@ -276,7 +276,7 @@ measles_map <- function(df, state) {
       panel.grid = element_blank(),
       legend.key.width = grid::unit(1.3, "cm"),
       plot.title = element_text(
-        family = "Gentona",
+        family = "Work Sans",
         size = 16,
         hjust = 0.5,
         color = "black",
@@ -362,13 +362,13 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       hjust = 1.5,
       size = 4,
       fontface = "bold",
-      family = "Gentona"
+      family = "Work Sans"
     ) +
     geom_text(
       aes(label = geography, x = 2, color = txt_col),
       hjust = 0,
       size = 4,
-      family = "Gentona"
+      family = "Work Sans"
     ) +
     scale_color_identity() +
     scale_x_continuous(
@@ -385,11 +385,11 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Work Sans"),
       axis.text.y = element_blank(),
       axis.text.x = element_text(
         size = 10,
-        family = "Gentona",
+        family = "Work Sans",
         margin = margin(t = 10)
       ),
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
@@ -413,7 +413,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
         hjust = 0.9,
         size = 2.5,
         color = "gray30",
-        family = "Gentona",
+        family = "Work Sans",
         fontface = "bold"
       )
   }
@@ -463,7 +463,7 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       vjust = 2.4,
       color = "white",
       fontface = "bold",
-      family = "Gentona",
+      family = "Work Sans",
       size = 3
     ) +
     scale_y_continuous(
@@ -479,9 +479,9 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Work Sans"),
+      axis.text.x = element_text(size = 10, family = "Work Sans"),
+      axis.text.y = element_text(size = 10, family = "Work Sans"),
       axis.title = element_blank(),
       plot.margin = if (state_name == "New Hampshire") {
         margin(t = 20, r = 20, b = 20, l = 20)
@@ -504,7 +504,7 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
         x = n_x + 0.2,
         y = 94,
         label = "HP2030 Target: 95%",
-        family = "Gentona",
+        family = "Work Sans",
         size = 3,
         color = "gray30",
         fontface = "bold",
@@ -609,13 +609,13 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name, comp_year
       hjust = 1.5,
       size = 4,
       fontface = "bold",
-      family = "Gentona"
+      family = "Work Sans"
     ) +
     geom_text(
       aes(label = geography_chr, x = 2, color = txt_col),
       hjust = 0,
       size = 4,
-      family = "Gentona"
+      family = "Work Sans"
     ) +
     scale_color_identity() +
     annotate(
@@ -627,7 +627,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name, comp_year
       hjust = 1.2,
       size = 2.5,
       color = "gray30",
-      family = "Gentona",
+      family = "Work Sans",
       fontface = "bold"
     ) +
     scale_x_continuous(
@@ -645,11 +645,11 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name, comp_year
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Work Sans"),
       axis.text.y = element_blank(),
       axis.text.x = element_text(
         size = 10,
-        family = "Gentona",
+        family = "Work Sans",
         margin = margin(t = 10)
       ),
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
@@ -698,7 +698,7 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
       vjust = 2.3,
       color = "White",
       fontface = "bold",
-      family = "Gentona",
+      family = "Work Sans",
       size = 3
     ) +
     annotate(
@@ -706,7 +706,7 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
       x = n_x + 0.2,
       y = 89,
       label = "HP2030 Target: 90%",
-      family = "Gentona",
+      family = "Work Sans",
       size = 3,
       color = "gray30",
       fontface = "bold",
@@ -727,9 +727,9 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
     theme_minimal() +
     theme(
       panel.grid = element_blank(),
-      plot.title = element_text(hjust = 0.5, size = 14, family = "Gentona"),
-      axis.text.x = element_text(size = 10, family = "Gentona"),
-      axis.text.y = element_text(size = 10, family = "Gentona"),
+      plot.title = element_text(hjust = 0.5, size = 14, family = "Work Sans"),
+      axis.text.x = element_text(size = 10, family = "Work Sans"),
+      axis.text.y = element_text(size = 10, family = "Work Sans"),
       axis.title = element_blank(),
       plot.margin = margin(t = 20, r = 60, b = 20, l = 20)
     )

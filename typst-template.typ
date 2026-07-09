@@ -78,7 +78,7 @@
     lang: "en",
     region: "US",
     font: ("Work Sans", "Source Sans 3", "Arial"),
-    size: 11pt,
+    size: 10.5pt,
     weight: "light",
   )
 

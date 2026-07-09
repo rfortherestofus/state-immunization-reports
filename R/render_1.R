@@ -9,10 +9,37 @@ library(fs)
 library(xfun)
 library(googledrive)
 library(xmpdf)
+# -------------------------------------------------------------------
+# Portable Typst bootstrap (Windows / macOS / Linux)
+# -------------------------------------------------------------------
 
-# Run Typst 0.14
-Sys.setenv(QUARTO_TYPST = "/opt/homebrew/bin/typst")
-system("quarto typst --version") # should be typst 0.14.x
+find_typst_bin <- function() {
+  sys <- Sys.info()[["sysname"]]
+  
+  # Look for vendored binaries inside the repo
+  candidate <- switch(
+    sys,
+    "Windows" = "tools/typst/typst-windows.exe",
+    "Darwin"  = "tools/typst/typst-macos",
+    "Linux"   = "tools/typst/typst-linux",
+    NULL
+  )
+  
+  if (!is.null(candidate) && file.exists(candidate)) {
+    return(candidate)
+  }
+  
+  # Fallback: use Typst from PATH
+  return("typst")
+}
+
+typst_bin <- find_typst_bin()
+
+# Point Quarto to the resolved Typst binary
+Sys.setenv(QUARTO_TYPST = typst_bin)
+
+message("Using Typst binary: ", typst_bin)
+
 
 # Import Data ------------------------------------------------------------
 source("R/import-data.R")
@@ -111,18 +138,17 @@ render_one <- function(state) {
   typ <- str_glue("documents/{state}.typ")
   pdf <- str_glue("documents/{state}.pdf")
   
+  # 1. Quarto: qmd -> typ
   quarto_render(qmd, output_format = "typst")
   
-  typst_bin <- Sys.getenv("QUARTO_TYPST")
-  if (typst_bin == "") typst_bin <- "typst"
-  
+  # 2. Typst CLI: typ -> pdf with PDF/UA-1
   status <- system2(
     command = typst_bin,
     args = c("compile", typ, pdf, "--pdf-standard", "ua-1")
   )
   
   if (status != 0) {
-    stop(glue("Typst compilation failed for {state}"))
+    stop(glue("Typst compilation failed for {state} (status {status})"))
   }
 }
 

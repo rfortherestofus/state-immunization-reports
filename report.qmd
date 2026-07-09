@@ -206,7 +206,7 @@ mmr_line_df <- mmr_coverage_final |>
 
 df_dtap_coverage_final <- dtap_coverage_final |>
   select(geography, year, estimate_percent) |>
-  filter(year == "2023")
+  filter(year == "2024")
 
 df_dtap <- left_join(
   df_dtap_coverage_final,
@@ -322,7 +322,7 @@ cat(
     "- State-level per capita public health spending is {label_spending_comparison} than the national rate.\n\n"
   ),
   glue(
-    "- {state_title} has reported {n_cases_measles} {measles_cases_text} of measles since January 1, 2025."
+    "- {state_title} has reported {n_cases_measles} {measles_cases_text} of measles since January 1, 2026."
   )
 )
 ```
@@ -344,7 +344,7 @@ print(glue(
 
 ::: {style="background-color: #F8F8F8;"}
 ```{=typst}
-#chart-title("Proportion of 2-year-olds fully protected with DTaP vaccines")
+#chart-title[*Proportion of 2-year-olds fully protected with DTaP vaccines*]
 ```
 ::: {layout="[1,1]"}
 ::: {#first-column}
@@ -377,7 +377,7 @@ ggsave(filename, plot = p)
 
 ```{r}
 vals <- dtap_line_df |>
-  filter(geography == state_title, year %in% c(2022, 2023))
+  filter(geography == state_title, year %in% c(2023, 2024))
 
 vals_2022 <- vals |>
   filter(year == 2022) |>
@@ -387,7 +387,11 @@ vals_2023 <- vals |>
   filter(year == 2023) |>
   pull(estimate_percent)
 
-diff <- round(vals_2023 - vals_2022)
+vals_2024 <- vals |>
+  filter(year == 2024) |>
+  pull(estimate_percent)
+
+diff <- round(vals_2024 - vals_2023)
 
 if (diff > 0) {
   label_yoy_comparison <- "more"
@@ -399,7 +403,7 @@ if (diff > 0) {
 
 coverage_state <- dtap_line_df |>
   filter(geography == state_title) |>
-  filter(year == 2023) |>
+  filter(year == 2024) |>
   pull(estimate_percent) |>
   round()
 
@@ -423,7 +427,7 @@ if (is_above_us) {
 }
 
 text_content <- glue(
-  "In 2023, {label_yoy_comparison} 2-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
+  "In 2024, {label_yoy_comparison} 2-year-olds were fully vaccinated against diphtheria, tetanus, and pertussis (received all four doses of DTaP) in {state_title} compared to the previous year. Coverage in {state_title} is {label_target} the HP2030 target of 90%."
 )
 ```
 
@@ -448,7 +452,7 @@ if (state_title == "New Hampshire") {
 ```
 
 ```{=typst}
-#chart-title("`r chart_title`")
+#chart-title[*`r chart_title`*]
 ```
 ```{r}
 #| output: asis
@@ -789,7 +793,7 @@ writeLines(typst_code, "state_policies.typ")
 
 ::: {style="background-color: #F8F8F8;"}
 ```{=typst}
-#set text(size: 8pt)
+#set text(size: 9pt)
 #let policies = read("state_policies.typ")
 #eval(policies) // convert a string into actual typst code
 #box(inset: (left: 6pt, bottom: 6pt, top: 0pt))[#source("Source: AIM, LegiScan, NCSL")]
@@ -804,8 +808,13 @@ writeLines(typst_code, "state_policies.typ")
 ## DISEASE STATUS
 
 ```{r}
+p <- df |> measles_map(state_title)
+last_alt <- get_alt_text(p)
+filename <- glue("report_files/{state}_measles_map.svg")
+ggsave(filename, plot = p, width = 6, height = 4)
+
 text_content <- glue(
-  "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states between January 1, 2025 and {measles_cases_updated_date}."
+  "Measles outbreaks can indicate insufficient vaccination coverage within a population. Disease may spread across state borders when vaccine coverage is low. The map below visualizes the number of measles cases reported in {state_title} and neighboring states since January 1, 2026."
 )
 ```
 
@@ -844,7 +853,7 @@ ggsave(filename, plot = p)
 
 ```{=typst}
 #box(
-  inset:(top: 1em, right: 1em, bottom: 2em, left: 1em),
+  inset:(top: 1em, right: 1em, bottom: 1em, left: 1em),
   fill: rgb("#002D72"),
 )[
   #grid(
@@ -888,7 +897,7 @@ if (state_title == "New Hampshire") {
 
 ```{=typst}
 #show list: set block(spacing: 0.5em) // reduce line height
-#set text(size: 8.5pt) // reduce all text font size
+#set text(size: 7.5pt) // reduce all text font size
 ```
 Vaccination coverage:
 
