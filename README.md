@@ -10,10 +10,10 @@ Access Center (IVAC), you can see the final reports on the [IVAC website](https:
 
 This repo has data on state-level immunization. The `data-raw` folder holds all raw data:
 
-- `measles_cases_upd.csv` has measles cases for each county. Data comes from the [Johns Hopkins U.S Measles Tracker](https://publichealth.jhu.edu/ivac/resources/us-measles-tracker). Data last updated on October 24, 2025.
+- `measles_cases_upd.csv` has measles cases for each county. Data comes from the [Johns Hopkins U.S Measles Tracker](https://publichealth.jhu.edu/ivac/resources/us-measles-tracker). Data last updated on August 2026.
 - `mmr_coverage.csv` presents data on the proportion of kindergartners who completed the state-required measles, mumps, and rubella (MMR) vaccine series. This data is available from the [CDC's SchoolVaxView website](https://www.cdc.gov/schoolvaxview/data/index.html). Data accessed in August 2026.
-- `dtap_coverage.csv` presents data on the proportion of 2-year-olds (24 months) who have received at least 4 doses of the DTaP vaccine. This data is available from the [CDC's ChildVaxView website](https://www.cdc.gov/childvaxview/about/interactive-reports.html). Data last updated on August 20, 2024.
-- `non_medical_exemption_rates.csv` has non-medical exemption rates for each state. Data comes from the [CDC's SchoolVaxView website](https://www.cdc.gov/schoolvaxview/data/index.html). Data last updated on July 31, 2025.
+- `dtap_coverage.csv` presents data on the proportion of 2-year-olds (24 months) who have received at least 4 doses of the DTaP vaccine. This data is available from the [CDC's ChildVaxView website](https://www.cdc.gov/childvaxview/about/interactive-reports.html). Data last updated on June 2026.
+- `non_medical_exemption_rates.csv` has non-medical exemption rates for each state. Data comes from the [CDC's SchoolVaxView website](https://www.cdc.gov/schoolvaxview/data/index.html). Data last updated on August 2026.
 - `non_medical_exemption_policies.csv` presents information on state policies regarding non-medical exemptions, such as those based on religious or personal beliefs. In some states, personal exemptions are also called “philosophical exemptions.” This data is available from the [National Conference of State Legislatures (NCSL) brief on 'State Non-Medical Exemptions From School Immunization Requirements'](https://www.ncsl.org/health/state-non-medical-exemptions-from-school-immunization-requirements). Data last updated on October 20, 2025.
 - `health_spending.csv` has public health spending per capita for 2022-2023, available from ['America's health rankings'](https://www.americashealthrankings.org/explore/measures/PH_funding). Data from CDC, HRSA and Trust for America's Health, 2022-2023.
 - `universal_purchase.csv` presents data on the 'Universal Vaccine Purchase Program', which is a state-led program in which the state government acquires all vaccines recommended by the Advisory Committee on Immunization Practices (ACIP) for every resident, regardless of their insurance coverage or ability to pay. Available from the [Association of Immunization Managers (AIM), Policy Maps – Universal Vaccine Purchase Program](https://www.immunizationmanagers.org/resources/aim-policy-maps/).Data last updated on April 2025.
@@ -26,7 +26,7 @@ The `data-clean` folder holds all clean data:
 
 - `total_measles_cases.csv` has measles cases for each state
 - `mmr_coverage_final.csv` has MMR vaccine series coverage data for kindergartners through the 2025-26 school year, with older years retained where needed for state trends.
-- `dtap_coverage_final.csv` has data for at least 4 doses of DTaP vaccine at 24 months for children born between 2017-2021.
+- `dtap_coverage_final.csv` has data for at least 4 doses of DTaP vaccine at 24 months for children born between 2017-2022.
 - `non_medical_exemption.csv` has data on non-medical exemption rates for all states
 - `non_medical_exemption_policies.csv` presents state level policies on religious and personal exemptions.
 - `health_spending_final.csv` has data on public health spending per capita for 2022-2023.
