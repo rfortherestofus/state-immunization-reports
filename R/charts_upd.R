@@ -303,12 +303,12 @@ measles_map <- function(df, state) {
 #-----------------------------------------------------------------------------
 
 mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
-  # For New Hampshire, no chart is shown here
-  # https://github.com/rfortherestofus/state-immunization-reports/issues/26#issuecomment-3324023259
-  if (state_name == "New Hampshire") {
+  # New Hampshire uses state childcare data; Kansas lacks a current-year MMR
+  # estimate, so neither state should receive a cross-state comparison chart.
+  if (state_name %in% c("New Hampshire", "Kansas")) {
     return(invisible())
   } else {
-    # For other states, show neighboring states and US data
+    # Show neighboring states and US data using the latest available year.
     neighboring_data <- get_neighboring_states(df, state_name) |>
       st_drop_geometry() |>
       filter(name != state_name) |>
@@ -340,7 +340,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       paste0(
         chart_data$geography,
         ": ",
-        round(chart_data$estimate_percent),
+        janitor::round_half_up(chart_data$estimate_percent, 0),
         "%",
         collapse = ", "
       ),
@@ -358,7 +358,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
     ) +
     scale_fill_identity() +
     geom_text(
-      aes(label = paste0(round(label_pct), "%"), color = txt_col),
+      aes(label = paste0(label_pct, "%"), color = txt_col),
       hjust = 1.5,
       size = 4,
       fontface = "bold",
@@ -377,7 +377,7 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       labels = scales::label_number(accuracy = 1, suffix = "%")
     ) +
     labs(
-      title = "Vaccination comparison (2024)",
+      title = "Vaccination comparison (2025-2026)",
       x = NULL,
       y = NULL,
       alt = alt_text
@@ -395,7 +395,6 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
       plot.margin = margin(t = 20, r = 20, b = 20, l = 20)
     )
 
-  # Add target line and annotation only if state is NOT New Hampshire
   if (state_name != "New Hampshire") {
     p <- p +
       geom_vline(
@@ -417,14 +416,16 @@ mmr_vaccination_comparison_chart <- function(df_mmr, df, state_name) {
         fontface = "bold"
       )
   }
-
   return(p)
 }
 #------------------------------------------------------------------------------
 
 mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
   state_data <- mmr_line_df |>
-    filter(geography == state_name) |>
+    filter(
+      geography == state_name,
+      school_year != "2020-21"
+    ) |>
     mutate(estimate_percent = suppressWarnings(as.numeric(estimate_percent))) |>
     filter(is.finite(estimate_percent) & estimate_percent > 0) |>
     mutate(
@@ -444,7 +445,7 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       paste0(
         state_data$school_year,
         ": ",
-        round(state_data$estimate_percent),
+        janitor::round_half_up(state_data$estimate_percent, 0),
         "%",
         collapse = ", "
       ),
@@ -458,7 +459,7 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
     geom_text(
       aes(
         y = pmin(estimate_percent + 3, 100),
-        label = paste0(round(estimate_percent, 0), "%")
+        label = paste0(janitor::round_half_up(estimate_percent, 0), "%")
       ),
       vjust = 2.4,
       color = "white",
@@ -490,7 +491,6 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       }
     )
 
-  # Add target line and label only if state is NOT New Hampshire
   if (state_name != "New Hampshire") {
     p <- p +
       geom_hline(
@@ -513,7 +513,6 @@ mmr_vaccination_over_time_chart_bar <- function(mmr_line_df, state_name) {
       ) +
       coord_cartesian(clip = "off")
   }
-
   return(p)
 }
 
@@ -582,7 +581,7 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name, comp_year
       paste0(
         chart_data$geography_chr,
         ": ",
-        round(chart_data$estimate_percent),
+        janitor::round_half_up(chart_data$estimate_percent, 0),
         "%",
         collapse = ", "
       ),
@@ -605,7 +604,10 @@ dtap_vaccination_comparison_chart <- function(df_dtap, df, state_name, comp_year
     ) +
     scale_fill_identity() +
     geom_text(
-      aes(label = paste0(round(estimate_percent), "%"), color = txt_col),
+      aes(
+        label = paste0(janitor::round_half_up(estimate_percent, 0), "%"),
+        color = txt_col
+      ),
       hjust = 1.5,
       size = 4,
       fontface = "bold",
@@ -673,7 +675,7 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
       paste0(
         state_data$year,
         ": ",
-        round(state_data$estimate_percent),
+        janitor::round_half_up(state_data$estimate_percent, 0),
         "%",
         collapse = ", "
       ),
@@ -693,7 +695,7 @@ dtap_vaccination_over_time_chart_bar <- function(dtap_line_df, state_name) {
     geom_text(
       aes(
         y = pmin(estimate_percent + 3, 100),
-        label = paste0(round(estimate_percent, 0), "%")
+        label = paste0(janitor::round_half_up(estimate_percent, 0), "%")
       ),
       vjust = 2.3,
       color = "White",
@@ -748,4 +750,3 @@ ordinal <- function(x) {
   )
   paste0(x, suffix)
 }
-

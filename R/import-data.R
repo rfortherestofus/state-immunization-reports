@@ -4,6 +4,7 @@ library(tidyverse)
 library(janitor)
 library(rvest)
 library(chromote)
+library(readxl)
 
 # Measles -----------------------------------------------------------------
 
@@ -47,7 +48,8 @@ target_years <- c(
   "2021-22",
   "2022-23",
   "2023-24",
-  "2024-25"
+  "2024-25",
+  "2025-26"
 )
 
 # Filter the data
@@ -78,11 +80,11 @@ mmr_filtered_sorted <-
   bind_rows(mmr_filtered, wv_filtered, montana_filtered) |>
   arrange(geography, school_year)
 
-# For New Hampshire only
 mmr_filtered_sorted <- mmr_filtered_sorted |>
   mutate(estimate_percent = parse_number(as.character(estimate_percent))) |>
   mutate(
     estimate_percent = case_when(
+      geography == "New Hampshire" & school_year == "2025-26" ~ 95.5,
       geography == "New Hampshire" & school_year == "2024-25" ~ 95.4,
       geography == "New Hampshire" & school_year == "2023-24" ~ 92.6,
       geography == "New Hampshire" & school_year == "2022-23" ~ 95.0,
@@ -99,20 +101,20 @@ mmr_filtered_sorted |>
 
 # Non-medical exemption rate-----------------------------------------------------------------
 # Data comes from CDC's SchoolVaxView (same dataset as above)
-# Filter for non-medical exemptions for 2023-2024 and 2024-2025
+# Filter for non-medical exemptions for 2024-2025 and 2025-2026
 
 non_medical_exemptions_states_and_us <-
   read_csv("data-raw/mmr_coverage.csv") |>
   clean_names() |>
   filter(
     dose == "Non-Medical Exemption",
-    (geography_type == "States" | geography == "U.S. Median")
+    (geography_type == "States" | geography == "United States")
   )
 
-non_medical_exemptions_23_24 <-
+non_medical_exemptions_latest <-
   non_medical_exemptions_states_and_us |>
   filter(
-    school_year %in% c("2023-24", "2024-25")
+    school_year %in% c("2024-25", "2025-26")
   )
 
 # New York: 2017-18 and 2018-19
@@ -160,7 +162,7 @@ wv_filtered <-
 
 non_medical_exemptions <-
   bind_rows(
-    non_medical_exemptions_23_24,
+    non_medical_exemptions_latest,
     ny_filtered,
     mt_filtered,
     ca_filtered,
@@ -240,22 +242,32 @@ universal_purchase |>
 
 # State policies------------------------------------------------------
 state_policies <-
-  read_csv("data-raw/state_policies.csv") |>
+  read_excel(
+    "data-raw/state_policies_raw.xlsx",
+    sheet = "in"
+  ) |>
   clean_names() |>
   filter(x1_include_in_brief == 1) |>
   mutate(
+    bill_status = case_when(
+      x1_enacted_0_not_enacted == "1" ~ "Enacted",
+      x1_enacted_0_not_enacted == "0" ~ "Not enacted",
+      TRUE ~ "Status unavailable"
+    ),
     bill_valency = case_when(
-      x1_good_0_bad == 1 ~ "Good",
-      x1_good_0_bad == 0 ~ "Bad"
+      x1_good_0_bad == "1" ~ "Good",
+      x1_good_0_bad == "0" ~ "Bad",
+      TRUE ~ NA_character_
     )
   ) |>
-  mutate (
-    bill_status = case_when(
-      x1_enacted_0_not_enacted == 1 ~ "Enacted",
-      x1_enacted_0_not_enacted == 0 ~ "Not enacted"
-    )
-    ) |>
-  select(-c(x1_enacted_0_not_enacted, x1_good_0_bad))
+  select(
+    state,
+    bill_number,
+    bill_status,
+    text_description,
+    comments,
+    bill_valency
+  )
 # Export dataset
 state_policies |>
   write_csv("data-clean/state_policies_final.csv")
@@ -303,4 +315,3 @@ state_policies |>
 #
 # us_states |>
 #   write_rds("data-clean/us_states.rds")
-

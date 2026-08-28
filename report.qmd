@@ -10,7 +10,7 @@ format:
          - typst-template.typ
          - typst-show.typ
 params:
- state: montana
+ state: kansas
 execute:
   echo: false
   message: false
@@ -31,6 +31,7 @@ source(here("R/charts_upd.R"))
 
 state <- params$state
 state_title <- gsub(" Of ", " of ", str_to_title(state))
+comparison_tolerance <- 0.5
 
 total_measles_cases <- read_csv(here("data-clean/total_measles_cases.csv"))
 
@@ -58,8 +59,8 @@ if (state_title == "Maine") {
   year_filter <- "2020-21"
   year_filter_before <- "2019-20"
 } else {
-  year_filter <- "2024-25"
-  year_filter_before <- "2023-24"
+  year_filter <- "2025-26"
+  year_filter_before <- "2024-25"
 }
 
 exemption_policies_state <- exemption_policies |>
@@ -74,8 +75,8 @@ exemption_state_year_before <- exemption |>
   filter(school_year == year_filter_before)
 
 exemption_us <- exemption |>
-  filter(geography == "U.S. Median") |>
-  filter(school_year == "2024-25")
+  filter(geography == "United States") |>
+  filter(school_year == "2025-26")
 
 if (nrow(exemption_us) == 0) {
   stop(glue("Missing US in exemption dataset."))
@@ -146,6 +147,7 @@ population_by_state <-
 df <- left_join(us_states, total_measles_cases, by = c("name" = "state"))
 
 priority_years <- c(
+  "2025-26",
   "2024-25",
   "2023-24",
   "2022-23",
@@ -175,6 +177,7 @@ df_mmr_coverage_final <- mmr_coverage_final |>
   ) |>
   mutate(
     estimate_percent = coalesce(
+      `2025-26`,
       `2024-25`,
       `2023-24`,
       `2022-23`,
@@ -183,6 +186,7 @@ df_mmr_coverage_final <- mmr_coverage_final |>
       `2019-20`
     ),
     school_year = case_when(
+      !is.na(`2025-26`) ~ "2025-26",
       !is.na(`2024-25`) ~ "2024-25",
       !is.na(`2023-24`) ~ "2023-24",
       !is.na(`2022-23`) ~ "2022-23",
@@ -240,20 +244,15 @@ vals_national <- vals |>
   filter(geography == "United States") |>
   pull(estimate_percent)
 
-# 1) State vs national — if rounded values match, say "similar to"
-st_r <- round_half_up(vals_state)
-
-us_r <- round_half_up(vals_national)
-
 label_national_comparison <-
-  if (is.na(st_r) || is.na(us_r)) {
+  if (is.na(vals_state) || is.na(vals_national)) {
     "similar to"
-  } else if (st_r > us_r) {
+  } else if (abs(vals_state - vals_national) < comparison_tolerance) {
+    "similar to"
+  } else if (vals_state > vals_national) {
     "above"
-  } else if (st_r < us_r) {
-    "below"
   } else {
-    "similar to"
+    "below"
   }
 
 # some states have some missing data here
@@ -271,15 +270,16 @@ if (state_title == "Montana") {
       "Connecticut"
     ))
 ) {
-  if (third_box > fourth_box) {
-    label_median_comparison <- "higher"
-  } else if (third_box < fourth_box) {
-    label_median_comparison <- "lower"
+  exemption_difference <- third_box - fourth_box
+  if (abs(exemption_difference) < comparison_tolerance) {
+    label_exemption_comparison <- "about the same as"
+  } else if (exemption_difference > 0) {
+    label_exemption_comparison <- "higher than"
   } else {
-    label_median_comparison <- "about the same"
+    label_exemption_comparison <- "lower than"
   }
   sentence_median_comparison <- glue(
-    "- {state_title}'s non-medical exemption rate among kindergartners is {label_median_comparison} than the U.S. median.\n\n"
+    "- {state_title}'s non-medical exemption rate among kindergartners is {label_exemption_comparison} the United States rate.\n\n"
   )
 } else {
   sentence_median_comparison <- glue(
@@ -287,7 +287,7 @@ if (state_title == "Montana") {
   )
 }
 
-if (state_title == "New Hampshire") {
+if (state_title %in% c("New Hampshire", "Kansas")) {
   sentence_mmr <- ""
 } else {
   sentence_mmr <- glue(
@@ -391,21 +391,20 @@ vals_2024 <- vals |>
   filter(year == 2024) |>
   pull(estimate_percent)
 
-diff <- round(vals_2024 - vals_2023)
+diff <- vals_2024 - vals_2023
 
-if (diff > 0) {
-  label_yoy_comparison <- "more"
-} else if (diff < 0) {
-  label_yoy_comparison <- "fewer"
-} else {
+if (abs(diff) < comparison_tolerance) {
   label_yoy_comparison <- "approximately the same proportion of"
+} else if (diff > 0) {
+  label_yoy_comparison <- "more"
+} else {
+  label_yoy_comparison <- "fewer"
 }
 
 coverage_state <- dtap_line_df |>
   filter(geography == state_title) |>
   filter(year == 2024) |>
-  pull(estimate_percent) |>
-  round()
+  pull(estimate_percent)
 
 if (coverage_state < 90) {
   label_target <- "below"
@@ -449,6 +448,7 @@ if (state_title == "New Hampshire") {
 } else {
   chart_title <- "Proportion of kindergartners protected with MMR vaccines"
 }
+single_mmr_chart <- state_title %in% c("New Hampshire", "Kansas")
 ```
 
 ```{=typst}
@@ -456,7 +456,7 @@ if (state_title == "New Hampshire") {
 ```
 ```{r}
 #| output: asis
-if (state_title != "New Hampshire") {
+if (!single_mmr_chart) {
   cat(':::: {layout="[1,1]"}\n')
   cat("::: {#first-column}\n")
 }
@@ -468,7 +468,7 @@ p <- mmr_line_df |> mmr_vaccination_over_time_chart_bar(state_title)
 last_alt <- get_alt_text(p)
 filename <- "report_files/mmr_vaccination_over_time.svg"
 ggsave(filename, plot = p)
-width <- if (state_title == "New Hampshire") "65%" else "100%"
+width <- if (single_mmr_chart) "65%" else "100%"
 ```
 
 ```{=typst}
@@ -476,7 +476,7 @@ width <- if (state_title == "New Hampshire") "65%" else "100%"
 ```
 ```{r}
 #| output: asis
-if (state_title != "New Hampshire") {
+if (!single_mmr_chart) {
   cat(":::\n")
   cat("::: {#second-column}\n")
 
@@ -488,83 +488,59 @@ if (state_title != "New Hampshire") {
 ```
 
 ```{=typst}
-#if "`r state_title`" != "New Hampshire" [
+#if "`r state_title`" != "New Hampshire" and "`r state_title`" != "Kansas" [
   #block[]
   #image("`r filename`", width: 100.0%, alt: "`r last_alt`")
 ]
 ```
 ```{r}
 #| output: asis
-if (state_title != "New Hampshire") {
+if (!single_mmr_chart) {
   cat(":::\n")
   cat("::::\n")
 }
 ```
 
 ```{r}
-is_decreasing_yoy <- mmr_coverage_final |>
-  filter(
-    geography == state_title,
-    school_year %in% c(year_filter_before, year_filter)
-  ) |>
-  summarise(
-    decrease = estimate_percent[school_year == year_filter] <
-      estimate_percent[school_year == year_filter_before]
-  ) |>
-  pull(decrease)
+mmr_state_history <- mmr_coverage_final |>
+  filter(geography == state_title, is.finite(estimate_percent)) |>
+  distinct(school_year, .keep_all = TRUE) |>
+  arrange(desc(school_year))
 
-vals <- mmr_coverage_final |>
-  filter(
-    geography == state_title,
-    school_year %in% c(year_filter_before, year_filter)
-  )
-
-vals_2024_25 <- vals |>
-  filter(school_year == year_filter) |>
-  pull(estimate_percent)
-
-vals_2023_24 <- vals |>
-  filter(school_year == year_filter_before) |>
-  pull(estimate_percent)
-
-diff <- round(vals_2024_25 - vals_2023_24)
-
-is_lower_us <- mmr_coverage_final |>
-  filter(
-    geography %in% c(state_title, "United States"),
-    school_year == year_filter
-  ) |>
-  summarise(
-    lower_than_us = estimate_percent[geography == state_title] <
-      estimate_percent[geography == "United States"]
-  ) |>
-  pull(lower_than_us)
-
-value <- mmr_coverage_final |>
-  filter(
-    geography == state_title,
-    school_year == year_filter
-  ) |>
-  pull(estimate_percent)
-
-is_below_target <- value < 95
-
-# some states have some missing data which prevent us to display default text
-if (state_title %in% c("West Virginia", "Montana")) {
+if (state_title == "New Hampshire") {
+  text_content <- "Measles, mumps, and rubella (MMR) vaccination coverage among kindergartners is not available for New Hampshire. The coverage presented in the chart above represents the percentage of 19-59-month-olds in childcare who have received MMR vaccination."
+  source <- "Source: New Hampshire DHHS"
+} else if (nrow(mmr_state_history) < 2) {
   text_content <- glue(
-    "{state_title} does not have complete data for all school years, which prevents us from showcasing them here."
+    "{state_title} does not have two years of comparable MMR coverage data available."
   )
   source <- "Source: SchoolVaxView"
-} else if (state_title == "New Hampshire") {
-  text_content <- "Measles, mumps, and rubella (MMR)  vaccination coverage among kindergartners is not available for New Hampshire. The coverage presented in the chart above represents the percentage of 19-59-month-olds in childcare who have received MMR vaccination."
-  source <- "Source: New Hampshire DHHS"
 } else {
-  if (diff > 0) {
-    label_yoy_comparison <- "a higher"
-  } else if (diff < 0) {
-    label_yoy_comparison <- "a lower"
-  } else {
+  mmr_latest <- mmr_state_history |> slice(1)
+  mmr_previous <- mmr_state_history |> slice(2)
+  mmr_year <- mmr_latest$school_year
+  value <- mmr_latest$estimate_percent
+  diff <- value - mmr_previous$estimate_percent
+
+  us_value <- mmr_coverage_final |>
+    filter(geography == "United States", school_year == mmr_year) |>
+    summarise(
+      value = first(
+        estimate_percent[!is.na(estimate_percent)],
+        default = NA_real_
+      )
+    ) |>
+    pull(value)
+
+  is_lower_us <- is.finite(us_value) && value < us_value
+  is_below_target <- value < 95
+
+  if (abs(diff) < comparison_tolerance) {
     label_yoy_comparison <- "approximately the same"
+  } else if (diff > 0) {
+    label_yoy_comparison <- "a higher"
+  } else {
+    label_yoy_comparison <- "a lower"
   }
 
   if (is_lower_us) {
@@ -580,7 +556,7 @@ if (state_title %in% c("West Virginia", "Montana")) {
   }
 
   text_content <- glue(
-    "In 2024, {label_yoy_comparison} proportion of kindergarteners completed the measles, mumps, and rubella (MMR) vaccine series in {state_title} compared to the previous year. Coverage in {state_title} {label_target} the HP2030 target of 95%."
+    "During the {mmr_year} school year, {label_yoy_comparison} proportion of kindergartners completed the measles, mumps, and rubella (MMR) vaccine series in {state_title} compared with the previous available year. Coverage in {state_title} {label_target} the HP2030 target of 95%."
   )
   source <- "Source: SchoolVaxView"
 }
@@ -617,13 +593,13 @@ if (
       "Connecticut"
     ))
 ) {
-  variation <- (third_box - third_box_before) / third_box_before
-  if (abs(variation) <= 0.1) {
-    variation_text <- "is similar to"
-  } else if (variation > 0.0) {
-    variation_text <- "is a slight increase from"
+  exemption_yoy_difference <- third_box - third_box_before
+  if (abs(exemption_yoy_difference) < comparison_tolerance) {
+    variation_text <- "is about the same as"
+  } else if (exemption_yoy_difference > 0) {
+    variation_text <- "is higher than"
   } else {
-    variation_text <- "is a slight decrease from"
+    variation_text <- "is lower than"
   }
   additional_details <- exemption_policies_state |>
     pull(
@@ -666,7 +642,7 @@ if (
       [#status-boxes(top-text: "Allows personal exemptions?", bottom-text: "`r first_box`")],
       [#status-boxes(top-text: "Allows religious exemptions?", bottom-text: "`r second_box`")],
       [#status-boxes(top-text: "Non-medical exemptions — state", bottom-text: "`r third_box_label`")],
-      [#status-boxes(top-text: "Non-medical exemptions — US median", bottom-text: "`r fourth_box_label`")]
+      [#status-boxes(top-text: "Non-medical exemptions — United States", bottom-text: "`r fourth_box_label`")]
     )
   ]
 )
@@ -751,11 +727,15 @@ if (state_title == "District of Columbia") {
 ```{=typst}
 #blueline()
 ```
-## SUPPORT FOR IMMUNIZATION
+## IMMUNIZATION POLICIES
 
 ```{r}
 #| output: asis
-if (nrow(state_policies) == 1) {
+if (nrow(state_policies) == 0) {
+  cat(
+    "No childhood immunization bills were selected for inclusion for this state.\n"
+  )
+} else if (nrow(state_policies) == 1) {
   cat(
     "The state legislature recently introduced a bill that would affect statewide childhood vaccination.\n"
   )
@@ -775,7 +755,7 @@ typst_list <- state_policies |>
     list_item = glue(
     # '#list(marker: "◦")[',
       '#list(marker: "•", indent: 1em)[',
-      "{bill_number} ({bill_status}) – {text_description}]"
+      "#strong[{bill_number}] (#emph[{bill_status}]) – {text_description}]"
     )
   ) |>
   pull(list_item)
@@ -877,7 +857,7 @@ ggsave(filename, plot = p)
   ]
 
   #align(right)[
-    #source(color: white, "Source: Shioda, Thompson & Patel, et al., 2021")
+    #source(color: white, "Source:Sriudomporn S. 2026")
   ]
 ]
 
@@ -889,9 +869,9 @@ ggsave(filename, plot = p)
 
 ```{r}
 if (state_title == "New Hampshire") {
-  source_mmr <- "- New Hampshire Department of Health and Human Services. Immunization Guidance for Child Care. Retrieved from https://www.dhhs.nh.gov/programs-services/disease-prevention/nh-immunization-program/immunization-guidance-child-care. Accessed September 2025"
+  source_mmr <- "- New Hampshire Department of Health and Human Services. Immunization Guidance for Child Care. Retrieved from https://www.dhhs.nh.gov/programs-services/disease-prevention/nh-immunization-program/immunization-guidance-child-care. Accessed August 2026"
 } else {
-  source_mmr <- "- MMR: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. MMR, States, School Years 2021-22, 2022-23, 2023-24, 2024-25. Updated July 2025."
+  source_mmr <- "- MMR: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. MMR, States, School Years 2021-22 through 2025-26. Accessed August 2026."
 }
 ```
 
@@ -901,7 +881,7 @@ if (state_title == "New Hampshire") {
 ```
 Vaccination coverage:
 
--   DTaP: CDC, ChildVaxView Interactive! https://www.cdc.gov/childvaxview/about/interactive-reports.html. DTaP, ≥ 4 Doses, States/Local Areas, Birth Years/Cohorts 2017--2021, Age 24 months. Updated Aug 2024.
+-   DTaP: CDC, ChildVaxView Interactive! https://www.cdc.gov/childvaxview/about/interactive-reports.html. DTaP, ≥ 4 Doses, States/Local Areas, Birth Years/Cohorts 2017--2021, Age 24 months. Updated Mar 2026.
 
 ```{r}
 #| output: asis
@@ -910,7 +890,7 @@ cat(source_mmr, "\n\n")
 
 Vaccination exemptions:
 
--   Status: NCSL, State Non-Medical Exemptions From School Immunization Requirements. https://www.ncsl.org/health/state-non-medical-exemptions-from-school-immunization-requirements. Updated July 2025. Rates: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. Exemption -- Non-Medical Exemption, States, School Years 2023-24 and 2024-25. Updated July 2025.
+-   Status: NCSL, State Non-Medical Exemptions From School Immunization Requirements. https://www.ncsl.org/health/state-non-medical-exemptions-from-school-immunization-requirements. Updated July 2025. Rates: CDC, SchoolVaxView Interactive! https://www.cdc.gov/schoolvaxview/data/index.html. Exemption -- Non-Medical Exemption, States and United States, School Years 2024-25 and 2025-26. Accessed August 2026.
 
 Public health spending:
 
@@ -927,10 +907,10 @@ Support for immunization:
 
 Disease status:
 
--   International Vaccine Access Center, U.S. Measles Tracker. https://publichealth.jhu.edu/ivac/resources/us-measles-tracker. Accessed July 22, 2025.
+-   International Vaccine Access Center, U.S. Measles Tracker. https://publichealth.jhu.edu/ivac/resources/us-measles-tracker. Accessed August 2026.
 
 Measles outbreak cost:
 
--   Patenaude B. 2025. Quantifying the Cost of Measles Outbreak in the U.S. and How Costs Scale with Outbreak Size. medRxiv: 2025.10.24.2533872
+-   Sriudomporn S. 2026. Quantifying the Cost of Measles Outbreak in the U.S. and How Costs Scale with Outbreak Size. Vaccine: https://doi.org/10.1016/j.vaccine.2026.129040
 
 *Note: The high-level data included in this report do not reflect statewide variation in vaccination coverage or disease status. Further, state reporting policies may limit data completeness. For any data-related questions, please contact ivac\@jh.edu.*
